@@ -49,6 +49,11 @@ public class VentanaDibujo extends javax.swing.JFrame {
     
     //Variable apra almacenar el color elegido
     Color colorElegido = Color.GREEN;
+    
+    // Variables para almacenar la posición en la que se empieza a dibujar la forma
+    int posX=0;
+    int posY=0;
+    
 
     /**
      * Creates new form VentanaDibujo
@@ -191,7 +196,15 @@ public class VentanaDibujo extends javax.swing.JFrame {
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jPanel1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                jPanel1MouseDragged(evt);
+            }
+        });
         jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel1MouseClicked(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jPanel1MousePressed(evt);
             }
@@ -319,23 +332,18 @@ public class VentanaDibujo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jPanel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MousePressed
-         if(chequeaPunto(evt.getX(), evt.getY())){
-         
-        System.out.println("HAY UN OBJETO!");
-        
-        } else {
-        int diametro = jSlider1.getValue();
-        switch(form){
-            case 0: listaFormas.add(new Circulo(evt.getX() , evt.getY(), diametro, colorElegido, true)); break;
-            case 1: listaFormas.add(new Triangulo(evt.getX() , evt.getY(), diametro, colorElegido, true)); break;
-            case 2: listaFormas.add(new Cuadrado(evt.getX() , evt.getY(), diametro, colorElegido, true)); break;
-            case 3: listaFormas.add(new Rombo(evt.getX() , evt.getY(), diametro, colorElegido, true)); break; 
-            case 4: listaFormas.add(new Cruz(evt.getX() , evt.getY(), diametro/2, colorElegido, true)); break;   
-            case 5: listaFormas.add(new Estrella(evt.getX() , evt.getY(), diametro, colorElegido, true)); break;  
+         posX=evt.getX();
+         switch(form){
+            case 0: listaFormas.add(new Circulo(evt.getX() , evt.getY(), 1, colorElegido, true)); break;
+            case 1: listaFormas.add(new Triangulo(evt.getX() , evt.getY(), 1, colorElegido, true)); break;
+            case 2: listaFormas.add(new Cuadrado(evt.getX() , evt.getY(), 1, 1, colorElegido, true)); break;
+            case 3: listaFormas.add(new Rombo(evt.getX() , evt.getY(), 1, colorElegido, true)); break; 
+            case 4: listaFormas.add(new Cruz(evt.getX() , evt.getY(), 1/2, colorElegido, true)); break;   
+            case 5: listaFormas.add(new Estrella(evt.getX() , evt.getY(), 1, colorElegido, true)); break;  
         }
-         }
-        
         repaint();
+              
+        
               
     }//GEN-LAST:event_jPanel1MousePressed
 
@@ -412,6 +420,60 @@ public class VentanaDibujo extends javax.swing.JFrame {
     private void jButton11MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton11MousePressed
         form = 5;
     }//GEN-LAST:event_jButton11MousePressed
+
+    private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
+       int distance = jSlider1.getValue();
+        if(chequeaPunto(evt.getX(), evt.getY())){
+        
+        System.out.println("HAY UN OBJETO!");
+        
+        } else {
+        switch(form){
+            case 0: listaFormas.add(new Circulo(evt.getX() , evt.getY(), distance, colorElegido, true)); break;
+            case 1: listaFormas.add(new Triangulo(evt.getX() , evt.getY(), distance, colorElegido, true)); break;
+            case 2: listaFormas.add(new Cuadrado(evt.getX() , evt.getY(), distance, distance, colorElegido, true)); break;
+            case 3: listaFormas.add(new Rombo(evt.getX() , evt.getY(), distance, colorElegido, true)); break; 
+            case 4: listaFormas.add(new Cruz(evt.getX() , evt.getY(), distance/2, colorElegido, true)); break;   
+            case 5: listaFormas.add(new Estrella(evt.getX() , evt.getY(), distance, colorElegido, true)); break;  
+        }
+        repaint();
+        
+        
+         }
+        
+        
+    }//GEN-LAST:event_jPanel1MouseClicked
+
+    private void jPanel1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseDragged
+        switch(form){
+            //Leo el ultimo elemento de la lista, sque que se añadio en el mousePresed
+            case 0: Circulo aux = (Circulo)listaFormas.get(listaFormas.size()-1);
+            
+            if(evt.getX()>= posX){
+                System.out.println(posX);
+                int radio =(int)  (evt.getX() - aux.x);
+                  aux.width = radio;
+                  aux.height = radio;
+            } else {
+               int radio  =(int)  ( posX - aux.x  );
+                aux.x = evt.getX();
+                aux.y = evt.getY();
+                aux.width = Math.abs(radio);
+                aux.height = Math.abs(radio);
+               
+            } break;
+            
+            case 2: Cuadrado aux2 = (Cuadrado)listaFormas.get(listaFormas.size()-1);
+            aux2.width =(int) (aux2.x - evt.getX());
+            
+          
+//            case 0: Circulo forma = (Circulo)listaFormas.get(listaFormas.size()-1);
+//            case 0: Circulo forma = (Circulo)listaFormas.get(listaFormas.size()-1);
+//            case 0: Circulo forma = (Circulo)listaFormas.get(listaFormas.size()-1);
+                break;
+        }
+        repaint();
+    }//GEN-LAST:event_jPanel1MouseDragged
 
     /**
      * @param args the command line arguments

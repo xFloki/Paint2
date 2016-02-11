@@ -8,7 +8,8 @@ package codgio;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.Polygon;
+import java.awt.geom.Rectangle2D;
+
 
 /**
  *
@@ -24,33 +25,16 @@ import java.awt.Polygon;
 //CLASE ESTRELLA DE 5 PUNTAS
 
 
-public class Cuadrado extends Polygon {
+public class Cuadrado extends Rectangle2D.Double {
     
         public Color color = null;
         public boolean relleno = false;
         
-        public Cuadrado(int _x, int _y, int _width, Color _color, boolean _relleno){
-            this.npoints = 4 ;
-            //Esquina superior izquierda
-            this.xpoints[0] = _x - _width/2;
-            this.ypoints[0] = _y - _width/2;
-            
-           
-            //Esquina inferior izquierda
-            this.xpoints[1] = _x - _width/2;      
-            this.ypoints[1] = _y + _width/2;
-            
-           
-            //Esquina inferior izquierda
-            this.xpoints[1] = _x - _width/2;      
-            //Esquina inferior derecha
-            this.xpoints[2] = _x + _width/2;
-            this.ypoints[2] = _y + _width/2;
-            
-            
-            //Esquina superior derecha
-             this.xpoints[3] = _x + _width/2;
-            this.ypoints[3] = _y - _width/2;
+        public Cuadrado(int _x, int _y, int _width, int _height, Color _color, boolean _relleno){
+            this.width = _width;
+            this.x = _x;
+            this.y = _y;
+            this.height = _height;
             
             this.color = _color ;
             this.relleno = _relleno;
