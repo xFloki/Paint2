@@ -333,6 +333,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
 
     private void jPanel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MousePressed
          posX=evt.getX();
+         posY=evt.getY();
          switch(form){
             case 0: listaFormas.add(new Circulo(evt.getX() , evt.getY(), 1, colorElegido, true)); break;
             case 1: listaFormas.add(new Triangulo(evt.getX() , evt.getY(), 1, colorElegido, true)); break;
@@ -449,29 +450,45 @@ public class VentanaDibujo extends javax.swing.JFrame {
             //Leo el ultimo elemento de la lista, sque que se añadio en el mousePresed
             case 0: Circulo aux = (Circulo)listaFormas.get(listaFormas.size()-1);
             
-            if(evt.getX()>= posX){
-                System.out.println(posX);
+            if(evt.getX()>= posX ){
+               
                 int radio =(int)  (evt.getX() - aux.x);
                   aux.width = radio;
                   aux.height = radio;
+                  System.out.println(aux.x);
+                  System.out.println(aux.y);
             } else {
                int radio  =(int)  ( posX - aux.x  );
                 aux.x = evt.getX();
                 aux.y = evt.getY();
                 aux.width = Math.abs(radio);
                 aux.height = Math.abs(radio);
-               
+                
             } break;
             
-            case 2: Cuadrado aux2 = (Cuadrado)listaFormas.get(listaFormas.size()-1);
-            aux2.width =(int) (aux2.x - evt.getX());
+            case 1: Triangulo aux1 = (Triangulo)listaFormas.get(listaFormas.size()-1);
+            int diferencia = (posX - evt.getX())*2;
+            aux1.xpoints[0] = posX;
+            aux1.ypoints[0] = posY;
             
+            aux1.xpoints[1] = evt.getX();
+            aux1.ypoints[1] = evt.getY();
+            
+            aux1.xpoints[2] = evt.getX() + diferencia ;
+            aux1.ypoints[2] = evt.getY() ;
+                    
+                break;
+                
+         case 4: Rombo aux4 = (Rombo)listaFormas.get(listaFormas.size()-1);
+            
+            aux4.xpoints[0] = posX;
+            aux4.ypoints[0] = posY;
           
-//            case 0: Circulo forma = (Circulo)listaFormas.get(listaFormas.size()-1);
-//            case 0: Circulo forma = (Circulo)listaFormas.get(listaFormas.size()-1);
-//            case 0: Circulo forma = (Circulo)listaFormas.get(listaFormas.size()-1);
+                    
                 break;
         }
+        
+        
         repaint();
     }//GEN-LAST:event_jPanel1MouseDragged
 
