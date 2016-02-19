@@ -47,5 +47,15 @@ public class Triangulo extends Polygon {
 
         }
 }
-   
+   public void arrastraTriangulo(int _evtGetX, int _evtGetY, int _posX, int _posY ){
+            int diferencia = (_posX - _evtGetX)*2;
+            this.xpoints[0] = _posX;
+            this.ypoints[0] = _posY;
+                
+            this.xpoints[1] = _evtGetX;
+            this.ypoints[1] =  _evtGetY;
+            
+            this.xpoints[2] = _evtGetX + diferencia ;
+            this.ypoints[2] =  _evtGetY ;
+   }
             }

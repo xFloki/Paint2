@@ -1,10 +1,9 @@
-/*
+ /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 package codgio;
-
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -14,29 +13,25 @@ import static java.awt.Color.RED;
 import java.awt.Shape;
 import java.util.ArrayList;
 
-
 /**
  *
  * @author Administrator
  */
 public class VentanaDibujo extends javax.swing.JFrame {
-    
-//    private static int DIMENSION_ARRAY = 8;
 
+//    private static int DIMENSION_ARRAY = 8;
     // Imagen en la que pintare los circulos
     // es una variable parecida a un image pero acelerada
     BufferedImage buffer = null;
-    
+
     //Indica el numero de circulos que hay
     int indice = 0;
-   
-    
+
     //declaro el array en el que voy a guardar ñps circulos
-    
 //    Circulo [] listaCirculos = new Circulo[DIMENSION_ARRAY];
     //En la nueva version utilizamos un ArrayList
     ArrayList listaFormas = new ArrayList();
-    
+
     //Variable que almacena el tipo de forma que estoy dibujando
     //Si vale 0 ==> dibujo circulos
     //Si vale 1 ==> dibujo triangulos
@@ -44,24 +39,22 @@ public class VentanaDibujo extends javax.swing.JFrame {
     //Si vale 3 ==> dibujo rombo
     //Si vale 4 ==> dibujo cruz
     //Si vale 5 ==> dibujo una estrella de 5 puntas
-    
     int form = 3;
-    
+
     //Variable apra almacenar el color elegido
     Color colorElegido = Color.GREEN;
-    
+
     // Variables para almacenar la posición en la que se empieza a dibujar la forma
-    int posX=0;
-    int posY=0;
-    
+    int posX = 0;
+    int posY = 0;
 
     /**
      * Creates new form VentanaDibujo
      */
     public VentanaDibujo() {
-        
+
         initComponents();
-         
+
         jLabel1.setText(String.valueOf(jSlider1.getValue()));
         //creo un buffer deñ tamaño del jPanel1
         buffer = (BufferedImage) jPanel1.createImage(jPanel1.getWidth(), jPanel1.getHeight());
@@ -75,66 +68,60 @@ public class VentanaDibujo extends javax.swing.JFrame {
 //        }
 //        listaCirculos[0].color = Color.ORANGE;
     }
-    
-     private boolean chequeaPunto(int x, int y ){
+
+    private boolean chequeaPunto(int x, int y) {
         boolean contiene = false;
-        
-         for (int i = 0; i < listaFormas.size(); i++){  
-        if (((Shape)listaFormas.get(i)).contains(x,y)){
-            // Si en algun momento el contain devuelve true es porque el punto
-            //que ha pasado esta en una forma de las que tengo guardadas en el arrayList
-           contiene = true;
-        
-               
+
+        for (int i = 0; i < listaFormas.size(); i++) {
+            if (((Shape) listaFormas.get(i)).contains(x, y)) {
+                // Si en algun momento el contain devuelve true es porque el punto
+                //que ha pasado esta en una forma de las que tengo guardadas en el arrayList
+                contiene = true;
+
+            }
         }
-         }
-        
+
         return contiene;
     }
 
     @Override
     public void paint(Graphics g) {
         super.paintComponents(g);
-          Graphics2D g2 = (Graphics2D) buffer.getGraphics();
-          //Dibujo un cuadro blanco del tamaño del buffer
-          g2.setColor(java.awt.Color.WHITE);
-          g2.fillRect(0, 0, jPanel1.getWidth(), jPanel1.getHeight());
-         
-          for (int i = 0; i < listaFormas.size(); i++){           
-              if(listaFormas.get(i) instanceof Circulo){
-                  ((Circulo) listaFormas.get(i)).pintaYColorea(g2);
-              }
-              if(listaFormas.get(i) instanceof Triangulo){
-                  ((Triangulo) listaFormas.get(i)).pintaYColorea(g2);
-              }
-              
-              if(listaFormas.get(i) instanceof Cuadrado){
-                  ((Cuadrado) listaFormas.get(i)).pintaYColorea(g2);
-              }
-              if(listaFormas.get(i) instanceof Rombo){
-                  ((Rombo) listaFormas.get(i)).pintaYColorea(g2);
-              }
-               if(listaFormas.get(i) instanceof Cruz){
-                  ((Cruz) listaFormas.get(i)).pintaYColorea(g2);
-              } 
-               if(listaFormas.get(i) instanceof  Estrella){
-                  ((Estrella) listaFormas.get(i)).pintaYColorea(g2);
-              }
-              
-          //Leo el color del circulo  
-         
-          }
-          
-          
+        Graphics2D g2 = (Graphics2D) buffer.getGraphics();
+        //Dibujo un cuadro blanco del tamaño del buffer
+        g2.setColor(java.awt.Color.WHITE);
+        g2.fillRect(0, 0, jPanel1.getWidth(), jPanel1.getHeight());
+
+        for (int i = 0; i < listaFormas.size(); i++) {
+            if (listaFormas.get(i) instanceof Circulo) {
+                ((Circulo) listaFormas.get(i)).pintaYColorea(g2);
+            }
+            if (listaFormas.get(i) instanceof Triangulo) {
+                ((Triangulo) listaFormas.get(i)).pintaYColorea(g2);
+            }
+
+            if (listaFormas.get(i) instanceof Cuadrado) {
+                ((Cuadrado) listaFormas.get(i)).pintaYColorea(g2);
+            }
+            if (listaFormas.get(i) instanceof Rombo) {
+                ((Rombo) listaFormas.get(i)).pintaYColorea(g2);
+            }
+            if (listaFormas.get(i) instanceof Cruz) {
+                ((Cruz) listaFormas.get(i)).pintaYColorea(g2);
+            }
+            if (listaFormas.get(i) instanceof Estrella) {
+                ((Estrella) listaFormas.get(i)).pintaYColorea(g2);
+            }
+
+            //Leo el color del circulo  
+        }
+
         //apunto al jPanel
         g2 = (Graphics2D) jPanel1.getGraphics();
         g2.drawImage(buffer, 0, 0, jPanel1.getWidth(), jPanel1.getHeight(), null);
 
     }
-    
-    
-    
-  
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -332,20 +319,31 @@ public class VentanaDibujo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jPanel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MousePressed
-         posX=evt.getX();
-         posY=evt.getY();
-         switch(form){
-            case 0: listaFormas.add(new Circulo(evt.getX() , evt.getY(), 1, colorElegido, true)); break;
-            case 1: listaFormas.add(new Triangulo(evt.getX() , evt.getY(), 1, colorElegido, true)); break;
-            case 2: listaFormas.add(new Cuadrado(evt.getX() , evt.getY(), 1, 1, colorElegido, true)); break;
-            case 3: listaFormas.add(new Rombo(evt.getX() , evt.getY(), 1, colorElegido, true)); break; 
-            case 4: listaFormas.add(new Cruz(evt.getX() , evt.getY(), 1/2, colorElegido, true)); break;   
-            case 5: listaFormas.add(new Estrella(evt.getX() , evt.getY(), 1, colorElegido, true)); break;  
+        posX = evt.getX();
+        posY = evt.getY();
+        switch (form) {
+            case 0:
+                listaFormas.add(new Circulo(evt.getX(), evt.getY(), 1, colorElegido, true));
+                break;
+            case 1:
+                listaFormas.add(new Triangulo(evt.getX(), evt.getY(), 1, colorElegido, true));
+                break;
+            case 2:
+                listaFormas.add(new Cuadrado(evt.getX(), evt.getY(), 1, 1, colorElegido, true));
+                break;
+            case 3:
+                listaFormas.add(new Rombo(evt.getX(), evt.getY(), 1, colorElegido, true));
+                break;
+            case 4:
+                listaFormas.add(new Cruz(evt.getX(), evt.getY(), 1 / 2, colorElegido, true));
+                break;
+            case 5:
+                listaFormas.add(new Estrella(evt.getX(), evt.getY(), 1, colorElegido, true));
+                break;
         }
         repaint();
-              
-        
-              
+
+
     }//GEN-LAST:event_jPanel1MousePressed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -353,16 +351,16 @@ public class VentanaDibujo extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MousePressed
-        if (listaFormas.size() -1 > -1 ){
-        listaFormas.remove(listaFormas.size()-1);
-        
-        repaint();
+        if (listaFormas.size() - 1 > -1) {
+            listaFormas.remove(listaFormas.size() - 1);
+
+            repaint();
         }
     }//GEN-LAST:event_jButton1MousePressed
 
     private void jButton2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MousePressed
         listaFormas.removeAll(listaFormas);
-        
+
         repaint();
     }//GEN-LAST:event_jButton2MousePressed
 
@@ -400,9 +398,9 @@ public class VentanaDibujo extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MousePressed
-       jDialog1.setVisible(true);
-       jDialog1.setSize(800, 400);
-       jDialog1.setLocation(200, 50);
+        jDialog1.setVisible(true);
+        jDialog1.setSize(800, 400);
+        jDialog1.setLocation(200, 50);
     }//GEN-LAST:event_jButton3MousePressed
 
     private void jButton7MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton7MousePressed
@@ -423,72 +421,74 @@ public class VentanaDibujo extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton11MousePressed
 
     private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
-       int distance = jSlider1.getValue();
-        if(chequeaPunto(evt.getX(), evt.getY())){
-        
-        System.out.println("HAY UN OBJETO!");
-        
+        int distance = jSlider1.getValue();
+        if (chequeaPunto(evt.getX(), evt.getY())) {
+
+            System.out.println("HAY UN OBJETO!");
+
         } else {
-        switch(form){
-            case 0: listaFormas.add(new Circulo(evt.getX() , evt.getY(), distance, colorElegido, true)); break;
-            case 1: listaFormas.add(new Triangulo(evt.getX() , evt.getY(), distance, colorElegido, true)); break;
-            case 2: listaFormas.add(new Cuadrado(evt.getX() , evt.getY(), distance, distance, colorElegido, true)); break;
-            case 3: listaFormas.add(new Rombo(evt.getX() , evt.getY(), distance, colorElegido, true)); break; 
-            case 4: listaFormas.add(new Cruz(evt.getX() , evt.getY(), distance/2, colorElegido, true)); break;   
-            case 5: listaFormas.add(new Estrella(evt.getX() , evt.getY(), distance, colorElegido, true)); break;  
+            switch (form) {
+                case 0:
+                    listaFormas.add(new Circulo(evt.getX(), evt.getY(), distance, colorElegido, true));
+                    break;
+                case 1:
+                    listaFormas.add(new Triangulo(evt.getX(), evt.getY(), distance, colorElegido, true));
+                    break;
+                case 2:
+                    listaFormas.add(new Cuadrado(evt.getX(), evt.getY(), distance, distance, colorElegido, true));
+                    break;
+                case 3:
+                    listaFormas.add(new Rombo(evt.getX(), evt.getY(), distance, colorElegido, true));
+                    break;
+                case 4:
+                    listaFormas.add(new Cruz(evt.getX(), evt.getY(), distance / 2, colorElegido, true));
+                    break;
+                case 5:
+                    listaFormas.add(new Estrella(evt.getX(), evt.getY(), distance, colorElegido, true));
+                    break;
+            }
+            repaint();
+
         }
-        repaint();
-        
-        
-         }
-        
-        
+
+
     }//GEN-LAST:event_jPanel1MouseClicked
 
     private void jPanel1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseDragged
-        switch(form){
+        switch (form) {
             //Leo el ultimo elemento de la lista, sque que se añadio en el mousePresed
-            case 0: Circulo aux = (Circulo)listaFormas.get(listaFormas.size()-1);
-            
-            if(evt.getX()>= posX ){
-               
-                int radio =(int)  (evt.getX() - aux.x);
-                  aux.width = radio;
-                  aux.height = radio;
-                  System.out.println(aux.x);
-                  System.out.println(aux.y);
-            } else {
-               int radio  =(int)  ( posX - aux.x  );
-                aux.x = evt.getX();
-                aux.y = evt.getY();
-                aux.width = Math.abs(radio);
-                aux.height = Math.abs(radio);
-                
-            } break;
-            
-            case 1: Triangulo aux1 = (Triangulo)listaFormas.get(listaFormas.size()-1);
-            int diferencia = (posX - evt.getX())*2;
-            aux1.xpoints[0] = posX;
-            aux1.ypoints[0] = posY;
-            
-            aux1.xpoints[1] = evt.getX();
-            aux1.ypoints[1] = evt.getY();
-            
-            aux1.xpoints[2] = evt.getX() + diferencia ;
-            aux1.ypoints[2] = evt.getY() ;
-                    
+            case 0:
+                Circulo aux = (Circulo) listaFormas.get(listaFormas.size() - 1);
+
+                if (evt.getX() >= posX) {
+
+                    int radio = (int) (evt.getX() - aux.x);
+                    aux.width = radio;
+                    aux.height = radio;
+                    System.out.println(aux.x);
+                    System.out.println(aux.y);
+                } else {
+                    int radio = (int) (posX - aux.x);
+                    aux.x = evt.getX();
+                    aux.y = evt.getY();
+                    aux.width = Math.abs(radio);
+                    aux.height = Math.abs(radio);
+
+                }
                 break;
-                
-         case 4: Rombo aux4 = (Rombo)listaFormas.get(listaFormas.size()-1);
-            
-            aux4.xpoints[0] = posX;
-            aux4.ypoints[0] = posY;
-          
-                    
+
+            case 1:
+                Triangulo aux1 = (Triangulo) listaFormas.get(listaFormas.size() - 1);
+                aux1.arrastraTriangulo(evt.getX(), evt.getY(), posX, posY);
+
+                break;
+
+            case 3:
+                Rombo aux3 = (Rombo) listaFormas.get(listaFormas.size() - 1);
+                aux3.arrastraRombo(evt.getX(), evt.getY(), posX, posY);
+
                 break;
         }
-        
-        
         repaint();
     }//GEN-LAST:event_jPanel1MouseDragged
 
