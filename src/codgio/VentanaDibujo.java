@@ -58,6 +58,8 @@ public class VentanaDibujo extends javax.swing.JFrame {
         jLabel1.setText(String.valueOf(jSlider1.getValue()));
         //creo un buffer deñ tamaño del jPanel1
         buffer = (BufferedImage) jPanel1.createImage(jPanel1.getWidth(), jPanel1.getHeight());
+        proporcionalidad.add(irregular);
+        proporcionalidad.add(regular);
         //Creo la parte modificable de la imagen(Hacemos que se pueda pintar en ellla)
         buffer.createGraphics();
         Graphics2D g2 = (Graphics2D) buffer.getGraphics();
@@ -67,6 +69,13 @@ public class VentanaDibujo extends javax.swing.JFrame {
 //            listaCirculos[i] = new Circulo();
 //        }
 //        listaCirculos[0].color = Color.ORANGE;
+    }
+    public boolean chequeaProporcionalidad(){
+        if(regular.isSelected()){
+            return true;
+        } else {
+            return false;
+        }
     }
 
     private boolean chequeaPunto(int x, int y) {
@@ -135,6 +144,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
         jColorChooser1 = new javax.swing.JColorChooser();
         jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
+        proporcionalidad = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
         jSlider1 = new javax.swing.JSlider();
@@ -147,6 +157,8 @@ public class VentanaDibujo extends javax.swing.JFrame {
         jButton9 = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
         jButton11 = new javax.swing.JButton();
+        regular = new javax.swing.JRadioButton();
+        irregular = new javax.swing.JRadioButton();
 
         jButton7.setText("ACEPTAR");
         jButton7.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -205,10 +217,10 @@ public class VentanaDibujo extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 539, Short.MAX_VALUE)
+            .addGap(0, 500, Short.MAX_VALUE)
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, -1, -1));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 99, -1, 500));
 
         jButton2.setText("BORRAR TODO");
         jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -255,7 +267,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
                 jButton4ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 10, -1, 30));
+        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 10, -1, 30));
 
         jButton5.setText("C");
         jButton5.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -268,7 +280,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
                 jButton5ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 10, 40, 30));
+        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 10, 40, 30));
 
         jButton6.setText("T");
         jButton6.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -281,7 +293,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
                 jButton6ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 10, 40, 30));
+        getContentPane().add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 10, 40, 30));
 
         jButton3.setText("COLOR");
         jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -297,7 +309,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
                 jButton9MousePressed(evt);
             }
         });
-        getContentPane().add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 10, 40, 30));
+        getContentPane().add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 10, 40, 30));
 
         jButton10.setText("Crz");
         jButton10.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -305,7 +317,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
                 jButton10MousePressed(evt);
             }
         });
-        getContentPane().add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 10, 50, 30));
+        getContentPane().add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 10, 50, 30));
 
         jButton11.setText("S");
         jButton11.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -313,7 +325,19 @@ public class VentanaDibujo extends javax.swing.JFrame {
                 jButton11MousePressed(evt);
             }
         });
-        getContentPane().add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 10, 60, 30));
+        getContentPane().add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 10, 60, 30));
+
+        regular.setSelected(true);
+        regular.setText("regular");
+        regular.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                regularActionPerformed(evt);
+            }
+        });
+        getContentPane().add(regular, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 40, -1, -1));
+
+        irregular.setText("irregular");
+        getContentPane().add(irregular, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 63, -1, 20));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -456,6 +480,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel1MouseClicked
 
     private void jPanel1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseDragged
+       boolean proporcionalidad = chequeaProporcionalidad();
         switch (form) {
             //Leo el ultimo elemento de la lista, sque que se añadio en el mousePresed
             case 0:
@@ -480,13 +505,13 @@ public class VentanaDibujo extends javax.swing.JFrame {
 
             case 1:
                 Triangulo aux1 = (Triangulo) listaFormas.get(listaFormas.size() - 1);
-                aux1.arrastraTriangulo(evt.getX(), evt.getY(), posX, posY);
+                aux1.arrastraTriangulo(evt.getX(), evt.getY(), posX, posY, proporcionalidad);
 
                 break;
             
             case 2:
                 Cuadrado aux2 = (Cuadrado) listaFormas.get(listaFormas.size() - 1);
-                aux2.arrastraCuadrado(evt.getX(), evt.getY(), posX, posY);
+                aux2.arrastraCuadrado(evt.getX(), evt.getY(), posX, posY, proporcionalidad);
 
                 break;
 
@@ -509,6 +534,10 @@ public class VentanaDibujo extends javax.swing.JFrame {
         }
         repaint();
     }//GEN-LAST:event_jPanel1MouseDragged
+
+    private void regularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regularActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_regularActionPerformed
 
     /**
      * @param args the command line arguments
@@ -546,6 +575,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JRadioButton irregular;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
@@ -562,5 +592,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSlider jSlider1;
+    private javax.swing.ButtonGroup proporcionalidad;
+    private javax.swing.JRadioButton regular;
     // End of variables declaration//GEN-END:variables
 }

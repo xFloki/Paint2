@@ -50,13 +50,22 @@ public class Cuadrado extends Polygon {
                  }
              }
          
-         public void arrastraCuadrado(int _evtGetX, int _evtGetY, int _posX, int _posY ){
+         public void arrastraCuadrado(int _evtGetX, int _evtGetY, int _posX, int _posY, boolean _proporcionalidad ){
             int width = _evtGetX -  _posX;
             reset();
+            //Dibuja un Cuadrado
+            if(_proporcionalidad){
              addPoint(_posX , _posY  );
              addPoint(_posX + width , _posY );
              addPoint(_posX + width,  _posY + width );
              addPoint(_posX , _posY + width );
+            } else {
+             //Dibuja una Rectangulo 
+            addPoint(_posX , _posY  );
+             addPoint(_evtGetX , _posY );
+             addPoint(_evtGetX ,  _evtGetY );
+             addPoint(_posX , _evtGetY);
+            }
                     
    }
          }
