@@ -53,4 +53,22 @@ public class Cruz extends Polygon {
 
         }
     }
+    
+    public void arrastraCruz(int _evtGetX, int _evtGetY, int _posX, int _posY ){
+       int width = _posX - _evtGetX;
+       reset();
+       addPoint(_posX - width / 2, _posY - (width / 2 + width));
+       addPoint(_posX - width / 2, _posY - width / 2);
+       addPoint(_posX - (width / 2 + width),  _posY - width / 2);
+       addPoint(_posX - (width / 2 + width), _posY + width / 2);
+       addPoint(_posX - width / 2,  _posY + width / 2);
+       addPoint(_posX - width / 2, _posY + (width / 2 + width));
+       addPoint(_posX + width / 2, _posY + (width / 2 + width));
+       addPoint(_posX + width / 2, _posY + width / 2);
+       addPoint( _posX + (width / 2 + width), _posY + width / 2);
+       addPoint(_posX + (width / 2 + width), _posY - width / 2);
+       addPoint( _posX + width / 2, _posY - width / 2);
+       addPoint(_posX + width / 2, _posY - (width / 2 + width));
+    
+   }
 }

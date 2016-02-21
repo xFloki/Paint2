@@ -329,7 +329,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
                 listaFormas.add(new Triangulo(evt.getX(), evt.getY(), 1, colorElegido, true));
                 break;
             case 2:
-                listaFormas.add(new Cuadrado(evt.getX(), evt.getY(), 1, 1, colorElegido, true));
+                listaFormas.add(new Cuadrado(evt.getX(), evt.getY(), 1, colorElegido, true));
                 break;
             case 3:
                 listaFormas.add(new Rombo(evt.getX(), evt.getY(), 1, colorElegido, true));
@@ -435,7 +435,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
                     listaFormas.add(new Triangulo(evt.getX(), evt.getY(), distance, colorElegido, true));
                     break;
                 case 2:
-                    listaFormas.add(new Cuadrado(evt.getX(), evt.getY(), distance, distance, colorElegido, true));
+                    listaFormas.add(new Cuadrado(evt.getX(), evt.getY(), distance, colorElegido, true));
                     break;
                 case 3:
                     listaFormas.add(new Rombo(evt.getX(), evt.getY(), distance, colorElegido, true));
@@ -444,6 +444,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
                     listaFormas.add(new Cruz(evt.getX(), evt.getY(), distance / 2, colorElegido, true));
                     break;
                 case 5:
+                    
                     listaFormas.add(new Estrella(evt.getX(), evt.getY(), distance, colorElegido, true));
                     break;
             }
@@ -482,12 +483,29 @@ public class VentanaDibujo extends javax.swing.JFrame {
                 aux1.arrastraTriangulo(evt.getX(), evt.getY(), posX, posY);
 
                 break;
+            
+            case 2:
+                Cuadrado aux2 = (Cuadrado) listaFormas.get(listaFormas.size() - 1);
+                aux2.arrastraCuadrado(evt.getX(), evt.getY(), posX, posY);
+
+                break;
 
             case 3:
                 Rombo aux3 = (Rombo) listaFormas.get(listaFormas.size() - 1);
                 aux3.arrastraRombo(evt.getX(), evt.getY(), posX, posY);
 
                 break;
+            case 4:
+                Cruz aux4 = (Cruz) listaFormas.get(listaFormas.size() - 1);
+                aux4.arrastraCruz(evt.getX(), evt.getY(), posX, posY);
+
+                break;
+            case 5:
+                Estrella aux5 = (Estrella) listaFormas.get(listaFormas.size() - 1);
+                aux5.arrastraRombo(evt.getX(), evt.getY(), posX, posY);
+
+                break;
+                
         }
         repaint();
     }//GEN-LAST:event_jPanel1MouseDragged

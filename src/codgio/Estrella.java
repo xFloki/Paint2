@@ -7,6 +7,8 @@ package codgio;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
+import java.awt.Rectangle;
+import java.awt.geom.Rectangle2D;
 import static java.lang.Math.max;
 
 /**
@@ -28,18 +30,19 @@ public class Estrella extends Polygon {
     public Estrella(int _x, int _y, int _width, Color _color, boolean _relleno) {
 //       PENTAGONO :  
         
-        for (int i = 0; i < 5; i++){             
-      addPoint((int) (_x  + _width * Math.cos(i * 2 * Math.PI / 5)),
-          (int) (_y + _width * Math.sin(i * 2 * Math.PI / 5)));
-            System.out.println((int) (_x  + _width * Math.cos(i * 2 * Math.PI / 5)));
-            System.out.println( (int) (_y + _width * Math.sin(i * 2 * Math.PI / 5)));
-        }
+//        for (int i = 0; i < 5; i++){             
+//      addPoint((int) (_x  + _width * Math.cos(i * 2 * Math.PI / 5)),
+//          (int) (_y + _width * Math.sin(i * 2 * Math.PI / 5)));
+//            System.out.println((int) (_x  + _width * Math.cos(i * 2 * Math.PI / 5)));
+//            System.out.println( (int) (_y + _width * Math.sin(i * 2 * Math.PI / 5)));
+//        }
 //   Estrella coloreada parcialmente     
-        
-        
+
+     
+                
        
         
-    
+        
       addPoint((int) (_x  + _width * Math.cos(0 * 2 * Math.PI / 5)),
           (int) (_y + _width * Math.sin(0 * 2 * Math.PI / 5)));
       addPoint((int) (_x  + _width * Math.cos(2 * 2 * Math.PI / 5)),
@@ -51,7 +54,7 @@ public class Estrella extends Polygon {
       addPoint((int) (_x  + _width * Math.cos(3 * 2 * Math.PI / 5)),
           (int) (_y + _width * Math.sin(3 * 2 * Math.PI / 5)));
       
-
+         
         
 
         this.color = _color;
@@ -70,4 +73,19 @@ public class Estrella extends Polygon {
             
         }
     }
+    
+    public void arrastraRombo(int _evtGetX, int _evtGetY, int _posX, int _posY ){
+       int width = _posX - _evtGetX;
+       reset();
+           addPoint((int) (_posX  + width * Math.cos(0 * 2 * Math.PI / 5)),
+          (int) (_posY + width * Math.sin(0 * 2 * Math.PI / 5)));
+      addPoint((int) (_posX  + width * Math.cos(2 * 2 * Math.PI / 5)),
+          (int) (_posY + width * Math.sin(2    * 2 * Math.PI / 5)));
+      addPoint((int) (_posX  + width * Math.cos(4 * 2 * Math.PI / 5)),
+          (int) (_posY + width * Math.sin(4 * 2 * Math.PI / 5)));
+      addPoint((int) (_posX  + width * Math.cos(1 * 2 * Math.PI / 5)),
+          (int) (_posY + width * Math.sin(1 * 2 * Math.PI / 5)));
+      addPoint((int) (_posX  + width * Math.cos(3 * 2 * Math.PI / 5)),
+          (int) (_posY + width * Math.sin(3 * 2 * Math.PI / 5)));
+   }
 }

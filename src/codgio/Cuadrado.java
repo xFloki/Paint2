@@ -8,7 +8,8 @@ package codgio;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.geom.Rectangle2D;
+import java.awt.Polygon;
+
 
 
 /**
@@ -25,20 +26,16 @@ import java.awt.geom.Rectangle2D;
 //CLASE ESTRELLA DE 5 PUNTAS
 
 
-public class Cuadrado extends Rectangle2D.Double {
+public class Cuadrado extends Polygon {
     
         public Color color = null;
-        public boolean relleno = false;
+        public boolean relleno = true;
         
-        public Cuadrado(int _x, int _y, int _width, int _height, Color _color, boolean _relleno){
-            this.width = _width;
-            this.x = _x;
-            this.y = _y;
-            this.height = _height;
-            
-            this.color = _color ;
-            this.relleno = _relleno;
-                    
+        public Cuadrado(int _x, int _y, int _width, Color _color, boolean _relleno){
+             addPoint(_x - _width/2, _y - _width/2 );
+             addPoint(_x + _width/2 , _y - _width/2 );
+             addPoint(_x + _width/2,  _y + _width/2 );
+             addPoint(_x - _width/2 , _y + _width/2 );
                     
         }
         
@@ -52,5 +49,15 @@ public class Cuadrado extends Rectangle2D.Double {
 
                  }
              }
+         
+         public void arrastraCuadrado(int _evtGetX, int _evtGetY, int _posX, int _posY ){
+            int width = _evtGetX -  _posX;
+            reset();
+             addPoint(_posX , _posY  );
+             addPoint(_posX + width , _posY );
+             addPoint(_posX + width,  _posY + width );
+             addPoint(_posX , _posY + width );
+                    
+   }
          }
             
