@@ -36,7 +36,9 @@ public class Cuadrado extends Polygon {
              addPoint(_x + _width/2 , _y - _width/2 );
              addPoint(_x + _width/2,  _y + _width/2 );
              addPoint(_x - _width/2 , _y + _width/2 );
-                    
+                  
+              this.color = _color ;
+            this.relleno = _relleno;
         }
         
         
