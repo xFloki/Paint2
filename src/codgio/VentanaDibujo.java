@@ -10,9 +10,9 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.awt.Color;
 import java.awt.Shape;
+import java.awt.Toolkit;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.FileAlreadyExistsException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,12 +25,12 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * @author Administrator
  */
 public class VentanaDibujo extends javax.swing.JFrame {
-
+   
 //    private static int DIMENSION_ARRAY = 8;
     // Imagen en la que pintare los circulos
     // es una variable parecida a un image pero acelerada
     BufferedImage buffer = null;
-
+   
     //Indica el numero de circulos que hay
     int indice = 0;
 
@@ -59,9 +59,16 @@ public class VentanaDibujo extends javax.swing.JFrame {
      * Creates new form VentanaDibujo
      */
     public VentanaDibujo() {
-
+        
+//           Image icon = Toolkit.getDefaultToolkit().getImage("/imagenes/circulo.png");
+//	this.setIconImage(icon);
+      
         initComponents();
-
+        this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/imagenes/logo.png")));
+         this.setTitle("Paint Deluxe");
+        
+       
+//          this.setIconImage(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("/imagenes/triangulo.png")));
         jLabel1.setText(String.valueOf(jSlider1.getValue()));
         //creo un buffer deñ tamaño del jPanel1
         buffer = (BufferedImage) jPanel1.createImage(jPanel1.getWidth(), jPanel1.getHeight());
@@ -173,6 +180,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
         jMenuItem9 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
 
         jButton7.setText("ACEPTAR");
         jButton7.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -363,6 +371,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
 
         jMenu2.setText("Edit");
 
+        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem2.setText("Guardar pantalla ");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -370,6 +379,15 @@ public class VentanaDibujo extends javax.swing.JFrame {
             }
         });
         jMenu2.add(jMenuItem2);
+
+        jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem3.setText("jMenuItem3");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem3);
 
         jMenuBar1.add(jMenu2);
 
@@ -585,6 +603,28 @@ public class VentanaDibujo extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+         jFileChooser1.setFileFilter(new FileNameExtensionFilter("Archivos de imagen jpg", "jpg"));
+        jFileChooser1.setFileFilter(new FileNameExtensionFilter("Archivos de imagen png", "png"));
+        int seleccion = jFileChooser1.showOpenDialog(this);
+        switch (seleccion) {
+            case JFileChooser.APPROVE_OPTION: {
+                File fichero = jFileChooser1.getSelectedFile();
+                String nombre = fichero.getName();
+                String extension = nombre.substring(nombre.lastIndexOf('.')+1, nombre.length());
+                if (extension.equalsIgnoreCase("jpg") || extension.equalsIgnoreCase("png")) {
+                    try {
+                        buffer = ImageIO.read(fichero);
+                        repaint();
+                    } catch (IOException ex) {
+                        Logger.getLogger(VentanaDibujo.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+            break;
+        }
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -637,6 +677,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
