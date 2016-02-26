@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -64,6 +65,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
 //	this.setIconImage(icon);
       
         initComponents();
+        jButton23.setBackground(colorElegido);
         this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/imagenes/logo.png")));
          this.setTitle("Paint Deluxe");
         
@@ -163,13 +165,32 @@ public class VentanaDibujo extends javax.swing.JFrame {
         jDialog2 = new javax.swing.JDialog();
         jFileChooser1 = new javax.swing.JFileChooser();
         jPanel1 = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
         jSlider1 = new javax.swing.JSlider();
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         regular = new javax.swing.JRadioButton();
         irregular = new javax.swing.JRadioButton();
+        jPanel2 = new javax.swing.JPanel();
+        jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
+        jButton9 = new javax.swing.JButton();
+        jButton10 = new javax.swing.JButton();
+        jButton11 = new javax.swing.JButton();
+        jButton12 = new javax.swing.JButton();
+        jButton13 = new javax.swing.JButton();
+        jButton14 = new javax.swing.JButton();
+        jButton15 = new javax.swing.JButton();
+        jButton16 = new javax.swing.JButton();
+        jButton17 = new javax.swing.JButton();
+        jButton18 = new javax.swing.JButton();
+        jButton19 = new javax.swing.JButton();
+        jButton20 = new javax.swing.JButton();
+        jButton21 = new javax.swing.JButton();
+        jButton22 = new javax.swing.JButton();
+        jButton23 = new javax.swing.JButton();
+        jButton24 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -179,6 +200,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenuItem9 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
 
@@ -243,32 +265,8 @@ public class VentanaDibujo extends javax.swing.JFrame {
                 jPanel1MousePressed(evt);
             }
         });
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 945, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 530, Short.MAX_VALUE)
-        );
-
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 69, -1, 530));
-
-        jButton2.setText("BORRAR TODO");
-        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jButton2MousePressed(evt);
-            }
-        });
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 20, -1, -1));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(65, 59, 880, 430));
 
         jSlider1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
@@ -278,7 +276,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
         getContentPane().add(jSlider1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, -1, -1));
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 10, 30, 20));
 
-        jButton1.setText("DESHACER");
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/uno.png"))); // NOI18N
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jButton1MousePressed(evt);
@@ -289,7 +287,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, -1, -1));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 40, 40));
 
         jButton3.setText("COLOR");
         jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -297,7 +295,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
                 jButton3MousePressed(evt);
             }
         });
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 20, -1, -1));
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 20, -1, -1));
 
         regular.setSelected(true);
         regular.setText("regular");
@@ -306,10 +304,218 @@ public class VentanaDibujo extends javax.swing.JFrame {
                 regularActionPerformed(evt);
             }
         });
-        getContentPane().add(regular, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 10, -1, -1));
+        getContentPane().add(regular, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 0, -1, -1));
 
         irregular.setText("irregular");
-        getContentPane().add(irregular, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 10, -1, 20));
+        getContentPane().add(irregular, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 20, -1, 20));
+
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jButton4.setBackground(new java.awt.Color(0, 0, 0));
+        jButton4.setToolTipText("");
+        jButton4.setMaximumSize(new java.awt.Dimension(30, 30));
+        jButton4.setMinimumSize(new java.awt.Dimension(30, 30));
+        jButton4.setPreferredSize(new java.awt.Dimension(19, 19));
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(94, 29, -1, -1));
+
+        jButton5.setBackground(new java.awt.Color(128, 128, 128));
+        jButton5.setMaximumSize(new java.awt.Dimension(30, 30));
+        jButton5.setMinimumSize(new java.awt.Dimension(30, 30));
+        jButton5.setPreferredSize(new java.awt.Dimension(19, 19));
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(119, 29, -1, -1));
+
+        jButton6.setBackground(new java.awt.Color(128, 0, 0));
+        jButton6.setMaximumSize(new java.awt.Dimension(30, 30));
+        jButton6.setMinimumSize(new java.awt.Dimension(30, 30));
+        jButton6.setPreferredSize(new java.awt.Dimension(19, 19));
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(144, 29, -1, -1));
+
+        jButton9.setBackground(new java.awt.Color(128, 128, 0));
+        jButton9.setMaximumSize(new java.awt.Dimension(30, 30));
+        jButton9.setMinimumSize(new java.awt.Dimension(30, 30));
+        jButton9.setPreferredSize(new java.awt.Dimension(19, 19));
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(169, 29, -1, -1));
+
+        jButton10.setBackground(new java.awt.Color(255, 255, 255));
+        jButton10.setMaximumSize(new java.awt.Dimension(30, 30));
+        jButton10.setMinimumSize(new java.awt.Dimension(30, 30));
+        jButton10.setPreferredSize(new java.awt.Dimension(19, 19));
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(94, 54, -1, -1));
+
+        jButton11.setBackground(new java.awt.Color(128, 64, 0));
+        jButton11.setMaximumSize(new java.awt.Dimension(30, 30));
+        jButton11.setMinimumSize(new java.awt.Dimension(30, 30));
+        jButton11.setPreferredSize(new java.awt.Dimension(19, 19));
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton11ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(294, 29, -1, -1));
+
+        jButton12.setBackground(new java.awt.Color(0, 128, 0));
+        jButton12.setMaximumSize(new java.awt.Dimension(30, 30));
+        jButton12.setMinimumSize(new java.awt.Dimension(30, 30));
+        jButton12.setPreferredSize(new java.awt.Dimension(19, 19));
+        jButton12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton12ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton12, new org.netbeans.lib.awtextra.AbsoluteConstraints(194, 29, -1, -1));
+
+        jButton13.setBackground(new java.awt.Color(128, 0, 255));
+        jButton13.setMaximumSize(new java.awt.Dimension(30, 30));
+        jButton13.setMinimumSize(new java.awt.Dimension(30, 30));
+        jButton13.setPreferredSize(new java.awt.Dimension(19, 19));
+        jButton13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton13ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton13, new org.netbeans.lib.awtextra.AbsoluteConstraints(269, 29, -1, -1));
+
+        jButton14.setBackground(new java.awt.Color(0, 0, 255));
+        jButton14.setMaximumSize(new java.awt.Dimension(30, 30));
+        jButton14.setMinimumSize(new java.awt.Dimension(30, 30));
+        jButton14.setPreferredSize(new java.awt.Dimension(19, 19));
+        jButton14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton14ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton14, new org.netbeans.lib.awtextra.AbsoluteConstraints(219, 29, -1, -1));
+
+        jButton15.setBackground(new java.awt.Color(0, 128, 192));
+        jButton15.setMaximumSize(new java.awt.Dimension(30, 30));
+        jButton15.setMinimumSize(new java.awt.Dimension(30, 30));
+        jButton15.setPreferredSize(new java.awt.Dimension(19, 19));
+        jButton15.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton15ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton15, new org.netbeans.lib.awtextra.AbsoluteConstraints(244, 29, -1, -1));
+
+        jButton16.setBackground(new java.awt.Color(255, 0, 0));
+        jButton16.setMaximumSize(new java.awt.Dimension(30, 30));
+        jButton16.setMinimumSize(new java.awt.Dimension(30, 30));
+        jButton16.setPreferredSize(new java.awt.Dimension(19, 19));
+        jButton16.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton16ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton16, new org.netbeans.lib.awtextra.AbsoluteConstraints(144, 54, -1, -1));
+
+        jButton17.setBackground(new java.awt.Color(188, 188, 188));
+        jButton17.setMaximumSize(new java.awt.Dimension(30, 30));
+        jButton17.setMinimumSize(new java.awt.Dimension(30, 30));
+        jButton17.setPreferredSize(new java.awt.Dimension(19, 19));
+        jButton17.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton17ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton17, new org.netbeans.lib.awtextra.AbsoluteConstraints(119, 54, -1, -1));
+
+        jButton18.setBackground(new java.awt.Color(255, 255, 0));
+        jButton18.setMaximumSize(new java.awt.Dimension(30, 30));
+        jButton18.setMinimumSize(new java.awt.Dimension(30, 30));
+        jButton18.setPreferredSize(new java.awt.Dimension(19, 19));
+        jButton18.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton18ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton18, new org.netbeans.lib.awtextra.AbsoluteConstraints(169, 54, -1, -1));
+
+        jButton19.setBackground(new java.awt.Color(0, 255, 0));
+        jButton19.setMaximumSize(new java.awt.Dimension(30, 30));
+        jButton19.setMinimumSize(new java.awt.Dimension(30, 30));
+        jButton19.setPreferredSize(new java.awt.Dimension(19, 19));
+        jButton19.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton19ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton19, new org.netbeans.lib.awtextra.AbsoluteConstraints(194, 54, -1, -1));
+
+        jButton20.setBackground(new java.awt.Color(0, 255, 255));
+        jButton20.setMaximumSize(new java.awt.Dimension(30, 30));
+        jButton20.setMinimumSize(new java.awt.Dimension(30, 30));
+        jButton20.setPreferredSize(new java.awt.Dimension(19, 19));
+        jButton20.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton20ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton20, new org.netbeans.lib.awtextra.AbsoluteConstraints(219, 54, -1, -1));
+
+        jButton21.setBackground(new java.awt.Color(128, 255, 255));
+        jButton21.setMaximumSize(new java.awt.Dimension(30, 30));
+        jButton21.setMinimumSize(new java.awt.Dimension(30, 30));
+        jButton21.setPreferredSize(new java.awt.Dimension(19, 19));
+        jButton21.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton21ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton21, new org.netbeans.lib.awtextra.AbsoluteConstraints(244, 54, -1, -1));
+
+        jButton22.setBackground(new java.awt.Color(128, 128, 255));
+        jButton22.setMaximumSize(new java.awt.Dimension(30, 30));
+        jButton22.setMinimumSize(new java.awt.Dimension(30, 30));
+        jButton22.setPreferredSize(new java.awt.Dimension(19, 19));
+        jButton22.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton22ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton22, new org.netbeans.lib.awtextra.AbsoluteConstraints(269, 54, -1, -1));
+
+        jButton23.setMaximumSize(new java.awt.Dimension(30, 30));
+        jButton23.setMinimumSize(new java.awt.Dimension(30, 30));
+        jButton23.setPreferredSize(new java.awt.Dimension(19, 19));
+        jPanel2.add(jButton23, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 40, -1, -1));
+
+        jButton24.setBackground(new java.awt.Color(255, 128, 64));
+        jButton24.setMaximumSize(new java.awt.Dimension(30, 30));
+        jButton24.setMinimumSize(new java.awt.Dimension(30, 30));
+        jButton24.setPreferredSize(new java.awt.Dimension(19, 19));
+        jButton24.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton24ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton24, new org.netbeans.lib.awtextra.AbsoluteConstraints(294, 54, -1, -1));
+
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 480, 900, 90));
 
         jMenu1.setText("Creación de Formas");
 
@@ -349,7 +555,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem7);
 
-        jMenuItem8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/codgio/cruz.png"))); // NOI18N
+        jMenuItem8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cruz.png"))); // NOI18N
         jMenuItem8.setText("Cruz");
         jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -370,6 +576,14 @@ public class VentanaDibujo extends javax.swing.JFrame {
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Edit");
+
+        jMenuItem4.setText("Nueva Hoja");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem4);
 
         jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem2.setText("Guardar pantalla ");
@@ -436,16 +650,6 @@ public class VentanaDibujo extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton1MousePressed
 
-    private void jButton2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MousePressed
-        listaFormas.removeAll(listaFormas);
-
-        repaint();
-    }//GEN-LAST:event_jButton2MousePressed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
-
     private void jSlider1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jSlider1MouseDragged
         // TODO add your handling code here:
         jLabel1.setText(String.valueOf(jSlider1.getValue()));
@@ -459,6 +663,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
 
     private void jButton7MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton7MousePressed
         colorElegido = jColorChooser1.getColor();
+        jButton23.setBackground(colorElegido);
         jDialog1.setVisible(false);
     }//GEN-LAST:event_jButton7MousePressed
 
@@ -625,6 +830,88 @@ public class VentanaDibujo extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        listaFormas.removeAll(listaFormas);
+
+        repaint();
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jButton24ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton24ActionPerformed
+        atajoColor(jButton24);
+    }//GEN-LAST:event_jButton24ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        atajoColor(jButton4);
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+         atajoColor(jButton5);
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+         atajoColor(jButton6);
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+         atajoColor(jButton9);
+    }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
+        atajoColor(jButton12);
+    }//GEN-LAST:event_jButton12ActionPerformed
+
+    private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
+        atajoColor(jButton14);
+    }//GEN-LAST:event_jButton14ActionPerformed
+
+    private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
+       atajoColor(jButton15);
+    }//GEN-LAST:event_jButton15ActionPerformed
+
+    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
+        atajoColor(jButton13);
+    }//GEN-LAST:event_jButton13ActionPerformed
+
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+        atajoColor(jButton11);
+    }//GEN-LAST:event_jButton11ActionPerformed
+
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        atajoColor(jButton10);
+    }//GEN-LAST:event_jButton10ActionPerformed
+
+    private void jButton17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton17ActionPerformed
+        atajoColor(jButton17);
+    }//GEN-LAST:event_jButton17ActionPerformed
+
+    private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
+        atajoColor(jButton16);
+    }//GEN-LAST:event_jButton16ActionPerformed
+
+    private void jButton18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton18ActionPerformed
+       atajoColor(jButton18);
+    }//GEN-LAST:event_jButton18ActionPerformed
+
+    private void jButton19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton19ActionPerformed
+        atajoColor(jButton19);
+    }//GEN-LAST:event_jButton19ActionPerformed
+
+    private void jButton20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton20ActionPerformed
+        atajoColor(jButton20);
+    }//GEN-LAST:event_jButton20ActionPerformed
+
+    private void jButton21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton21ActionPerformed
+        atajoColor(jButton21);
+    }//GEN-LAST:event_jButton21ActionPerformed
+
+    private void jButton22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton22ActionPerformed
+        atajoColor(jButton22);
+    }//GEN-LAST:event_jButton22ActionPerformed
+    
+    private void atajoColor(JButton color){
+        colorElegido = color.getBackground();
+        jButton23.setBackground(colorElegido);
+    }
     /**
      * @param args the command line arguments
      */
@@ -663,10 +950,28 @@ public class VentanaDibujo extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JRadioButton irregular;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton10;
+    private javax.swing.JButton jButton11;
+    private javax.swing.JButton jButton12;
+    private javax.swing.JButton jButton13;
+    private javax.swing.JButton jButton14;
+    private javax.swing.JButton jButton15;
+    private javax.swing.JButton jButton16;
+    private javax.swing.JButton jButton17;
+    private javax.swing.JButton jButton18;
+    private javax.swing.JButton jButton19;
+    private javax.swing.JButton jButton20;
+    private javax.swing.JButton jButton21;
+    private javax.swing.JButton jButton22;
+    private javax.swing.JButton jButton23;
+    private javax.swing.JButton jButton24;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButton9;
     private javax.swing.JColorChooser jColorChooser1;
     private javax.swing.JDialog jDialog1;
     private javax.swing.JDialog jDialog2;
@@ -678,12 +983,14 @@ public class VentanaDibujo extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JSlider jSlider1;
     private javax.swing.ButtonGroup proporcionalidad;
     private javax.swing.JRadioButton regular;
