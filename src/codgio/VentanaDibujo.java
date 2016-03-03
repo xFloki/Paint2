@@ -11,6 +11,7 @@ import java.awt.image.BufferedImage;
 import java.awt.Color;
 import java.awt.Shape;
 import java.awt.Toolkit;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
@@ -65,7 +67,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
 //	this.setIconImage(icon);
       
         initComponents();
-        jButton23.setBackground(colorElegido);
+        jLabel20.setBackground(colorElegido);
         this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/imagenes/logo.png")));
          this.setTitle("Paint Deluxe");
         
@@ -172,25 +174,30 @@ public class VentanaDibujo extends javax.swing.JFrame {
         regular = new javax.swing.JRadioButton();
         irregular = new javax.swing.JRadioButton();
         jPanel2 = new javax.swing.JPanel();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
-        jButton11 = new javax.swing.JButton();
-        jButton12 = new javax.swing.JButton();
-        jButton13 = new javax.swing.JButton();
-        jButton14 = new javax.swing.JButton();
-        jButton15 = new javax.swing.JButton();
-        jButton16 = new javax.swing.JButton();
-        jButton17 = new javax.swing.JButton();
-        jButton18 = new javax.swing.JButton();
-        jButton19 = new javax.swing.JButton();
-        jButton20 = new javax.swing.JButton();
-        jButton21 = new javax.swing.JButton();
-        jButton22 = new javax.swing.JButton();
-        jButton23 = new javax.swing.JButton();
-        jButton24 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel25 = new javax.swing.JLabel();
+        jLabel26 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        jLabel24 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -311,211 +318,215 @@ public class VentanaDibujo extends javax.swing.JFrame {
 
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton4.setBackground(new java.awt.Color(0, 0, 0));
-        jButton4.setToolTipText("");
-        jButton4.setMaximumSize(new java.awt.Dimension(30, 30));
-        jButton4.setMinimumSize(new java.awt.Dimension(30, 30));
-        jButton4.setPreferredSize(new java.awt.Dimension(19, 19));
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+        jLabel2.setBackground(new java.awt.Color(128, 0, 0));
+        jLabel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jLabel2.setOpaque(true);
+        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel2MousePressed(evt);
             }
         });
-        jPanel2.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(94, 29, -1, -1));
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 30, 15, 15));
 
-        jButton5.setBackground(new java.awt.Color(128, 128, 128));
-        jButton5.setMaximumSize(new java.awt.Dimension(30, 30));
-        jButton5.setMinimumSize(new java.awt.Dimension(30, 30));
-        jButton5.setPreferredSize(new java.awt.Dimension(19, 19));
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+        jLabel3.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jLabel3.setOpaque(true);
+        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel3MousePressed(evt);
             }
         });
-        jPanel2.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(119, 29, -1, -1));
+        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 30, 15, 15));
 
-        jButton6.setBackground(new java.awt.Color(128, 0, 0));
-        jButton6.setMaximumSize(new java.awt.Dimension(30, 30));
-        jButton6.setMinimumSize(new java.awt.Dimension(30, 30));
-        jButton6.setPreferredSize(new java.awt.Dimension(19, 19));
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+        jLabel4.setBackground(new java.awt.Color(128, 128, 0));
+        jLabel4.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jLabel4.setOpaque(true);
+        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel4MousePressed(evt);
             }
         });
-        jPanel2.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(144, 29, -1, -1));
+        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 30, 15, 15));
 
-        jButton9.setBackground(new java.awt.Color(128, 128, 0));
-        jButton9.setMaximumSize(new java.awt.Dimension(30, 30));
-        jButton9.setMinimumSize(new java.awt.Dimension(30, 30));
-        jButton9.setPreferredSize(new java.awt.Dimension(19, 19));
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton9ActionPerformed(evt);
+        jLabel5.setBackground(new java.awt.Color(128, 128, 128));
+        jLabel5.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jLabel5.setOpaque(true);
+        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel5MousePressed(evt);
             }
         });
-        jPanel2.add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(169, 29, -1, -1));
+        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 30, 15, 15));
 
-        jButton10.setBackground(new java.awt.Color(255, 255, 255));
-        jButton10.setMaximumSize(new java.awt.Dimension(30, 30));
-        jButton10.setMinimumSize(new java.awt.Dimension(30, 30));
-        jButton10.setPreferredSize(new java.awt.Dimension(19, 19));
-        jButton10.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton10ActionPerformed(evt);
+        jLabel6.setBackground(new java.awt.Color(255, 0, 0));
+        jLabel6.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jLabel6.setOpaque(true);
+        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 30, 15, 15));
+
+        jLabel7.setBackground(new java.awt.Color(255, 0, 0));
+        jLabel7.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jLabel7.setOpaque(true);
+        jLabel7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel7MousePressed(evt);
             }
         });
-        jPanel2.add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(94, 54, -1, -1));
+        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 50, 15, 15));
 
-        jButton11.setBackground(new java.awt.Color(128, 64, 0));
-        jButton11.setMaximumSize(new java.awt.Dimension(30, 30));
-        jButton11.setMinimumSize(new java.awt.Dimension(30, 30));
-        jButton11.setPreferredSize(new java.awt.Dimension(19, 19));
-        jButton11.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton11ActionPerformed(evt);
+        jLabel8.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel8.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jLabel8.setOpaque(true);
+        jLabel8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel8MousePressed(evt);
             }
         });
-        jPanel2.add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(294, 29, -1, -1));
+        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, 15, 15));
 
-        jButton12.setBackground(new java.awt.Color(0, 128, 0));
-        jButton12.setMaximumSize(new java.awt.Dimension(30, 30));
-        jButton12.setMinimumSize(new java.awt.Dimension(30, 30));
-        jButton12.setPreferredSize(new java.awt.Dimension(19, 19));
-        jButton12.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton12ActionPerformed(evt);
+        jLabel9.setBackground(new java.awt.Color(255, 255, 0));
+        jLabel9.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jLabel9.setOpaque(true);
+        jLabel9.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel9MousePressed(evt);
             }
         });
-        jPanel2.add(jButton12, new org.netbeans.lib.awtextra.AbsoluteConstraints(194, 29, -1, -1));
+        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 50, 15, 15));
 
-        jButton13.setBackground(new java.awt.Color(128, 0, 255));
-        jButton13.setMaximumSize(new java.awt.Dimension(30, 30));
-        jButton13.setMinimumSize(new java.awt.Dimension(30, 30));
-        jButton13.setPreferredSize(new java.awt.Dimension(19, 19));
-        jButton13.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton13ActionPerformed(evt);
+        jLabel10.setBackground(new java.awt.Color(188, 188, 188));
+        jLabel10.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jLabel10.setOpaque(true);
+        jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel10MousePressed(evt);
             }
         });
-        jPanel2.add(jButton13, new org.netbeans.lib.awtextra.AbsoluteConstraints(269, 29, -1, -1));
+        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 50, 15, 15));
 
-        jButton14.setBackground(new java.awt.Color(0, 0, 255));
-        jButton14.setMaximumSize(new java.awt.Dimension(30, 30));
-        jButton14.setMinimumSize(new java.awt.Dimension(30, 30));
-        jButton14.setPreferredSize(new java.awt.Dimension(19, 19));
-        jButton14.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton14ActionPerformed(evt);
+        jLabel11.setBackground(new java.awt.Color(255, 0, 0));
+        jLabel11.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jLabel11.setOpaque(true);
+        jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 50, 15, 15));
+
+        jLabel12.setBackground(new java.awt.Color(0, 128, 192));
+        jLabel12.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jLabel12.setOpaque(true);
+        jLabel12.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel12MousePressed(evt);
             }
         });
-        jPanel2.add(jButton14, new org.netbeans.lib.awtextra.AbsoluteConstraints(219, 29, -1, -1));
+        jPanel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 30, 15, 15));
 
-        jButton15.setBackground(new java.awt.Color(0, 128, 192));
-        jButton15.setMaximumSize(new java.awt.Dimension(30, 30));
-        jButton15.setMinimumSize(new java.awt.Dimension(30, 30));
-        jButton15.setPreferredSize(new java.awt.Dimension(19, 19));
-        jButton15.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton15ActionPerformed(evt);
+        jLabel13.setBackground(new java.awt.Color(0, 128, 0));
+        jLabel13.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jLabel13.setOpaque(true);
+        jLabel13.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel13MousePressed(evt);
             }
         });
-        jPanel2.add(jButton15, new org.netbeans.lib.awtextra.AbsoluteConstraints(244, 29, -1, -1));
+        jPanel2.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 30, 15, 15));
 
-        jButton16.setBackground(new java.awt.Color(255, 0, 0));
-        jButton16.setMaximumSize(new java.awt.Dimension(30, 30));
-        jButton16.setMinimumSize(new java.awt.Dimension(30, 30));
-        jButton16.setPreferredSize(new java.awt.Dimension(19, 19));
-        jButton16.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton16ActionPerformed(evt);
+        jLabel25.setBackground(new java.awt.Color(0, 255, 255));
+        jLabel25.setOpaque(true);
+        jPanel2.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 32, 15, 15));
+
+        jLabel26.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel26.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jLabel26.setOpaque(true);
+        jPanel2.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 20, 20));
+
+        jLabel14.setBackground(new java.awt.Color(128, 0, 255));
+        jLabel14.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jLabel14.setOpaque(true);
+        jLabel14.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel14MousePressed(evt);
             }
         });
-        jPanel2.add(jButton16, new org.netbeans.lib.awtextra.AbsoluteConstraints(144, 54, -1, -1));
+        jPanel2.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 30, 15, 15));
 
-        jButton17.setBackground(new java.awt.Color(188, 188, 188));
-        jButton17.setMaximumSize(new java.awt.Dimension(30, 30));
-        jButton17.setMinimumSize(new java.awt.Dimension(30, 30));
-        jButton17.setPreferredSize(new java.awt.Dimension(19, 19));
-        jButton17.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton17ActionPerformed(evt);
+        jLabel16.setBackground(new java.awt.Color(0, 0, 255));
+        jLabel16.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jLabel16.setOpaque(true);
+        jLabel16.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel16MousePressed(evt);
             }
         });
-        jPanel2.add(jButton17, new org.netbeans.lib.awtextra.AbsoluteConstraints(119, 54, -1, -1));
+        jPanel2.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 30, 15, 15));
 
-        jButton18.setBackground(new java.awt.Color(255, 255, 0));
-        jButton18.setMaximumSize(new java.awt.Dimension(30, 30));
-        jButton18.setMinimumSize(new java.awt.Dimension(30, 30));
-        jButton18.setPreferredSize(new java.awt.Dimension(19, 19));
-        jButton18.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton18ActionPerformed(evt);
+        jLabel17.setBackground(new java.awt.Color(128, 255, 255));
+        jLabel17.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jLabel17.setOpaque(true);
+        jLabel17.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel17MousePressed(evt);
             }
         });
-        jPanel2.add(jButton18, new org.netbeans.lib.awtextra.AbsoluteConstraints(169, 54, -1, -1));
+        jPanel2.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 50, 15, 15));
 
-        jButton19.setBackground(new java.awt.Color(0, 255, 0));
-        jButton19.setMaximumSize(new java.awt.Dimension(30, 30));
-        jButton19.setMinimumSize(new java.awt.Dimension(30, 30));
-        jButton19.setPreferredSize(new java.awt.Dimension(19, 19));
-        jButton19.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton19ActionPerformed(evt);
+        jLabel18.setBackground(new java.awt.Color(0, 255, 0));
+        jLabel18.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jLabel18.setOpaque(true);
+        jLabel18.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel18MousePressed(evt);
             }
         });
-        jPanel2.add(jButton19, new org.netbeans.lib.awtextra.AbsoluteConstraints(194, 54, -1, -1));
+        jPanel2.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 50, 15, 15));
 
-        jButton20.setBackground(new java.awt.Color(0, 255, 255));
-        jButton20.setMaximumSize(new java.awt.Dimension(30, 30));
-        jButton20.setMinimumSize(new java.awt.Dimension(30, 30));
-        jButton20.setPreferredSize(new java.awt.Dimension(19, 19));
-        jButton20.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton20ActionPerformed(evt);
+        jLabel19.setBackground(new java.awt.Color(128, 128, 255));
+        jLabel19.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jLabel19.setOpaque(true);
+        jLabel19.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel19MousePressed(evt);
             }
         });
-        jPanel2.add(jButton20, new org.netbeans.lib.awtextra.AbsoluteConstraints(219, 54, -1, -1));
+        jPanel2.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 50, 15, 15));
 
-        jButton21.setBackground(new java.awt.Color(128, 255, 255));
-        jButton21.setMaximumSize(new java.awt.Dimension(30, 30));
-        jButton21.setMinimumSize(new java.awt.Dimension(30, 30));
-        jButton21.setPreferredSize(new java.awt.Dimension(19, 19));
-        jButton21.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton21ActionPerformed(evt);
+        jLabel20.setBackground(new java.awt.Color(0, 255, 255));
+        jLabel20.setOpaque(true);
+        jPanel2.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 42, 15, 15));
+
+        jLabel21.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel21.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jLabel21.setOpaque(true);
+        jPanel2.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 20, 20));
+
+        jLabel22.setBackground(new java.awt.Color(128, 64, 0));
+        jLabel22.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jLabel22.setOpaque(true);
+        jLabel22.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel22MousePressed(evt);
             }
         });
-        jPanel2.add(jButton21, new org.netbeans.lib.awtextra.AbsoluteConstraints(244, 54, -1, -1));
+        jPanel2.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 30, 15, 15));
 
-        jButton22.setBackground(new java.awt.Color(128, 128, 255));
-        jButton22.setMaximumSize(new java.awt.Dimension(30, 30));
-        jButton22.setMinimumSize(new java.awt.Dimension(30, 30));
-        jButton22.setPreferredSize(new java.awt.Dimension(19, 19));
-        jButton22.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton22ActionPerformed(evt);
+        jLabel24.setBackground(new java.awt.Color(255, 128, 64));
+        jLabel24.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jLabel24.setOpaque(true);
+        jLabel24.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel24MousePressed(evt);
             }
         });
-        jPanel2.add(jButton22, new org.netbeans.lib.awtextra.AbsoluteConstraints(269, 54, -1, -1));
+        jPanel2.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 50, 15, 15));
 
-        jButton23.setMaximumSize(new java.awt.Dimension(30, 30));
-        jButton23.setMinimumSize(new java.awt.Dimension(30, 30));
-        jButton23.setPreferredSize(new java.awt.Dimension(19, 19));
-        jPanel2.add(jButton23, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 40, -1, -1));
-
-        jButton24.setBackground(new java.awt.Color(255, 128, 64));
-        jButton24.setMaximumSize(new java.awt.Dimension(30, 30));
-        jButton24.setMinimumSize(new java.awt.Dimension(30, 30));
-        jButton24.setPreferredSize(new java.awt.Dimension(19, 19));
-        jButton24.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton24ActionPerformed(evt);
+        jLabel23.setBackground(new java.awt.Color(0, 255, 255));
+        jLabel23.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jLabel23.setOpaque(true);
+        jLabel23.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel23MousePressed(evt);
             }
         });
-        jPanel2.add(jButton24, new org.netbeans.lib.awtextra.AbsoluteConstraints(294, 54, -1, -1));
+        jPanel2.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 50, 15, 15));
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 480, 900, 90));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 490, 900, 90));
 
         jMenu1.setText("Creación de Formas");
 
@@ -663,7 +674,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
 
     private void jButton7MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton7MousePressed
         colorElegido = jColorChooser1.getColor();
-        jButton23.setBackground(colorElegido);
+        jLabel26.setBackground(colorElegido);
         jDialog1.setVisible(false);
     }//GEN-LAST:event_jButton7MousePressed
 
@@ -836,81 +847,89 @@ public class VentanaDibujo extends javax.swing.JFrame {
         repaint();
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
-    private void jButton24ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton24ActionPerformed
-        atajoColor(jButton24);
-    }//GEN-LAST:event_jButton24ActionPerformed
+    private void jLabel3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MousePressed
+         atajoColor(jLabel3, evt);
+    }//GEN-LAST:event_jLabel3MousePressed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        atajoColor(jButton4);
-    }//GEN-LAST:event_jButton4ActionPerformed
+    private void jLabel5MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MousePressed
+        atajoColor(jLabel5, evt);
+    }//GEN-LAST:event_jLabel5MousePressed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-         atajoColor(jButton5);
-    }//GEN-LAST:event_jButton5ActionPerformed
+    private void jLabel2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MousePressed
+        atajoColor(jLabel2, evt);
+    }//GEN-LAST:event_jLabel2MousePressed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-         atajoColor(jButton6);
-    }//GEN-LAST:event_jButton6ActionPerformed
+    private void jLabel4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MousePressed
+        atajoColor(jLabel4, evt);
+    }//GEN-LAST:event_jLabel4MousePressed
 
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-         atajoColor(jButton9);
-    }//GEN-LAST:event_jButton9ActionPerformed
+    private void jLabel13MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel13MousePressed
+        atajoColor(jLabel13, evt);
+    }//GEN-LAST:event_jLabel13MousePressed
 
-    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
-        atajoColor(jButton12);
-    }//GEN-LAST:event_jButton12ActionPerformed
+    private void jLabel16MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel16MousePressed
+       atajoColor(jLabel16, evt);
+    }//GEN-LAST:event_jLabel16MousePressed
 
-    private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
-        atajoColor(jButton14);
-    }//GEN-LAST:event_jButton14ActionPerformed
+    private void jLabel12MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MousePressed
+        atajoColor(jLabel12, evt);
+    }//GEN-LAST:event_jLabel12MousePressed
 
-    private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
-       atajoColor(jButton15);
-    }//GEN-LAST:event_jButton15ActionPerformed
+    private void jLabel14MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel14MousePressed
+        atajoColor(jLabel14, evt);
+    }//GEN-LAST:event_jLabel14MousePressed
 
-    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
-        atajoColor(jButton13);
-    }//GEN-LAST:event_jButton13ActionPerformed
+    private void jLabel22MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel22MousePressed
+       atajoColor(jLabel22, evt);
+    }//GEN-LAST:event_jLabel22MousePressed
 
-    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-        atajoColor(jButton11);
-    }//GEN-LAST:event_jButton11ActionPerformed
+    private void jLabel8MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MousePressed
+       atajoColor(jLabel8, evt);
+    }//GEN-LAST:event_jLabel8MousePressed
 
-    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        atajoColor(jButton10);
-    }//GEN-LAST:event_jButton10ActionPerformed
+    private void jLabel10MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MousePressed
+        atajoColor(jLabel10, evt);
+    }//GEN-LAST:event_jLabel10MousePressed
 
-    private void jButton17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton17ActionPerformed
-        atajoColor(jButton17);
-    }//GEN-LAST:event_jButton17ActionPerformed
+    private void jLabel7MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MousePressed
+        atajoColor(jLabel7, evt);
+    }//GEN-LAST:event_jLabel7MousePressed
 
-    private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
-        atajoColor(jButton16);
-    }//GEN-LAST:event_jButton16ActionPerformed
+    private void jLabel9MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MousePressed
+       atajoColor(jLabel9, evt);
+    }//GEN-LAST:event_jLabel9MousePressed
 
-    private void jButton18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton18ActionPerformed
-       atajoColor(jButton18);
-    }//GEN-LAST:event_jButton18ActionPerformed
+    private void jLabel18MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel18MousePressed
+        atajoColor(jLabel18, evt);
+    }//GEN-LAST:event_jLabel18MousePressed
 
-    private void jButton19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton19ActionPerformed
-        atajoColor(jButton19);
-    }//GEN-LAST:event_jButton19ActionPerformed
+    private void jLabel23MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel23MousePressed
+        atajoColor(jLabel23, evt);
+    }//GEN-LAST:event_jLabel23MousePressed
 
-    private void jButton20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton20ActionPerformed
-        atajoColor(jButton20);
-    }//GEN-LAST:event_jButton20ActionPerformed
+    private void jLabel17MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel17MousePressed
+        atajoColor(jLabel17, evt);
+    }//GEN-LAST:event_jLabel17MousePressed
 
-    private void jButton21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton21ActionPerformed
-        atajoColor(jButton21);
-    }//GEN-LAST:event_jButton21ActionPerformed
+    private void jLabel19MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel19MousePressed
+         atajoColor(jLabel19, evt);
+    }//GEN-LAST:event_jLabel19MousePressed
 
-    private void jButton22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton22ActionPerformed
-        atajoColor(jButton22);
-    }//GEN-LAST:event_jButton22ActionPerformed
+    private void jLabel24MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel24MousePressed
+         atajoColor(jLabel24, evt);
+    }//GEN-LAST:event_jLabel24MousePressed
     
-    private void atajoColor(JButton color){
+    private void atajoColor(JLabel color,MouseEvent evt){
+        
+        if(evt.getButton()==evt.BUTTON1){
         colorElegido = color.getBackground();
-        jButton23.setBackground(colorElegido);
+            this.setBackground(colorElegido);
+             jLabel25.setBackground(colorElegido);
+        } else if(evt.getButton()==evt.BUTTON3) {         
+        colorElegido = color.getBackground();
+                jLabel20.setBackground(colorElegido);
+        
+        }
     }
     /**
      * @param args the command line arguments
@@ -950,33 +969,38 @@ public class VentanaDibujo extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JRadioButton irregular;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton11;
-    private javax.swing.JButton jButton12;
-    private javax.swing.JButton jButton13;
-    private javax.swing.JButton jButton14;
-    private javax.swing.JButton jButton15;
-    private javax.swing.JButton jButton16;
-    private javax.swing.JButton jButton17;
-    private javax.swing.JButton jButton18;
-    private javax.swing.JButton jButton19;
-    private javax.swing.JButton jButton20;
-    private javax.swing.JButton jButton21;
-    private javax.swing.JButton jButton22;
-    private javax.swing.JButton jButton23;
-    private javax.swing.JButton jButton24;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
     private javax.swing.JColorChooser jColorChooser1;
     private javax.swing.JDialog jDialog1;
     private javax.swing.JDialog jDialog2;
     private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
