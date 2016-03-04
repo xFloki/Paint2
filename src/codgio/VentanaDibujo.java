@@ -20,7 +20,9 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
@@ -67,6 +69,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
 //	this.setIconImage(icon);
       
         initComponents();
+        setLocationRelativeTo(null);
         jLabel20.setBackground(colorElegido);
         this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/imagenes/logo.png")));
          this.setTitle("Paint Deluxe");
@@ -78,6 +81,8 @@ public class VentanaDibujo extends javax.swing.JFrame {
         buffer = (BufferedImage) jPanel1.createImage(jPanel1.getWidth(), jPanel1.getHeight());
         proporcionalidad.add(irregular);
         proporcionalidad.add(regular);
+        //añadimos unas prioridades para que las labels de los colores seleccionados no se superpongan
+        
         //Creo la parte modificable de la imagen(Hacemos que se pueda pintar en ellla)
         buffer.createGraphics();
         Graphics2D g2 = (Graphics2D) buffer.getGraphics();
@@ -139,6 +144,9 @@ public class VentanaDibujo extends javax.swing.JFrame {
             }
             if (listaFormas.get(i) instanceof Estrella) {
                 ((Estrella) listaFormas.get(i)).pintaYColorea(g2);
+            }
+            if (listaFormas.get(i) instanceof Linea) {
+                ((Linea) listaFormas.get(i)).pintaYColorea(g2);
             }
 
             //Leo el color del circulo  
@@ -206,6 +214,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
         jMenuItem7 = new javax.swing.JMenuItem();
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenuItem9 = new javax.swing.JMenuItem();
+        jMenuItem10 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -584,6 +593,14 @@ public class VentanaDibujo extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem9);
 
+        jMenuItem10.setText("Linea");
+        jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem10ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem10);
+
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Edit");
@@ -643,6 +660,9 @@ public class VentanaDibujo extends javax.swing.JFrame {
             case 5:
                 listaFormas.add(new Estrella(evt.getX(), evt.getY(), 1, colorElegido, true));
                 break;
+            case 6:
+                    listaFormas.add(new Linea(evt.getX(), evt.getY(), 0, colorElegido, true));
+                    break;
         }
         repaint();
 
@@ -705,6 +725,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
 
                     listaFormas.add(new Estrella(evt.getX(), evt.getY(), distance, colorElegido, true));
                     break;
+                
             }
             repaint();
 
@@ -762,6 +783,12 @@ public class VentanaDibujo extends javax.swing.JFrame {
             case 5:
                 Estrella aux5 = (Estrella) listaFormas.get(listaFormas.size() - 1);
                 aux5.arrastraRombo(evt.getX(), evt.getY(), posX, posY);
+
+                break;
+                
+            case 6:
+                Linea aux6 = (Linea) listaFormas.get(listaFormas.size() - 1);
+                aux6.arrastraLinea(evt.getX(), evt.getY(), posX, posY);
 
                 break;
 
@@ -848,76 +875,98 @@ public class VentanaDibujo extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jLabel3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MousePressed
-         atajoColor(jLabel3, evt);
+          JLabel miLabel = (JLabel) evt.getComponent();
+        atajoColor(miLabel, evt);
     }//GEN-LAST:event_jLabel3MousePressed
 
     private void jLabel5MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MousePressed
-        atajoColor(jLabel5, evt);
+        JLabel miLabel = (JLabel) evt.getComponent();
+        atajoColor(miLabel, evt);
     }//GEN-LAST:event_jLabel5MousePressed
 
     private void jLabel2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MousePressed
-        atajoColor(jLabel2, evt);
+        JLabel miLabel = (JLabel) evt.getComponent();
+        atajoColor(miLabel, evt);
     }//GEN-LAST:event_jLabel2MousePressed
 
     private void jLabel4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MousePressed
-        atajoColor(jLabel4, evt);
+        JLabel miLabel = (JLabel) evt.getComponent();
+        atajoColor(miLabel, evt);
     }//GEN-LAST:event_jLabel4MousePressed
 
     private void jLabel13MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel13MousePressed
-        atajoColor(jLabel13, evt);
+        JLabel miLabel = (JLabel) evt.getComponent();
+        atajoColor(miLabel, evt);
     }//GEN-LAST:event_jLabel13MousePressed
 
     private void jLabel16MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel16MousePressed
-       atajoColor(jLabel16, evt);
+       JLabel miLabel = (JLabel) evt.getComponent();
+        atajoColor(miLabel, evt);
     }//GEN-LAST:event_jLabel16MousePressed
 
     private void jLabel12MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MousePressed
-        atajoColor(jLabel12, evt);
+       JLabel miLabel = (JLabel) evt.getComponent();
+        atajoColor(miLabel, evt);
     }//GEN-LAST:event_jLabel12MousePressed
 
     private void jLabel14MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel14MousePressed
-        atajoColor(jLabel14, evt);
+        JLabel miLabel = (JLabel) evt.getComponent();
+        atajoColor(miLabel, evt);
     }//GEN-LAST:event_jLabel14MousePressed
 
     private void jLabel22MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel22MousePressed
-       atajoColor(jLabel22, evt);
+       JLabel miLabel = (JLabel) evt.getComponent();
+        atajoColor(miLabel, evt);
     }//GEN-LAST:event_jLabel22MousePressed
 
     private void jLabel8MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MousePressed
-       atajoColor(jLabel8, evt);
+       JLabel miLabel = (JLabel) evt.getComponent();
+        atajoColor(miLabel, evt);
     }//GEN-LAST:event_jLabel8MousePressed
 
     private void jLabel10MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MousePressed
-        atajoColor(jLabel10, evt);
+        JLabel miLabel = (JLabel) evt.getComponent();
+        atajoColor(miLabel, evt);
     }//GEN-LAST:event_jLabel10MousePressed
 
     private void jLabel7MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MousePressed
-        atajoColor(jLabel7, evt);
+        JLabel miLabel = (JLabel) evt.getComponent();
+        atajoColor(miLabel, evt);
     }//GEN-LAST:event_jLabel7MousePressed
 
     private void jLabel9MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MousePressed
-       atajoColor(jLabel9, evt);
+       JLabel miLabel = (JLabel) evt.getComponent();
+        atajoColor(miLabel, evt);
     }//GEN-LAST:event_jLabel9MousePressed
 
     private void jLabel18MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel18MousePressed
-        atajoColor(jLabel18, evt);
+        JLabel miLabel = (JLabel) evt.getComponent();
+        atajoColor(miLabel, evt);
     }//GEN-LAST:event_jLabel18MousePressed
 
     private void jLabel23MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel23MousePressed
-        atajoColor(jLabel23, evt);
+         JLabel miLabel = (JLabel) evt.getComponent();
+        atajoColor(miLabel, evt);
     }//GEN-LAST:event_jLabel23MousePressed
 
     private void jLabel17MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel17MousePressed
-        atajoColor(jLabel17, evt);
+        JLabel miLabel = (JLabel) evt.getComponent();
+        atajoColor(miLabel, evt);
     }//GEN-LAST:event_jLabel17MousePressed
 
     private void jLabel19MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel19MousePressed
-         atajoColor(jLabel19, evt);
+        JLabel miLabel = (JLabel) evt.getComponent();
+        atajoColor(miLabel, evt);
     }//GEN-LAST:event_jLabel19MousePressed
 
     private void jLabel24MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel24MousePressed
-         atajoColor(jLabel24, evt);
+       JLabel miLabel = (JLabel) evt.getComponent();
+        atajoColor(miLabel, evt);
     }//GEN-LAST:event_jLabel24MousePressed
+
+    private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
+        form = 6;
+    }//GEN-LAST:event_jMenuItem10ActionPerformed
     
     private void atajoColor(JLabel color,MouseEvent evt){
         
@@ -1005,6 +1054,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
