@@ -84,6 +84,6 @@ public class Triangulo extends Polygon {
             
             this.xpoints[2] = _evtGetX + diferencia ;
             this.ypoints[2] =  _evtGetY ;
-             }
    }
-            }
+   }
+}

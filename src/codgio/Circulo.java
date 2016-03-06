@@ -28,6 +28,7 @@ public class Circulo extends Ellipse2D.Double {
             this.height = _width;
             this.color = _color;
             this.relleno = _relleno;
+            
                     
                     
         }

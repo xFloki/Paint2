@@ -5,6 +5,7 @@
  */
 package codgio;
 
+import java.awt.BasicStroke;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -12,12 +13,15 @@ import java.awt.Color;
 import java.awt.Shape;
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
+import java.awt.geom.Line2D;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -52,6 +56,8 @@ public class VentanaDibujo extends javax.swing.JFrame {
     //Si vale 4 ==> dibujo cruz
     //Si vale 5 ==> dibujo una estrella de 5 puntas
     int form = 3;
+ 
+    int lineaGrosor;
 
     //Variable apra almacenar el color elegido
     Color colorElegido = Color.GREEN;
@@ -59,6 +65,17 @@ public class VentanaDibujo extends javax.swing.JFrame {
     // Variables para almacenar la posición en la que se empieza a dibujar la forma
     int posX = 0;
     int posY = 0;
+    
+    ImageIcon linea1 = new ImageIcon(getClass().getResource("/imagenesPropiedades/linea1.png" ));
+    ImageIcon linea1Marcada = new ImageIcon(getClass().getResource("/imagenesPropiedades/linea1Marcada.png" ));
+    ImageIcon linea2 = new ImageIcon(getClass().getResource("/imagenesPropiedades/linea2.png" ));
+    ImageIcon linea2Marcada = new ImageIcon(getClass().getResource("/imagenesPropiedades/linea2Marcada.png" ));
+    ImageIcon linea3 = new ImageIcon(getClass().getResource("/imagenesPropiedades/linea3.png" ));
+    ImageIcon linea3Marcada = new ImageIcon(getClass().getResource("/imagenesPropiedades/linea3Marcada.png" ));
+    ImageIcon linea4 = new ImageIcon(getClass().getResource("/imagenesPropiedades/linea4.png" ));
+    ImageIcon linea4Marcada = new ImageIcon(getClass().getResource("/imagenesPropiedades/linea4Marcada.png" ));
+    ImageIcon linea5 = new ImageIcon(getClass().getResource("/imagenesPropiedades/linea5.png" ));
+    ImageIcon linea5Marcada = new ImageIcon(getClass().getResource("/imagenesPropiedades/linea5Marcada.png" ));
 
     /**
      * Creates new form VentanaDibujo
@@ -73,6 +90,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
         jLabel20.setBackground(colorElegido);
         this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/imagenes/logo.png")));
          this.setTitle("Paint Deluxe");
+         this.setBackground(Color.getHSBColor(227, 228, 228));
         
        
 //          this.setIconImage(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("/imagenes/triangulo.png")));
@@ -81,6 +99,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
         buffer = (BufferedImage) jPanel1.createImage(jPanel1.getWidth(), jPanel1.getHeight());
         proporcionalidad.add(irregular);
         proporcionalidad.add(regular);
+        jPanel3.setVisible(false);
         //añadimos unas prioridades para que las labels de los colores seleccionados no se superpongan
         
         //Creo la parte modificable de la imagen(Hacemos que se pueda pintar en ellla)
@@ -146,7 +165,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
                 ((Estrella) listaFormas.get(i)).pintaYColorea(g2);
             }
             if (listaFormas.get(i) instanceof Linea) {
-                ((Linea) listaFormas.get(i)).pintaYColorea(g2);
+                ((Linea) listaFormas.get(i)).pintaYColorea(g2);             
             }
 
             //Leo el color del circulo  
@@ -206,6 +225,14 @@ public class VentanaDibujo extends javax.swing.JFrame {
         jLabel22 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
+        jLabel27 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel28 = new javax.swing.JLabel();
+        jLabel29 = new javax.swing.JLabel();
+        jLabel30 = new javax.swing.JLabel();
+        jLabel31 = new javax.swing.JLabel();
+        jLabel32 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -335,7 +362,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
                 jLabel2MousePressed(evt);
             }
         });
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 30, 15, 15));
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 30, 15, 15));
 
         jLabel3.setBackground(new java.awt.Color(0, 0, 0));
         jLabel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
@@ -345,7 +372,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
                 jLabel3MousePressed(evt);
             }
         });
-        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 30, 15, 15));
+        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 30, 15, 15));
 
         jLabel4.setBackground(new java.awt.Color(128, 128, 0));
         jLabel4.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
@@ -355,7 +382,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
                 jLabel4MousePressed(evt);
             }
         });
-        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 30, 15, 15));
+        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 30, 15, 15));
 
         jLabel5.setBackground(new java.awt.Color(128, 128, 128));
         jLabel5.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
@@ -365,12 +392,12 @@ public class VentanaDibujo extends javax.swing.JFrame {
                 jLabel5MousePressed(evt);
             }
         });
-        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 30, 15, 15));
+        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 15, 15));
 
         jLabel6.setBackground(new java.awt.Color(255, 0, 0));
         jLabel6.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jLabel6.setOpaque(true);
-        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 30, 15, 15));
+        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 15, 15));
 
         jLabel7.setBackground(new java.awt.Color(255, 0, 0));
         jLabel7.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
@@ -380,7 +407,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
                 jLabel7MousePressed(evt);
             }
         });
-        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 50, 15, 15));
+        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 50, 15, 15));
 
         jLabel8.setBackground(new java.awt.Color(255, 255, 255));
         jLabel8.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
@@ -390,7 +417,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
                 jLabel8MousePressed(evt);
             }
         });
-        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, 15, 15));
+        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 50, 15, 15));
 
         jLabel9.setBackground(new java.awt.Color(255, 255, 0));
         jLabel9.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
@@ -400,7 +427,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
                 jLabel9MousePressed(evt);
             }
         });
-        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 50, 15, 15));
+        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 50, 15, 15));
 
         jLabel10.setBackground(new java.awt.Color(188, 188, 188));
         jLabel10.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
@@ -410,12 +437,12 @@ public class VentanaDibujo extends javax.swing.JFrame {
                 jLabel10MousePressed(evt);
             }
         });
-        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 50, 15, 15));
+        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, 15, 15));
 
         jLabel11.setBackground(new java.awt.Color(255, 0, 0));
         jLabel11.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jLabel11.setOpaque(true);
-        jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 50, 15, 15));
+        jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, 15, 15));
 
         jLabel12.setBackground(new java.awt.Color(0, 128, 192));
         jLabel12.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
@@ -425,7 +452,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
                 jLabel12MousePressed(evt);
             }
         });
-        jPanel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 30, 15, 15));
+        jPanel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 30, 15, 15));
 
         jLabel13.setBackground(new java.awt.Color(0, 128, 0));
         jLabel13.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
@@ -435,16 +462,16 @@ public class VentanaDibujo extends javax.swing.JFrame {
                 jLabel13MousePressed(evt);
             }
         });
-        jPanel2.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 30, 15, 15));
+        jPanel2.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 30, 15, 15));
 
-        jLabel25.setBackground(new java.awt.Color(0, 255, 255));
+        jLabel25.setBackground(colorElegido);
         jLabel25.setOpaque(true);
-        jPanel2.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 32, 15, 15));
+        jPanel2.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 34, 15, 15));
 
         jLabel26.setBackground(new java.awt.Color(255, 255, 255));
         jLabel26.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jLabel26.setOpaque(true);
-        jPanel2.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 20, 20));
+        jPanel2.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 32, 20, 20));
 
         jLabel14.setBackground(new java.awt.Color(128, 0, 255));
         jLabel14.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
@@ -454,7 +481,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
                 jLabel14MousePressed(evt);
             }
         });
-        jPanel2.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 30, 15, 15));
+        jPanel2.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 30, 15, 15));
 
         jLabel16.setBackground(new java.awt.Color(0, 0, 255));
         jLabel16.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
@@ -464,7 +491,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
                 jLabel16MousePressed(evt);
             }
         });
-        jPanel2.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 30, 15, 15));
+        jPanel2.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 30, 15, 15));
 
         jLabel17.setBackground(new java.awt.Color(128, 255, 255));
         jLabel17.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
@@ -474,7 +501,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
                 jLabel17MousePressed(evt);
             }
         });
-        jPanel2.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 50, 15, 15));
+        jPanel2.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 50, 15, 15));
 
         jLabel18.setBackground(new java.awt.Color(0, 255, 0));
         jLabel18.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
@@ -484,7 +511,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
                 jLabel18MousePressed(evt);
             }
         });
-        jPanel2.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 50, 15, 15));
+        jPanel2.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 50, 15, 15));
 
         jLabel19.setBackground(new java.awt.Color(128, 128, 255));
         jLabel19.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
@@ -494,16 +521,16 @@ public class VentanaDibujo extends javax.swing.JFrame {
                 jLabel19MousePressed(evt);
             }
         });
-        jPanel2.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 50, 15, 15));
+        jPanel2.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 50, 15, 15));
 
         jLabel20.setBackground(new java.awt.Color(0, 255, 255));
         jLabel20.setOpaque(true);
-        jPanel2.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 42, 15, 15));
+        jPanel2.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 44, 15, 15));
 
         jLabel21.setBackground(new java.awt.Color(255, 255, 255));
         jLabel21.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jLabel21.setOpaque(true);
-        jPanel2.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 20, 20));
+        jPanel2.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 42, 20, 20));
 
         jLabel22.setBackground(new java.awt.Color(128, 64, 0));
         jLabel22.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
@@ -513,7 +540,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
                 jLabel22MousePressed(evt);
             }
         });
-        jPanel2.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 30, 15, 15));
+        jPanel2.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 30, 15, 15));
 
         jLabel24.setBackground(new java.awt.Color(255, 128, 64));
         jLabel24.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
@@ -523,7 +550,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
                 jLabel24MousePressed(evt);
             }
         });
-        jPanel2.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 50, 15, 15));
+        jPanel2.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 50, 15, 15));
 
         jLabel23.setBackground(new java.awt.Color(0, 255, 255));
         jLabel23.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
@@ -533,9 +560,64 @@ public class VentanaDibujo extends javax.swing.JFrame {
                 jLabel23MousePressed(evt);
             }
         });
-        jPanel2.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 50, 15, 15));
+        jPanel2.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 50, 15, 15));
+
+        jLabel27.setBackground(new java.awt.Color(245, 245, 245));
+        jLabel27.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jLabel27.setOpaque(true);
+        jPanel2.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(3, 24, 46, 46));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 490, 900, 90));
+
+        jPanel3.setBackground(new java.awt.Color(233, 234, 234));
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel28.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenesPropiedades/linea2.png"))); // NOI18N
+        jLabel28.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel28MousePressed(evt);
+            }
+        });
+        jPanel3.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, 25, 36, 10));
+
+        jLabel29.setIcon(linea1Marcada);
+        jLabel29.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel29MousePressed(evt);
+            }
+        });
+        jPanel3.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, 10, 36, 10));
+
+        jLabel30.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenesPropiedades/linea3.png"))); // NOI18N
+        jLabel30.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel30MousePressed(evt);
+            }
+        });
+        jPanel3.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, 40, 36, 10));
+
+        jLabel31.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenesPropiedades/linea4.png"))); // NOI18N
+        jLabel31.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel31MousePressed(evt);
+            }
+        });
+        jPanel3.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, 55, 36, 10));
+
+        jLabel32.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenesPropiedades/linea5.png"))); // NOI18N
+        jLabel32.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel32MousePressed(evt);
+            }
+        });
+        jPanel3.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, 70, 36, 10));
+
+        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 204, 40, 90));
+
+        jLabel15.setBackground(new java.awt.Color(233, 234, 234));
+        jLabel15.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jLabel15.setOpaque(true);
+        getContentPane().add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(7, 200, 50, 100));
 
         jMenu1.setText("Creación de Formas");
 
@@ -639,6 +721,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jPanel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MousePressed
+      
         posX = evt.getX();
         posY = evt.getY();
         switch (form) {
@@ -661,8 +744,12 @@ public class VentanaDibujo extends javax.swing.JFrame {
                 listaFormas.add(new Estrella(evt.getX(), evt.getY(), 1, colorElegido, true));
                 break;
             case 6:
-                    listaFormas.add(new Linea(evt.getX(), evt.getY(), 0, colorElegido, true));
+                 listaFormas.add(new Linea(evt.getX(), evt.getX(), 1, colorElegido, false));
+                 
                     break;
+                   
+
+                    
         }
         repaint();
 
@@ -694,11 +781,12 @@ public class VentanaDibujo extends javax.swing.JFrame {
 
     private void jButton7MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton7MousePressed
         colorElegido = jColorChooser1.getColor();
-        jLabel26.setBackground(colorElegido);
+        jLabel25.setBackground(colorElegido);
         jDialog1.setVisible(false);
     }//GEN-LAST:event_jButton7MousePressed
 
     private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
+        Graphics2D g2 = (Graphics2D) buffer.getGraphics();
         int distance = jSlider1.getValue();
         if (chequeaPunto(evt.getX(), evt.getY())) {
 
@@ -724,6 +812,10 @@ public class VentanaDibujo extends javax.swing.JFrame {
                 case 5:
 
                     listaFormas.add(new Estrella(evt.getX(), evt.getY(), distance, colorElegido, true));
+                    break;
+                case 6:
+
+                    listaFormas.add(new Linea(evt.getX(), evt.getY(), distance, colorElegido, true));
                     break;
                 
             }
@@ -788,7 +880,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
                 
             case 6:
                 Linea aux6 = (Linea) listaFormas.get(listaFormas.size() - 1);
-                aux6.arrastraLinea(evt.getX(), evt.getY(), posX, posY);
+                aux6.arrastraLinea(evt.getX(),evt.getY(), posX, posY);            
 
                 break;
 
@@ -932,6 +1024,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
     private void jLabel7MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MousePressed
         JLabel miLabel = (JLabel) evt.getComponent();
         atajoColor(miLabel, evt);
+        
     }//GEN-LAST:event_jLabel7MousePressed
 
     private void jLabel9MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MousePressed
@@ -966,19 +1059,71 @@ public class VentanaDibujo extends javax.swing.JFrame {
 
     private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
         form = 6;
+        jPanel3.setVisible(true);
     }//GEN-LAST:event_jMenuItem10ActionPerformed
+
+    private void jLabel29MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel29MousePressed
+        reseteaImagesLinea();
+        jLabel29.setIcon(linea1Marcada); 
+        lineaGrosor = 1;
+    }//GEN-LAST:event_jLabel29MousePressed
+
+    private void jLabel28MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel28MousePressed
+         reseteaImagesLinea();
+        jLabel28.setIcon(linea2Marcada); 
+        lineaGrosor = 2;
+    }//GEN-LAST:event_jLabel28MousePressed
+
+    private void jLabel30MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel30MousePressed
+         reseteaImagesLinea();
+        jLabel30.setIcon(linea3Marcada); 
+        lineaGrosor = 3;
+    }//GEN-LAST:event_jLabel30MousePressed
+
+    private void jLabel31MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel31MousePressed
+        reseteaImagesLinea();       
+        jLabel31.setIcon(linea4Marcada); 
+        lineaGrosor = 4;
+    }//GEN-LAST:event_jLabel31MousePressed
+
+    private void jLabel32MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel32MousePressed
+         reseteaImagesLinea();
+        jLabel32.setIcon(linea5Marcada); 
+        lineaGrosor = 5;
+    }//GEN-LAST:event_jLabel32MousePressed
+    
+    private void reseteaImagesLinea(){
+        if(jLabel29.getIcon()== linea1Marcada){
+            jLabel29.setIcon(linea1);
+        } else if(jLabel28.getIcon()== linea2Marcada) {
+            jLabel28.setIcon(linea2);
+        }else if(jLabel30.getIcon()== linea3Marcada) {
+            jLabel30.setIcon(linea3);
+        }else if(jLabel31.getIcon()== linea4Marcada) {
+            jLabel31.setIcon(linea4);
+        }else if(jLabel32.getIcon()== linea5Marcada) {
+            jLabel32.setIcon(linea5);
+        }
+    }
     
     private void atajoColor(JLabel color,MouseEvent evt){
         
         if(evt.getButton()==evt.BUTTON1){
         colorElegido = color.getBackground();
-            this.setBackground(colorElegido);
+//            this.setBackground(colorElegido);
              jLabel25.setBackground(colorElegido);
         } else if(evt.getButton()==evt.BUTTON3) {         
         colorElegido = color.getBackground();
                 jLabel20.setBackground(colorElegido);
         
         }
+        
+       //Código para que no se superponga el jLbael inferior del color que tengo seleccionado al cambiar su color
+       //la clave esta en el this. aunque no se porque 
+        Color colorRefresh = jLabel25.getBackground();
+
+         this.setBackground(colorElegido);   
+        jLabel25.setBackground(colorRefresh);
     }
     /**
      * @param args the command line arguments
@@ -1031,6 +1176,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
@@ -1043,7 +1189,13 @@ public class VentanaDibujo extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -1065,6 +1217,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JSlider jSlider1;
     private javax.swing.ButtonGroup proporcionalidad;
     private javax.swing.JRadioButton regular;
