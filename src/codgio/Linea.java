@@ -33,9 +33,12 @@ public class Linea extends Line2D.Double {
     
         public Color color = null;
         public boolean relleno = true;
+        int grosorLinea;
         
         
-        public Linea(int _x, int _y, int _width, Color _color, boolean _relleno){
+        public Linea(int _x, int _y, int _width, Color _color, boolean _relleno, int _grosorLinea){
+            
+           
             this.x1 =  _x;
             this.y1 = _y;
             
@@ -45,6 +48,7 @@ public class Linea extends Line2D.Double {
             
             this.color = _color ;
             this.relleno = _relleno;
+            this.grosorLinea = _grosorLinea;
             
             
             
@@ -56,8 +60,9 @@ public class Linea extends Line2D.Double {
              if (this.relleno) {
             g2.fill(this);
         } else {
-                
+            g2.setStroke((new BasicStroke(grosorLinea))); 
             g2.draw(this);
+            
 
                  }
              }

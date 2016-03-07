@@ -721,7 +721,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jPanel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MousePressed
-      
+        chequeaColorUtilizado(evt);
         posX = evt.getX();
         posY = evt.getY();
         switch (form) {
@@ -744,7 +744,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
                 listaFormas.add(new Estrella(evt.getX(), evt.getY(), 1, colorElegido, true));
                 break;
             case 6:
-                 listaFormas.add(new Linea(evt.getX(), evt.getX(), 1, colorElegido, false));
+                 listaFormas.add(new Linea(evt.getX(), evt.getX(), 1, colorElegido, false, lineaGrosor));
                  
                     break;
                    
@@ -815,7 +815,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
                     break;
                 case 6:
 
-                    listaFormas.add(new Linea(evt.getX(), evt.getY(), distance, colorElegido, true));
+                    listaFormas.add(new Linea(evt.getX(), evt.getY(), distance, colorElegido, true, lineaGrosor));
                     break;
                 
             }
@@ -880,8 +880,8 @@ public class VentanaDibujo extends javax.swing.JFrame {
                 
             case 6:
                 Linea aux6 = (Linea) listaFormas.get(listaFormas.size() - 1);
-                aux6.arrastraLinea(evt.getX(),evt.getY(), posX, posY);            
-
+                aux6.arrastraLinea(evt.getX(),evt.getY(), posX, posY);
+             
                 break;
 
         }
@@ -1078,21 +1078,32 @@ public class VentanaDibujo extends javax.swing.JFrame {
     private void jLabel30MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel30MousePressed
          reseteaImagesLinea();
         jLabel30.setIcon(linea3Marcada); 
-        lineaGrosor = 3;
+        lineaGrosor = 4;
     }//GEN-LAST:event_jLabel30MousePressed
 
     private void jLabel31MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel31MousePressed
         reseteaImagesLinea();       
         jLabel31.setIcon(linea4Marcada); 
-        lineaGrosor = 4;
+        lineaGrosor = 6;
     }//GEN-LAST:event_jLabel31MousePressed
 
     private void jLabel32MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel32MousePressed
          reseteaImagesLinea();
         jLabel32.setIcon(linea5Marcada); 
-        lineaGrosor = 5;
+        lineaGrosor = 9;
     }//GEN-LAST:event_jLabel32MousePressed
     
+    //Metodo para antes de pintar algo comprobar si se esta haciendo con click derecho o izquierdo 
+    //y dependiendo de cual usar un color u otro
+    private void chequeaColorUtilizado(MouseEvent evt){
+        if(evt.getButton()==evt.BUTTON1){
+        colorElegido = jLabel25.getBackground();       
+        } else if(evt.getButton()==evt.BUTTON3) {         
+        colorElegido = jLabel20.getBackground();
+                
+        
+        }
+    }
     private void reseteaImagesLinea(){
         if(jLabel29.getIcon()== linea1Marcada){
             jLabel29.setIcon(linea1);
