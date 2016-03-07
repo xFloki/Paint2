@@ -69,6 +69,8 @@ public class VentanaDibujo extends javax.swing.JFrame {
     
     boolean cuadradoRelleno;
     boolean bordeado;
+    boolean seleccionaColor;
+    boolean menuPresionado;
     
     //Imagenes Menu de Propiedades de la Linea
     ImageIcon linea1 = new ImageIcon(getClass().getResource("/imagenesPropiedades/linea1.png" ));
@@ -89,6 +91,18 @@ public class VentanaDibujo extends javax.swing.JFrame {
     ImageIcon rect2Marcado = new ImageIcon(getClass().getResource("/imagenesPropiedades/rect2Marcado.png" ));
     ImageIcon rect3 = new ImageIcon(getClass().getResource("/imagenesPropiedades/rect3.png" ));
     ImageIcon rect3Marcado = new ImageIcon(getClass().getResource("/imagenesPropiedades/rect3Marcado.png" ));
+    
+    //Imagenes Menu de selecciones
+    ImageIcon cuadrado1 = new ImageIcon(getClass().getResource("/imagenesMenu/cuadrado1.png" ));
+    ImageIcon cuadradoMarcado = new ImageIcon(getClass().getResource("/imagenesMenu/cuadrado1Marcado.png" ));
+    ImageIcon cuadradoHighlight = new ImageIcon(getClass().getResource("/imagenesMenu/cuadradoSobre.png" ));
+//    ImageIcon linea2Marcada = new ImageIcon(getClass().getResource("/imagenesPropiedades/linea2Marcada.png" ));
+//    ImageIcon linea3 = new ImageIcon(getClass().getResource("/imagenesPropiedades/linea3.png" ));
+//    ImageIcon linea3Marcada = new ImageIcon(getClass().getResource("/imagenesPropiedades/linea3Marcada.png" ));
+//    ImageIcon linea4 = new ImageIcon(getClass().getResource("/imagenesPropiedades/linea4.png" ));
+//    ImageIcon linea4Marcada = new ImageIcon(getClass().getResource("/imagenesPropiedades/linea4Marcada.png" ));
+//    ImageIcon linea5 = new ImageIcon(getClass().getResource("/imagenesPropiedades/linea5.png" ));
+//    ImageIcon linea5Marcada = new ImageIcon(getClass().getResource("/imagenesPropiedades/linea5Marcada.png" ));
   
 
     /**
@@ -253,6 +267,13 @@ public class VentanaDibujo extends javax.swing.JFrame {
         jLabel31 = new javax.swing.JLabel();
         jLabel32 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
+        jLabel34 = new javax.swing.JLabel();
+        jLabel36 = new javax.swing.JLabel();
+        jLabel38 = new javax.swing.JLabel();
+        jLabel39 = new javax.swing.JLabel();
+        jLabel40 = new javax.swing.JLabel();
+        jLabel41 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -668,6 +689,74 @@ public class VentanaDibujo extends javax.swing.JFrame {
         jLabel15.setOpaque(true);
         getContentPane().add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(7, 200, 50, 100));
 
+        jButton2.setText("jButton2");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, 40, -1));
+
+        jLabel34.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel34.setIcon(cuadrado1
+        );
+        jLabel34.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                jLabel34MouseMoved(evt);
+            }
+        });
+        jLabel34.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel34MousePressed(evt);
+            }
+        });
+        getContentPane().add(jLabel34, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 25, 25));
+
+        jLabel36.setBackground(new java.awt.Color(255, 51, 153));
+        jLabel36.setOpaque(true);
+        jLabel36.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel36MousePressed(evt);
+            }
+        });
+        getContentPane().add(jLabel36, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 15, 15));
+
+        jLabel38.setBackground(new java.awt.Color(255, 51, 153));
+        jLabel38.setOpaque(true);
+        jLabel38.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel38MousePressed(evt);
+            }
+        });
+        getContentPane().add(jLabel38, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 15, 15));
+
+        jLabel39.setBackground(new java.awt.Color(255, 51, 153));
+        jLabel39.setOpaque(true);
+        jLabel39.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel39MousePressed(evt);
+            }
+        });
+        getContentPane().add(jLabel39, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 15, 15));
+
+        jLabel40.setBackground(new java.awt.Color(255, 51, 153));
+        jLabel40.setOpaque(true);
+        jLabel40.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel40MousePressed(evt);
+            }
+        });
+        getContentPane().add(jLabel40, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 15, 15));
+
+        jLabel41.setBackground(new java.awt.Color(255, 51, 153));
+        jLabel41.setOpaque(true);
+        jLabel41.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel41MousePressed(evt);
+            }
+        });
+        getContentPane().add(jLabel41, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 15, 15));
+
         jMenu1.setText("Creación de Formas");
 
         jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/circulo.png"))); // NOI18N
@@ -770,6 +859,10 @@ public class VentanaDibujo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jPanel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MousePressed
+       if(seleccionaColor){
+           
+       } else {
+        
         chequeaColorUtilizado(evt);
         posX = evt.getX();
         posY = evt.getY();
@@ -801,6 +894,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
                     
         }
         repaint();
+       }
 
 
     }//GEN-LAST:event_jPanel1MousePressed
@@ -968,6 +1062,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
         form = 5;
     }//GEN-LAST:event_jMenuItem9ActionPerformed
 
+    
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
 
         jFileChooser1.setFileFilter(new FileNameExtensionFilter("Archivos de imagen jpg", "jpg"));
@@ -1166,6 +1261,53 @@ public class VentanaDibujo extends javax.swing.JFrame {
         cuadradoRelleno = true;
         bordeado = false;
     }//GEN-LAST:event_jLabel37MousePressed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+       seleccionaColor = true;
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jLabel34MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel34MousePressed
+        
+        jLabel34.setIcon(cuadradoMarcado);
+    }//GEN-LAST:event_jLabel34MousePressed
+
+    private void jLabel36MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel36MousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel36MousePressed
+
+    private void jLabel38MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel38MousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel38MousePressed
+
+    private void jLabel39MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel39MousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel39MousePressed
+
+    private void jLabel40MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel40MousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel40MousePressed
+
+    private void jLabel41MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel41MousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel41MousePressed
+
+    private void jLabel34MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel34MouseMoved
+       chequeaMenuMarcado(cuadradoMarcado,cuadradoHighlight,evt);
+    }//GEN-LAST:event_jLabel34MouseMoved
+    
+    private void chequeaMenuMarcado(ImageIcon i, ImageIcon marcado, MouseEvent evt){
+        JLabel miLabel = (JLabel) evt.getComponent();
+        if(miLabel.getIcon() != i){
+        miLabel.setIcon(marcado);
+        }
+    }
+    //Pasado un evento del raton nos dice que color se encuentra en el pixel donde se está produciendo la acción con el ratón    
+    private void copiaColor(MouseEvent evt){
+        int srcPixel = buffer.getRGB(evt.getX(), evt.getY());
+           Color copiaColor = new Color(srcPixel);
+           jLabel25.setBackground(copiaColor);
+           seleccionaColor = false;
+    }
     
     //Metodo para antes de pintar algo comprobar si se esta haciendo con click derecho o izquierdo 
     //y dependiendo de cual usar un color u otro
@@ -1260,6 +1402,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JRadioButton irregular;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
@@ -1294,9 +1437,15 @@ public class VentanaDibujo extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
+    private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
+    private javax.swing.JLabel jLabel38;
+    private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel40;
+    private javax.swing.JLabel jLabel41;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
