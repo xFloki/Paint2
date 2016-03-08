@@ -1009,7 +1009,7 @@
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="cuadrado1&#xd;&#xa;        " type="code"/>
+          <Connection code="cuadradoMarcado&#xd;&#xa;        " type="code"/>
         </Property>
       </Properties>
       <Events>

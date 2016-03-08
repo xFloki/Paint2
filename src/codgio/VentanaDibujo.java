@@ -55,7 +55,9 @@ public class VentanaDibujo extends javax.swing.JFrame {
     //Si vale 3 ==> dibujo rombo
     //Si vale 4 ==> dibujo cruz
     //Si vale 5 ==> dibujo una estrella de 5 puntas
-    int form = 3;
+    //Si vale 6 ==> dibujo una linea
+    //Si vale 7 ==> dibuja un poligon de entra 5 y 100 lados.
+    int form = 2;
  
     int lineaGrosor;
 
@@ -139,7 +141,6 @@ public class VentanaDibujo extends javax.swing.JFrame {
         proporcionalidad.add(irregular);
         proporcionalidad.add(regular);
         jPanel3.setVisible(false);
-        jPanel4.setVisible(false);
         colorSecundario = jLabel20.getBackground();
         //añadimos unas prioridades para que las labels de los colores seleccionados no se superpongan
         
@@ -207,6 +208,9 @@ public class VentanaDibujo extends javax.swing.JFrame {
             }
             if (listaFormas.get(i) instanceof Linea) {
                 ((Linea) listaFormas.get(i)).pintaYColorea(g2);             
+            }
+            if (listaFormas.get(i) instanceof Poligonos) {
+                ((Poligonos) listaFormas.get(i)).pintaYColorea(g2);             
             }
 
             //Leo el color del circulo  
@@ -710,7 +714,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
         getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, 40, -1));
 
         jLabel34.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel34.setIcon(cuadrado1
+        jLabel34.setIcon(cuadradoMarcado
         );
         jLabel34.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -941,6 +945,10 @@ public class VentanaDibujo extends javax.swing.JFrame {
                  listaFormas.add(new Linea(evt.getX(), evt.getX(), 1, colorElegido, false, lineaGrosor));
                  
                     break;
+            case 7:
+                 listaFormas.add(new Poligonos(evt.getX(), evt.getX(), 1, colorElegido, false, 8));
+                 
+                    break;
                    
 
                     
@@ -1012,6 +1020,10 @@ public class VentanaDibujo extends javax.swing.JFrame {
 
                     listaFormas.add(new Linea(evt.getX(), evt.getY(), distance, colorElegido, true, lineaGrosor));
                     break;
+                case 7:
+
+                    listaFormas.add(new Poligonos(evt.getX(), evt.getY(), distance, colorElegido, true, 8));
+                    break;
                 
             }
             repaint();
@@ -1078,6 +1090,13 @@ public class VentanaDibujo extends javax.swing.JFrame {
                 aux6.arrastraLinea(evt.getX(),evt.getY(), posX, posY);
              
                 break;
+                
+            case 7:
+                Poligonos aux7 = (Poligonos) listaFormas.get(listaFormas.size() - 1);
+                aux7.arrastraPoligonos(evt.getX(), posX, posY, 8);
+             
+                break;    
+                
 
         }
         repaint();
@@ -1333,6 +1352,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
         reseteaMenu();
         JLabel miLabel = (JLabel) evt.getComponent();
           miLabel.setIcon(poligonoMarcado);
+          form = 7;
     }//GEN-LAST:event_jLabel36MousePressed
 
     private void jLabel38MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel38MousePressed
