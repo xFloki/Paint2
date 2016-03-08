@@ -96,13 +96,22 @@ public class VentanaDibujo extends javax.swing.JFrame {
     ImageIcon cuadrado1 = new ImageIcon(getClass().getResource("/imagenesMenu/cuadrado1.png" ));
     ImageIcon cuadradoMarcado = new ImageIcon(getClass().getResource("/imagenesMenu/cuadrado1Marcado.png" ));
     ImageIcon cuadradoHighlight = new ImageIcon(getClass().getResource("/imagenesMenu/cuadradoSobre.png" ));
-//    ImageIcon linea2Marcada = new ImageIcon(getClass().getResource("/imagenesPropiedades/linea2Marcada.png" ));
-//    ImageIcon linea3 = new ImageIcon(getClass().getResource("/imagenesPropiedades/linea3.png" ));
-//    ImageIcon linea3Marcada = new ImageIcon(getClass().getResource("/imagenesPropiedades/linea3Marcada.png" ));
-//    ImageIcon linea4 = new ImageIcon(getClass().getResource("/imagenesPropiedades/linea4.png" ));
-//    ImageIcon linea4Marcada = new ImageIcon(getClass().getResource("/imagenesPropiedades/linea4Marcada.png" ));
-//    ImageIcon linea5 = new ImageIcon(getClass().getResource("/imagenesPropiedades/linea5.png" ));
-//    ImageIcon linea5Marcada = new ImageIcon(getClass().getResource("/imagenesPropiedades/linea5Marcada.png" ));
+    ImageIcon circulo = new ImageIcon(getClass().getResource("/imagenesMenu/circulo.png" ));
+    ImageIcon circuloMarcado = new ImageIcon(getClass().getResource("/imagenesMenu/circuloMarcado.png" ));
+    ImageIcon circuloHighlight = new ImageIcon(getClass().getResource("/imagenesMenu/circuloSobre.png" ));
+    ImageIcon linea = new ImageIcon(getClass().getResource("/imagenesMenu/linea.png" ));
+    ImageIcon lineaMarcado = new ImageIcon(getClass().getResource("/imagenesMenu/lineaMarcado.png" ));
+    ImageIcon lineaHighlight = new ImageIcon(getClass().getResource("/imagenesMenu/lineaSobre.png" ));
+    ImageIcon goteo = new ImageIcon(getClass().getResource("/imagenesMenu/goteo.png" ));
+    ImageIcon goteoMarcado = new ImageIcon(getClass().getResource("/imagenesMenu/goteroMarcado.png" ));
+    ImageIcon goteoHighlight = new ImageIcon(getClass().getResource("/imagenesMenu/goteroSobre.png" ));
+    ImageIcon lapiz = new ImageIcon(getClass().getResource("/imagenesMenu/lapiz.png" ));
+    ImageIcon lapizMarcado = new ImageIcon(getClass().getResource("/imagenesMenu/lapizMarcado.png" ));
+    ImageIcon lapizHighlight = new ImageIcon(getClass().getResource("/imagenesMenu/lapizSobre.png" ));
+    ImageIcon poligono = new ImageIcon(getClass().getResource("/imagenesMenu/poligono.png" ));
+    ImageIcon poligonoMarcado = new ImageIcon(getClass().getResource("/imagenesMenu/poligonoMarcado.png" ));
+    ImageIcon poligonoHighlight = new ImageIcon(getClass().getResource("/imagenesMenu/poligonoSobre.png" ));
+
   
 
     /**
@@ -114,6 +123,8 @@ public class VentanaDibujo extends javax.swing.JFrame {
 //	this.setIconImage(icon);
       
         initComponents();
+        this.getContentPane().setBackground(jLabel15.getBackground());
+        jPanel2.setBackground(jLabel15.getBackground());
         setLocationRelativeTo(null);
         jLabel20.setBackground(colorElegido);
         this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/imagenes/logo.png")));
@@ -274,6 +285,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
         jLabel39 = new javax.swing.JLabel();
         jLabel40 = new javax.swing.JLabel();
         jLabel41 = new javax.swing.JLabel();
+        jToggleButton1 = new javax.swing.JToggleButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -700,62 +712,102 @@ public class VentanaDibujo extends javax.swing.JFrame {
         jLabel34.setBackground(new java.awt.Color(255, 255, 255));
         jLabel34.setIcon(cuadrado1
         );
-        jLabel34.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseMoved(java.awt.event.MouseEvent evt) {
-                jLabel34MouseMoved(evt);
-            }
-        });
         jLabel34.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel34MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel34MouseExited(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jLabel34MousePressed(evt);
             }
         });
-        getContentPane().add(jLabel34, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 25, 25));
+        getContentPane().add(jLabel34, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 160, 25, 25));
 
         jLabel36.setBackground(new java.awt.Color(255, 51, 153));
+        jLabel36.setIcon(poligono);
         jLabel36.setOpaque(true);
         jLabel36.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel36MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel36MouseExited(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jLabel36MousePressed(evt);
             }
         });
-        getContentPane().add(jLabel36, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 15, 15));
+        getContentPane().add(jLabel36, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 105, 25, 25));
 
         jLabel38.setBackground(new java.awt.Color(255, 51, 153));
+        jLabel38.setIcon(lapiz    );
         jLabel38.setOpaque(true);
         jLabel38.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel38MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel38MouseExited(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jLabel38MousePressed(evt);
             }
         });
-        getContentPane().add(jLabel38, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 15, 15));
+        getContentPane().add(jLabel38, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 105, 25, 25));
 
-        jLabel39.setBackground(new java.awt.Color(255, 51, 153));
+        jLabel39.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel39.setIcon(goteo
+        );
         jLabel39.setOpaque(true);
         jLabel39.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel39MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel39MouseExited(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jLabel39MousePressed(evt);
             }
         });
-        getContentPane().add(jLabel39, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 15, 15));
+        getContentPane().add(jLabel39, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 133, 25, 25));
 
-        jLabel40.setBackground(new java.awt.Color(255, 51, 153));
+        jLabel40.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel40.setIcon(linea
+        );
         jLabel40.setOpaque(true);
         jLabel40.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel40MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel40MouseExited(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jLabel40MousePressed(evt);
             }
         });
-        getContentPane().add(jLabel40, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 15, 15));
+        getContentPane().add(jLabel40, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 133, 25, 25));
 
-        jLabel41.setBackground(new java.awt.Color(255, 51, 153));
-        jLabel41.setOpaque(true);
+        jLabel41.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel41.setIcon(circulo);
         jLabel41.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel41MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel41MouseExited(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jLabel41MousePressed(evt);
             }
         });
-        getContentPane().add(jLabel41, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 15, 15));
+        getContentPane().add(jLabel41, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 25, 25));
+
+        jToggleButton1.setText("jToggleButton1");
+        getContentPane().add(jToggleButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 360, 40, -1));
 
         jMenu1.setText("Creación de Formas");
 
@@ -1267,36 +1319,120 @@ public class VentanaDibujo extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jLabel34MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel34MousePressed
-        
-        jLabel34.setIcon(cuadradoMarcado);
+        reseteaMenu();    
+        JLabel miLabel = (JLabel) evt.getComponent();
+        miLabel.setIcon(cuadradoMarcado);
+
+        form = 2;
+        jPanel3.setVisible(false);
+        jPanel4.setVisible(true); 
+        repaint();
     }//GEN-LAST:event_jLabel34MousePressed
 
     private void jLabel36MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel36MousePressed
-        // TODO add your handling code here:
+        reseteaMenu();
+        JLabel miLabel = (JLabel) evt.getComponent();
+          miLabel.setIcon(poligonoMarcado);
     }//GEN-LAST:event_jLabel36MousePressed
 
     private void jLabel38MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel38MousePressed
-        // TODO add your handling code here:
+        reseteaMenu();
+        JLabel miLabel = (JLabel) evt.getComponent();
+          miLabel.setIcon(lapizMarcado);
     }//GEN-LAST:event_jLabel38MousePressed
 
     private void jLabel39MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel39MousePressed
-        // TODO add your handling code here:
+        reseteaMenu();
+        JLabel miLabel = (JLabel) evt.getComponent();
+          miLabel.setIcon(goteoMarcado);
     }//GEN-LAST:event_jLabel39MousePressed
 
     private void jLabel40MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel40MousePressed
-        // TODO add your handling code here:
+        reseteaMenu();
+        JLabel miLabel = (JLabel) evt.getComponent();
+          miLabel.setIcon(lineaMarcado);
+           form = 6;
+        jPanel4.setVisible(false);
+        jPanel3.setVisible(true);
+        repaint();
     }//GEN-LAST:event_jLabel40MousePressed
 
     private void jLabel41MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel41MousePressed
-        // TODO add your handling code here:
+       reseteaMenu();
+        JLabel miLabel = (JLabel) evt.getComponent();
+          miLabel.setIcon(circuloMarcado);
+          form = 0;
+        jPanel3.setVisible(false);
+        jPanel4.setVisible(true); 
+        repaint();
     }//GEN-LAST:event_jLabel41MousePressed
 
-    private void jLabel34MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel34MouseMoved
+    private void jLabel34MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel34MouseEntered
        chequeaMenuMarcado(cuadradoMarcado,cuadradoHighlight,evt);
-    }//GEN-LAST:event_jLabel34MouseMoved
+    }//GEN-LAST:event_jLabel34MouseEntered
+
+    private void jLabel34MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel34MouseExited
+        chequeaMenuMarcado(cuadradoMarcado,cuadrado1,evt);
+    }//GEN-LAST:event_jLabel34MouseExited
+
+    private void jLabel41MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel41MouseEntered
+       chequeaMenuMarcado(circuloMarcado,circuloHighlight,evt);
+    }//GEN-LAST:event_jLabel41MouseEntered
+
+    private void jLabel41MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel41MouseExited
+      chequeaMenuMarcado(circuloMarcado,circulo,evt);
+    }//GEN-LAST:event_jLabel41MouseExited
+
+    private void jLabel40MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel40MouseEntered
+        chequeaMenuMarcado(lineaMarcado,lineaHighlight,evt);
+    }//GEN-LAST:event_jLabel40MouseEntered
+
+    private void jLabel40MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel40MouseExited
+        chequeaMenuMarcado(lineaMarcado,linea,evt);
+    }//GEN-LAST:event_jLabel40MouseExited
+
+    private void jLabel39MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel39MouseEntered
+        chequeaMenuMarcado(goteoMarcado,goteoHighlight,evt);
+    }//GEN-LAST:event_jLabel39MouseEntered
+
+    private void jLabel39MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel39MouseExited
+        chequeaMenuMarcado(goteoMarcado,goteo,evt);
+    }//GEN-LAST:event_jLabel39MouseExited
+
+    private void jLabel38MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel38MouseEntered
+        chequeaMenuMarcado(lapizMarcado,lapizHighlight,evt);
+    }//GEN-LAST:event_jLabel38MouseEntered
+
+    private void jLabel38MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel38MouseExited
+        chequeaMenuMarcado(lapizMarcado,lapiz,evt);
+    }//GEN-LAST:event_jLabel38MouseExited
+
+    private void jLabel36MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel36MouseEntered
+       chequeaMenuMarcado(poligonoMarcado,poligonoHighlight,evt);
+    }//GEN-LAST:event_jLabel36MouseEntered
+
+    private void jLabel36MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel36MouseExited
+       chequeaMenuMarcado(poligonoMarcado,poligono,evt);
+    }//GEN-LAST:event_jLabel36MouseExited
+    
+    private void reseteaMenu(){
+          if(jLabel36.getIcon() == poligonoMarcado){
+              jLabel36.setIcon(poligono);
+          } else if (jLabel38.getIcon() == lapizMarcado){
+              jLabel38.setIcon(lapiz);
+          } else if (jLabel39.getIcon() == goteoMarcado){
+              jLabel39.setIcon(goteo);
+          } else if (jLabel40.getIcon() == lineaMarcado){
+              jLabel40.setIcon(linea);
+          } else if (jLabel41.getIcon() == circuloMarcado){
+              jLabel41.setIcon(circulo);
+          } else if (jLabel34.getIcon() == cuadradoMarcado){
+              jLabel34.setIcon(cuadrado1);
+          }
+    }
     
     private void chequeaMenuMarcado(ImageIcon i, ImageIcon marcado, MouseEvent evt){
-        JLabel miLabel = (JLabel) evt.getComponent();
+       JLabel miLabel = (JLabel) evt.getComponent();
         if(miLabel.getIcon() != i){
         miLabel.setIcon(marcado);
         }
@@ -1469,6 +1605,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JSlider jSlider1;
+    private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.ButtonGroup proporcionalidad;
     private javax.swing.JRadioButton regular;
     // End of variables declaration//GEN-END:variables
