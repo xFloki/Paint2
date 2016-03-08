@@ -26,8 +26,11 @@ public class Poligonos extends Polygon {
     public Color color = null;
     public boolean relleno = false;
     int lados;
-
-    public Poligonos(int _x, int _y, int _width, Color _color, boolean _relleno, int _lados) {
+    int x;
+    int y;
+    int width;
+    
+    public Poligonos(int _x, int _y, int _width, Color _color,  boolean _relleno, int _lados) {
 //       PENTAGONO :  
         
         for (int i = 0; i < _lados; i++){             
@@ -35,7 +38,12 @@ public class Poligonos extends Polygon {
           (int) (_y + _width * Math.sin(i * 2 * Math.PI / _lados)));
             
             this.lados  = _lados;
+            this.x = _x;
+            this.y = _y;
+            this.width = _width;
         }
+        
+        
 //   Estrella coloreada parcialmente     
 
      
@@ -64,12 +72,18 @@ public class Poligonos extends Polygon {
     }
 
     public void pintaYColorea(Graphics2D g2) {
+       
         g2.setColor(this.color);
+        
         if (this.relleno) {
             g2.fill(this);
+            g2.setColor(Color.BLACK);
+            //Bordes del poligono
+            g2.drawPolygon(this);
         } else {
-            
+   
             g2.draw(this);
+           
             
         }
     }

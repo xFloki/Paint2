@@ -128,7 +128,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
         this.getContentPane().setBackground(jLabel15.getBackground());
         jPanel2.setBackground(jLabel15.getBackground());
         setLocationRelativeTo(null);
-        jLabel20.setBackground(colorElegido);
+        jLabel20.setBackground(Color.RED);
         this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/imagenes/logo.png")));
          this.setTitle("Paint Deluxe");
          this.setBackground(Color.getHSBColor(227, 228, 228));
@@ -142,7 +142,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
         proporcionalidad.add(regular);
         jPanel3.setVisible(false);
         colorSecundario = jLabel20.getBackground();
-        //añadimos unas prioridades para que las labels de los colores seleccionados no se superpongan
+        
         
         //Creo la parte modificable de la imagen(Hacemos que se pueda pintar en ellla)
         buffer.createGraphics();
@@ -946,7 +946,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
                  
                     break;
             case 7:
-                 listaFormas.add(new Poligonos(evt.getX(), evt.getX(), 1, colorElegido, false, 8));
+                 listaFormas.add(new Poligonos(evt.getX(), evt.getX(), 1, colorElegido, true, 8));
                  
                     break;
                    
@@ -1469,9 +1469,11 @@ public class VentanaDibujo extends javax.swing.JFrame {
     //y dependiendo de cual usar un color u otro
     private void chequeaColorUtilizado(MouseEvent evt){
         if(evt.getButton()==evt.BUTTON1){
-        colorElegido = jLabel25.getBackground();       
+        colorElegido = jLabel25.getBackground();   
+        colorSecundario = jLabel20.getBackground();
         } else if(evt.getButton()==evt.BUTTON3) {         
         colorElegido = jLabel20.getBackground();
+        colorSecundario = jLabel25.getBackground();   
                 
         
         }
