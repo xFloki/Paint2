@@ -56,25 +56,13 @@ public class Cuadrado extends Polygon {
             this.evt = _evt;
             
         }
-        
-//        private void chequeaClick(MouseEvent e){
-//            
-//            if(e.getButton()==evt.BUTTON3 ){               
-//                aux = colorBorde ;
-//                colorBorde = color;
-//                color = aux;
-//                
-//            }
-//        }
-        
+         
         
          public void pintaYColorea(Graphics2D g2) {
 ////             chequeaClick(evt);
             g2.setColor(this.color);
              if (this.relleno) {
-            g2.fill(this);
-            
-            
+            g2.fill(this);           
             if(bordeado){
                 g2.setColor(colorBorde);
             

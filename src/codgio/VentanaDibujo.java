@@ -187,6 +187,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
     public void paint(Graphics g) {
         super.paintComponents(g);
         Graphics2D g2 = (Graphics2D) buffer.getGraphics();
+//        Graphics2D g2 =  (Graphics2D)jPanel1.getGraphics();
         //Dibujo un cuadro blanco del tamaño del buffer
         g2.setColor(java.awt.Color.WHITE);
         g2.fillRect(0, 0, jPanel1.getWidth(), jPanel1.getHeight());
@@ -837,7 +838,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 360, -1, -1));
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 360, 30, -1));
 
         jMenu1.setText("Creación de Formas");
 
@@ -959,7 +960,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
 
                     
         }
-        repaint();
+        repaint(1);
        }
 
 
@@ -973,7 +974,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
         if (listaFormas.size() - 1 > -1) {
             listaFormas.remove(listaFormas.size() - 1);
 
-            repaint();
+            repaint(0,0,1,1);
         }
     }//GEN-LAST:event_jButton1MousePressed
 
@@ -1036,7 +1037,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
                     break;    
                 
             }
-            repaint();
+            repaint(0,0,1,1);
 
         }
 
@@ -1110,11 +1111,9 @@ public class VentanaDibujo extends javax.swing.JFrame {
                 Poligonos aux7 = (Poligonos) listaFormas.get(listaFormas.size() - 1);
                 aux7.arrastraPoligonos(evt.getX(), posX, posY, numeroLados);
              
-                break;    
-                
-
+                break;                   
         }
-        repaint();
+         repaint(0,0,1,1);
         }
     }//GEN-LAST:event_jPanel1MouseDragged
 
@@ -1127,7 +1126,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
         reseteaPropiedadesMenu();
         jPanel4.setVisible(true);
         form = 1;
-        repaint();
+        repaint(0,0,1,1);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
@@ -1135,7 +1134,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
         reseteaPropiedadesMenu();
         jPanel4.setVisible(true);
         form = 3;
-        repaint();
+        repaint(0,0,1,1);
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
@@ -1143,7 +1142,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
         reseteaPropiedadesMenu();
         jPanel4.setVisible(true);
         form = 4;
-        repaint();
+        repaint(0,0,1,1);
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
@@ -1151,7 +1150,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
         reseteaPropiedadesMenu();
         jPanel4.setVisible(true);
         form = 5;
-        repaint();
+        repaint(0,0,1,1);
     }//GEN-LAST:event_jMenuItem9ActionPerformed
 
     
@@ -1189,7 +1188,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
                 if (extension.equalsIgnoreCase("jpg") || extension.equalsIgnoreCase("png")) {
                     try {
                         buffer = ImageIO.read(fichero);
-                        repaint();
+                        repaint(0,0,1,1);
                     } catch (IOException ex) {
                         Logger.getLogger(VentanaDibujo.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -1202,7 +1201,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         listaFormas.removeAll(listaFormas);
 
-        repaint();
+        repaint(0,0,1,1);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jLabel3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MousePressed
@@ -1354,7 +1353,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
         form = 2;
         reseteaPropiedadesMenu();
         jPanel4.setVisible(true); 
-        repaint();
+        repaint(0,0,1,1);
     }//GEN-LAST:event_jLabel34MousePressed
 
     private void jLabel36MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel36MousePressed
@@ -1392,7 +1391,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
            form = 6;
         reseteaPropiedadesMenu();
         jPanel3.setVisible(true);
-        repaint();
+        repaint(0,0,1,1);
     }//GEN-LAST:event_jLabel40MousePressed
 
     private void jLabel41MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel41MousePressed
@@ -1403,7 +1402,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
         numeroLados = 360;
         reseteaPropiedadesMenu();
         jPanel4.setVisible(true); 
-        repaint();
+        repaint(0,0,1,1);
     }//GEN-LAST:event_jLabel41MousePressed
 
     private void jLabel34MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel34MouseEntered
