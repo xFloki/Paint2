@@ -28,8 +28,10 @@ public class Rombo extends Polygon {
     
         public Color color = null;
         public boolean relleno = false;
+         Color colorBorde;
+        boolean bordeado;
         
-        public Rombo(int _x, int _y, int _width, Color _color, boolean _relleno){
+        public Rombo(int _x, int _y, int _width, Color _color, Color _colorBorde, boolean _relleno, boolean _bordeado){
             this.npoints = 4;
             //Esquina superior
             this.xpoints[0] = _x;
@@ -52,6 +54,8 @@ public class Rombo extends Polygon {
             
             this.color = _color ;
             this.relleno = _relleno;
+            this.colorBorde = _colorBorde;
+            this.bordeado = _bordeado;
                     
                     
         }
@@ -61,6 +65,11 @@ public class Rombo extends Polygon {
             g2.setColor(this.color);
              if (this.relleno) {
             g2.fill(this);
+            if(bordeado){
+            g2.setColor(colorBorde);
+            //Bordes del poligono           
+            g2.drawPolygon(this);
+            }
         } else {
             g2.draw(this);
 

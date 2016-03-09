@@ -57,15 +57,15 @@ public class Cuadrado extends Polygon {
             
         }
         
-        private void chequeaClick(MouseEvent e){
-            
-            if(e.getButton()==evt.BUTTON3 ){               
-                aux = colorBorde ;
-                colorBorde = color;
-                color = aux;
-                
-            }
-        }
+//        private void chequeaClick(MouseEvent e){
+//            
+//            if(e.getButton()==evt.BUTTON3 ){               
+//                aux = colorBorde ;
+//                colorBorde = color;
+//                color = aux;
+//                
+//            }
+//        }
         
         
          public void pintaYColorea(Graphics2D g2) {
@@ -77,15 +77,9 @@ public class Cuadrado extends Polygon {
             
             if(bordeado){
                 g2.setColor(colorBorde);
-            //Bordes del rectangulo (tienen numeros magicos para que cuadre perfecto)
-        //Linea superior  
-      g2.drawLine(this.posX + 1 , this.posY, this.posX  + this.width - 1, this.posY);
-    //Linea inferior
-      g2.drawLine(this.posX, this.posY+ this.width - 1, this.posX - 2 + width,this.posY +this.width - 1);
-    //Linea Derecha
-      g2.drawLine(this.posX+ this.width- 1, this.posY + 1, this.posX + this.width - 1, this.posY -1 + this.width );
-    //Linea izquierda
-      g2.drawLine(this.posX,this.posY,this.posX,this.posY + this.width - 2);
+            
+            g2.drawPolygon(this);
+
             }
         } else {
             g2.draw(this);

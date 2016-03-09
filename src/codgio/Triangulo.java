@@ -20,8 +20,10 @@ public class Triangulo extends Polygon {
     
         public Color color = null;
         public boolean relleno = false;
+        Color colorBorde;
+        boolean bordeado;
         
-        public Triangulo(int _x, int _y, int _width, Color _color, boolean _relleno){
+        public Triangulo(int _x, int _y, int _width, Color _color, Color _colorBorde, boolean _relleno, boolean _bordeado){
             this.npoints = 3;
             this.xpoints[0] = _x;
             this.ypoints[0] = _y - _width/2;
@@ -34,6 +36,8 @@ public class Triangulo extends Polygon {
             
             this.color = _color ;
             this.relleno = _relleno;
+            this.colorBorde = _colorBorde;
+            this.bordeado = _bordeado;
                     
                     
         }
@@ -42,6 +46,12 @@ public class Triangulo extends Polygon {
             g2.setColor(this.color);
              if (this.relleno) {
             g2.fill(this);
+            if(bordeado){
+            g2.setColor(colorBorde);
+            //Bordes del poligono           
+            g2.drawPolygon(this);
+            }
+            
         } else {
             g2.draw(this);
 

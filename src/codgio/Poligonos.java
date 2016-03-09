@@ -11,6 +11,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
 
+
 /**
  *
  * @author Alejandro Dietta
@@ -29,8 +30,10 @@ public class Poligonos extends Polygon {
     int x;
     int y;
     int width;
+    Color colorBorde;
+    boolean bordeado;
     
-    public Poligonos(int _x, int _y, int _width, Color _color,  boolean _relleno, int _lados) {
+    public Poligonos(int _x, int _y, int _width, Color _color, Color _colorBorde,  boolean _relleno, int _lados, boolean _bordeado) {
 //       PENTAGONO :  
         
         for (int i = 0; i < _lados; i++){             
@@ -41,29 +44,13 @@ public class Poligonos extends Polygon {
             this.x = _x;
             this.y = _y;
             this.width = _width;
+            this.colorBorde = _colorBorde;
+            this.bordeado = _bordeado;
         }
         
         
 //   Estrella coloreada parcialmente     
 
-     
-                
-//       
-//        
-//        
-//      addPoint((int) (_x  + _width * Math.cos(0 * 2 * Math.PI / 5)),
-//          (int) (_y + _width * Math.sin(0 * 2 * Math.PI / 5)));
-//      addPoint((int) (_x  + _width * Math.cos(2 * 2 * Math.PI / 5)),
-//          (int) (_y + _width * Math.sin(2    * 2 * Math.PI / 5)));
-//      addPoint((int) (_x  + _width * Math.cos(4 * 2 * Math.PI / 5)),
-//          (int) (_y + _width * Math.sin(4 * 2 * Math.PI / 5)));
-//      addPoint((int) (_x  + _width * Math.cos(1 * 2 * Math.PI / 5)),
-//          (int) (_y + _width * Math.sin(1 * 2 * Math.PI / 5)));
-//      addPoint((int) (_x  + _width * Math.cos(3 * 2 * Math.PI / 5)),
-//          (int) (_y + _width * Math.sin(3 * 2 * Math.PI / 5)));
-      
-         
-        
 
         this.color = _color;
         this.relleno = _relleno;
@@ -77,9 +64,11 @@ public class Poligonos extends Polygon {
         
         if (this.relleno) {
             g2.fill(this);
-            g2.setColor(Color.BLACK);
-            //Bordes del poligono
+            if(bordeado){
+            g2.setColor(colorBorde);
+            //Bordes del poligono           
             g2.drawPolygon(this);
+            }
         } else {
    
             g2.draw(this);

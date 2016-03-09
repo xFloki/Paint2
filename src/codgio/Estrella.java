@@ -25,22 +25,11 @@ public class Estrella extends Polygon {
 
     public Color color = null;
     public boolean relleno = false;
-    
+    Color colorBorde;
+        boolean bordeado;
 
-    public Estrella(int _x, int _y, int _width, Color _color, boolean _relleno) {
-//       PENTAGONO :  
-        
-//        for (int i = 0; i < 5; i++){             
-//      addPoint((int) (_x  + _width * Math.cos(i * 2 * Math.PI / 5)),
-//          (int) (_y + _width * Math.sin(i * 2 * Math.PI / 5)));
-//            System.out.println((int) (_x  + _width * Math.cos(i * 2 * Math.PI / 5)));
-//            System.out.println( (int) (_y + _width * Math.sin(i * 2 * Math.PI / 5)));
-//        }
-//   Estrella coloreada parcialmente     
-
-     
-                
-       
+    public Estrella(int _x, int _y, int _width, Color _color, Color _colorBorde, boolean _relleno, boolean _bordeado) {
+  
         
         
       addPoint((int) (_x  + _width * Math.cos(0 * 2 * Math.PI / 5)),
@@ -59,6 +48,8 @@ public class Estrella extends Polygon {
 
         this.color = _color;
         this.relleno = _relleno;
+        this.colorBorde = _colorBorde;
+        this.bordeado = _bordeado;
         
 
     }
@@ -67,8 +58,13 @@ public class Estrella extends Polygon {
         g2.setColor(this.color);
         if (this.relleno) {
             g2.fill(this);
+            if(bordeado){
+            g2.setColor(colorBorde);
+            //Bordes del poligono           
+            g2.drawPolygon(this);
+            }
         } else {
-            
+
             g2.draw(this);
             
         }
