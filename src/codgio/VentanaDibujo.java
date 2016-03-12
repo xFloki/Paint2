@@ -41,7 +41,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
     // es una variable parecida a un image pero acelerada
     BufferedImage buffer = null;
    
-    //Indica el numero de circulos que hay
+    //Indica el numero de circulos que hay d
     int indice = 0;
 
     //declaro el array en el que voy a guardar ñps circulos
