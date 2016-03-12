@@ -117,6 +117,9 @@ public class VentanaDibujo extends javax.swing.JFrame {
     ImageIcon poligono = new ImageIcon(getClass().getResource("/imagenesMenu/poligono.png" ));
     ImageIcon poligonoMarcado = new ImageIcon(getClass().getResource("/imagenesMenu/poligonoMarcado.png" ));
     ImageIcon poligonoHighlight = new ImageIcon(getClass().getResource("/imagenesMenu/poligonoSobre.png" ));
+    ImageIcon rellenar = new ImageIcon(getClass().getResource("/imagenesMenu/rellenar.png" ));
+    ImageIcon rellenarMarcado = new ImageIcon(getClass().getResource("/imagenesMenu/rellenarMarcado.png" ));
+    ImageIcon rellenarHighlight = new ImageIcon(getClass().getResource("/imagenesMenu/rellenarSobre.png" ));
 
   
 
@@ -175,8 +178,35 @@ public class VentanaDibujo extends javax.swing.JFrame {
             if (((Shape) listaFormas.get(i)).contains(x, y)) {
                 // Si en algun momento el contain devuelve true es porque el punto
                 //que ha pasado esta en una forma de las que tengo guardadas en el arrayList
+                
+                if(listaFormas.get(i).getClass().isAssignableFrom(Cuadrado.class)){
+                    Cuadrado aux = ((Cuadrado) listaFormas.get(i));
+                   aux.color  = colorElegido;
+                   repaint();
+                } else
+                    if(listaFormas.get(i).getClass().isAssignableFrom(Poligonos.class)){
+                    Poligonos aux = ((Poligonos) listaFormas.get(i));
+                   aux.color  = colorElegido;
+                   repaint();
+                } else
+                    if(listaFormas.get(i).getClass().isAssignableFrom(Triangulo.class)){
+                    Triangulo aux = ((Triangulo) listaFormas.get(i));
+                   aux.color  = colorElegido;
+                   repaint();
+                } else
+                    if(listaFormas.get(i).getClass().isAssignableFrom(Rombo.class)){
+                    Rombo aux = ((Rombo) listaFormas.get(i));
+                   aux.color  = colorElegido;
+                   repaint();
+                } else
+                    if(listaFormas.get(i).getClass().isAssignableFrom(Cruz.class)){
+                    Cruz aux = ((Cruz) listaFormas.get(i));
+                   aux.color  = colorElegido;
+                   repaint();
+                }
+                
                 contiene = true;
-
+                   
             }
         }
 
@@ -303,6 +333,8 @@ public class VentanaDibujo extends javax.swing.JFrame {
         jLabel40 = new javax.swing.JLabel();
         jLabel41 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
+        jLabel42 = new javax.swing.JLabel();
+        jLabel43 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
@@ -840,6 +872,38 @@ public class VentanaDibujo extends javax.swing.JFrame {
         });
         getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 360, 30, -1));
 
+        jLabel42.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel42.setIcon(lapiz    );
+        jLabel42.setOpaque(true);
+        jLabel42.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel42MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel42MouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel42MousePressed(evt);
+            }
+        });
+        getContentPane().add(jLabel42, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 74, 25, 25));
+
+        jLabel43.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel43.setIcon(rellenar);
+        jLabel43.setOpaque(true);
+        jLabel43.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel43MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel43MouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel43MousePressed(evt);
+            }
+        });
+        getContentPane().add(jLabel43, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 74, 25, 25));
+
         jMenu1.setText("Creación de Formas");
 
         jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/triangulo.png"))); // NOI18N
@@ -1011,7 +1075,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
                     listaFormas.add(new Triangulo(evt.getX(), evt.getY(), distance, colorElegido,colorSecundario,relleno,bordeado));
                     break;
                 case 2:
-                    listaFormas.add(new Cuadrado(evt.getX(), evt.getY(), distance,colorSecundario, colorElegido, relleno,bordeado, evt));
+                    listaFormas.add(new Cuadrado(evt.getX(), evt.getY(), distance,colorElegido, colorSecundario, relleno,bordeado, evt));
                     break;
                 case 3:
                     listaFormas.add(new Rombo(evt.getX(), evt.getY(), distance, colorElegido,colorSecundario,relleno,bordeado));
@@ -1485,6 +1549,30 @@ public class VentanaDibujo extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         form = 8;
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jLabel42MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel42MouseEntered
+         
+    }//GEN-LAST:event_jLabel42MouseEntered
+
+    private void jLabel42MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel42MouseExited
+       
+    }//GEN-LAST:event_jLabel42MouseExited
+
+    private void jLabel42MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel42MousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel42MousePressed
+
+    private void jLabel43MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel43MouseEntered
+        chequeaMenuMarcado(rellenarMarcado,rellenarHighlight,evt);
+    }//GEN-LAST:event_jLabel43MouseEntered
+
+    private void jLabel43MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel43MouseExited
+         chequeaMenuMarcado(rellenarMarcado,rellenar,evt);
+    }//GEN-LAST:event_jLabel43MouseExited
+
+    private void jLabel43MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel43MousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel43MousePressed
     
     private void reseteaMenu(){
           if(jLabel36.getIcon() == poligonoMarcado){
@@ -1659,6 +1747,8 @@ public class VentanaDibujo extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel40;
     private javax.swing.JLabel jLabel41;
+    private javax.swing.JLabel jLabel42;
+    private javax.swing.JLabel jLabel43;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;

@@ -62,6 +62,7 @@ public class Linea extends Line2D.Double {
         } else {
             g2.setStroke((new BasicStroke(grosorLinea))); 
             g2.draw(this);
+            
                   
             
 
