@@ -15,18 +15,12 @@ import static javax.swing.Spring.width;
 
 
 
-/**
- *
- * @author Alejandro Dietta 
- * 
+/*
+ *  Autor: Alejandro Dietta Martin
+ *  Curso: 1ºDam
+ *  Ejercicio 2ªEvalucian Paint 
  */
 
-
-//RETOS 
-//CLASE CUADRADO
-//CLASE ROMBO
-//CLASE CRUZ
-//CLASE ESTRELLA DE 5 PUNTAS
 
 
 public class Linea extends Line2D.Double {

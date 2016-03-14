@@ -10,10 +10,10 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.Ellipse2D;
 
-/**
- *
- * @author Alejandro Dietta 
- * 
+/*
+ *  Autor: Alejandro Dietta Martin
+ *  Curso: 1ºDam
+ *  Ejercicio 2ªEvalucian Paint 
  */
 
 public class Circulo extends Ellipse2D.Double {

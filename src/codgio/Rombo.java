@@ -10,18 +10,12 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
 
-/**
- *
- * @author Alejandro Dietta 
- * 
+/*
+ *  Autor: Alejandro Dietta Martin
+ *  Curso: 1ºDam
+ *  Ejercicio 2ªEvalucian Paint 
  */
 
-
-//RETOS 
-//CLASE CUADRADO
-//CLASE ROMBO
-//CLASE CRUZ
-//CLASE ESTRELLA DE 5 PUNTAS
 
 
 public class Rombo extends Polygon {

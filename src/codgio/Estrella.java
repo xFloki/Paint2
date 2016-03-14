@@ -11,16 +11,12 @@ import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D;
 import static java.lang.Math.max;
 
-/**
- *
- * @author Alejandro Dietta
- *
+/*
+ *  Autor: Alejandro Dietta Martin
+ *  Curso: 1ºDam
+ *  Ejercicio 2ªEvalucian Paint 
  */
-//RETOS 
-//CLASE CUADRADO
-//CLASE ROMBO
-//CLASE CRUZ
-//CLASE ESTRELLA DE 5 PUNTAS
+
 public class Estrella extends Polygon {
 
     public Color color = null;

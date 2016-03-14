@@ -1,7 +1,28 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ *  Autor: Alejandro Dietta Martin
+ *  Curso: 1ºDam
+ *  Ejercicio 2ªEvalucian Paint 
+ *  El Programa esta inspirado en el paint de Windows xp y Contiene la mayoría de las heramientas que este posee, podemos crear una serie de figuras 
+ *  predefinidas con una serie de características asi como si estan o no rellenas, si tienen o no bordes, elegir el color con el que se pintan tanto su 
+ *  contenido como sus border, el color varía en función de si estamos pintando con el click derecho o el click izquierdo. También podemos escoger 
+ *  un pixel del jPanel y copiar el color con la herramienta de goteo, tenemos la opcion de cambiar el color a las figuras ya creadas con el bote de 
+ *  pintura, podemos usar un pincel o un spray, estas figuras no pueden ser eliminadas, algunas de las figuras poseen las propiedad de irregular o regular
+ *  en funcion de si esta activa o no a la hora de crearlas con dragged se crearan con una proporcionalidad, en el caso de los rectangulo seran cuadrado y
+ *  en el de los triangulos serán equilateros y sino esta activada el trazo sera más libre en función de donde estemos presionando con el raton a la 
+ *  hora de hacer el dragged. Con la pestaña de poligonos tenemos la opcion de crear un poligon cualquierda de entre 5 y 359 lados y ademñas darle una
+ *  serie de propiedades, también existe la posibilidad de guardar la imagen o cargar una aunque esta un fase alpha. Los menus son interactivos
+ *  cuando pasas el raton sobre los elementos del menu la imagen cambiara a una con mayor iluminación y si los seleccionamos a otra aun más resaltada
+ *  En la parte inferior del Programa nos encontramos con un unos jLabels de unos colores ya predeterminados que se iran refrescando en los
+ *  en dos jLabels colocados en el extremo inferior izquierda que un corresponde al color que podemos usar con el click derecho y otro al click izquierdo.
+ *  Si queremos color diferentes a los predeterminados podemos usar la plaeta de colores que se encuentra junto a estos y ahi personalizar el color
+ *  deseado el cual se actualizará en nuestro jLabel de color seleccionado en función de si el boton de aceptar lo hemos presionado con el click
+ *  derecho o el izquierdo nos refrescara un label u otro. 
+ *  Existe tambíen la opción de borrado con la cual podremos borrar figuras creadas en la pantalla independientemente de cual haya sido su orden de 
+ *  creación, si lo que seamos es retroceder un paso atrás de lo que hemos hecho podemos hacerlo presionando el boton undo que se encuentra 
+ *  bajo los menus, si lo que queremos es empezar de cero nuestro proyecto, en la la barra de menu en edit tenemos la opcion de usar una nueva hoja
+ *
+ *  Todos los repaint los tengo como repaint(0,0,1,1) ya que probando los metodos del repaint me di cuenta de que si lo ponia de este modo
+ *  ya no me parpadeadaba la imagen, no se muy bien el porque pero FUNCIONAAAAAA!
  */
 package codgio;
 
@@ -20,6 +41,7 @@ import java.awt.geom.Line2D;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -39,17 +61,9 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  */
 public class VentanaDibujo extends javax.swing.JFrame {
 
-//    private static int DIMENSION_ARRAY = 8;
-    // Imagen en la que pintare los circulos
-    // es una variable parecida a un image pero acelerada
     BufferedImage buffer = null;
 
-    //Indica el numero de circulos que hay d
-    int indice = 0;
-
-    //declaro el array en el que voy a guardar ñps circulos
-//    Circulo [] listaCirculos = new Circulo[DIMENSION_ARRAY];
-    //En la nueva version utilizamos un ArrayList
+    //Declaramos el ArrayList en el que se guardaran todas las figuras
     ArrayList listaFormas = new ArrayList();
 
     //Variable que almacena el tipo de forma que estoy dibujando
@@ -61,12 +75,18 @@ public class VentanaDibujo extends javax.swing.JFrame {
     //Si vale 5 ==> dibujo una estrella de 5 puntas
     //Si vale 6 ==> dibujo una linea
     //Si vale 7 ==> dibuja un poligon de entra 5 y 100 lados.
-    //si vale 8 ==> dibuja spray
+    //si vale 8 ==> dibuja lapiz
+    //si vale 9 ==> dibuja un cuadrado discontinuo
+    //si vale 10 ==> dibuja spray
+    
+    //Empezamos con la forma 2 porque queremos que al empezar este seleccionada la creación de cuadrados
     int form = 2;
 
     int lineaGrosor;
+    //Variable que usaremos en los poligonos 
     int numeroLados;
-    //Variable apra almacenar el color elegido
+    
+    //Variable para almacenar el color elegido
     Color colorBotonIzquierdo = Color.GREEN;
     Color colorBotonDerecho = Color.RED;
     Color copiaColor;
@@ -79,18 +99,19 @@ public class VentanaDibujo extends javax.swing.JFrame {
     int inicioY;
     int inicioXX = 0;
     int inicioYY = 0;
-
+    
+    //Booleanos para proopiedades de los figuras y menus
     boolean relleno;
     boolean bordeado;
     boolean seleccionaColor;
     boolean menuPresionado;
     boolean rellenarOn;
     boolean borrar;
-    
+
     //imagenes de los cursores customs
-   Toolkit toolKit = Toolkit.getDefaultToolkit();
-   Image pencilImg = toolKit.getImage(getClass().getResource("/imagenesCursor/pencil.gif"));
-     Image   eraserImg = toolKit.getImage(getClass().getResource("/imagenesCursor/eraserSmall.gif"));
+    Toolkit toolKit = Toolkit.getDefaultToolkit();
+    Image pencilImg = toolKit.getImage(getClass().getResource("/imagenesCursor/pencil.gif"));
+    Image eraserImg = toolKit.getImage(getClass().getResource("/imagenesCursor/eraserSmall.gif"));
 
     //Imagenes Menu de Propiedades de la Linea
     ImageIcon linea1 = new ImageIcon(getClass().getResource("/imagenesPropiedades/linea1.png"));
@@ -111,6 +132,12 @@ public class VentanaDibujo extends javax.swing.JFrame {
     ImageIcon rect2Marcado = new ImageIcon(getClass().getResource("/imagenesPropiedades/rect2Marcado.png"));
     ImageIcon rect3 = new ImageIcon(getClass().getResource("/imagenesPropiedades/rect3.png"));
     ImageIcon rect3Marcado = new ImageIcon(getClass().getResource("/imagenesPropiedades/rect3Marcado.png"));
+
+    //Imagenes menu de Propiedades del Cuadrado Discontinuo 
+    ImageIcon rect1Discontinuo = new ImageIcon(getClass().getResource("/imagenesPropiedades/rectDiscontinuo.png"));
+    ImageIcon rect1DiscontinuoMarcado = new ImageIcon(getClass().getResource("/imagenesPropiedades/rectDiscontinuoMarcado.png"));
+    ImageIcon rect2Discontinuo = new ImageIcon(getClass().getResource("/imagenesPropiedades/rect2Discontinuo.png"));
+    ImageIcon rect2DiscontinuoMarcado = new ImageIcon(getClass().getResource("/imagenesPropiedades/rect2DiscontinuoMarcado.png"));
 
     //Imagenes Menu de selecciones
     ImageIcon cuadrado1 = new ImageIcon(getClass().getResource("/imagenesMenu/cuadrado1.png"));
@@ -139,32 +166,48 @@ public class VentanaDibujo extends javax.swing.JFrame {
     ImageIcon gomaHighlight = new ImageIcon(getClass().getResource("/imagenesMenu/gomaSobre.png"));
     ImageIcon paletaColores = new ImageIcon(getClass().getResource("/imagenesMenu/paletaColores.png"));
     ImageIcon paletaColoresHighlight = new ImageIcon(getClass().getResource("/imagenesMenu/paletaColoresSobre.png"));
+    ImageIcon cuadradoDiscontinuo = new ImageIcon(getClass().getResource("/imagenesMenu/cuadradoDiscontinuo.png"));
+    ImageIcon cuadradoDiscontinuoMarcado = new ImageIcon(getClass().getResource("/imagenesMenu/cuadradoDiscontinuoMarcado.png"));
+    ImageIcon cuadradoDiscontinuoHighlight = new ImageIcon(getClass().getResource("/imagenesMenu/cuadradoDiscontinuoSobre.png"));
+    ImageIcon spray = new ImageIcon(getClass().getResource("/imagenesMenu/spray.png"));
+    ImageIcon sprayMarcado = new ImageIcon(getClass().getResource("/imagenesMenu/sprayMarcado.png"));
+    ImageIcon sprayHighlight = new ImageIcon(getClass().getResource("/imagenesMenu/spraySobre.png"));
 
-    //Añadimos todos los cursores que vamos a utilizar
+    
     /**
      * Creates new form VentanaDibujo
      */
     public VentanaDibujo() {
 
-//           Image icon = Toolkit.getDefaultToolkit().getImage("/imagenes/circulo.png");
-//	this.setIconImage(icon);
         initComponents();
+        //Ponemos este color ya que es el color que quiero para el fondo del programa y al tener un Label ya lo saco de ahi
         this.getContentPane().setBackground(jLabel15.getBackground());
+        //lo mismo con este panel
         jPanel2.setBackground(jLabel15.getBackground());
+        //codigo que hace que la pantalla del programa se ejecute en el centro
         setLocationRelativeTo(null);
         jDialog3.setLocationRelativeTo(null);
+        
         jLabel20.setBackground(Color.RED);
+        //Cambiamos el icono del programa
         this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/imagenes/logo.png")));
+        //Titulo de La aplicacion
         this.setTitle("Paint Deluxe");
         this.setBackground(Color.getHSBColor(227, 228, 228));
-
-//          this.setIconImage(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("/imagenes/triangulo.png")));
+        
+        //Nos muestra en un jLabel el valor de nuestro slider
         jLabel1.setText(String.valueOf(jSlider1.getValue()));
-        //creo un buffer deñ tamaño del jPanel1
+        //creo un buffer del tamaño del jPanel1
         buffer = (BufferedImage) jPanel1.createImage(jPanel1.getWidth(), jPanel1.getHeight());
+        
+        
         proporcionalidad.add(irregular);
         proporcionalidad.add(regular);
+        //Ocultamos los paneles de propiedades del menu que no queremos que se muestren al ejecutar el programa
         jPanel3.setVisible(false);
+        jPanel5.setVisible(false);
+        
+        //inicializamos el valor del color derecho
         colorBotonDerecho = jLabel20.getBackground();
 
         //Creo la parte modificable de la imagen(Hacemos que se pueda pintar en ellla)
@@ -172,12 +215,10 @@ public class VentanaDibujo extends javax.swing.JFrame {
         Graphics2D g2 = (Graphics2D) buffer.getGraphics();
         g2.setColor(java.awt.Color.WHITE);
         g2.fillRect(0, 0, jPanel1.getWidth(), jPanel1.getHeight());
-//        for (int i = 0; i < listaCirculos.length; i++) {         
-//            listaCirculos[i] = new Circulo();
-//        }
-//        listaCirculos[0].color = Color.ORANGE;
+
     }
 
+    //Comprobamos si esta o no Marcado el radio button regular
     public boolean chequeaProporcionalidad() {
         if (regular.isSelected()) {
             return true;
@@ -186,7 +227,11 @@ public class VentanaDibujo extends javax.swing.JFrame {
         }
     }
 
-    private boolean chequeaPunto(MouseEvent evt) {
+    //Para cambiar el color de una figura existente
+    //Detectamos si en el lugar donde estamos clickeando hay una figura y comprobamos por todos los tipos de fiugra se es alguna de esa
+    //si coincide la clase de la figura entonces nombramos a la variable y la cambiamos el color en funcion de si estamos haciendo click
+    //izquierdo o click derecho
+    private void cambiarColor(MouseEvent evt) {
         boolean contiene = false;
         Color colorCambiado;
         if (evt.getButton() == MouseEvent.BUTTON3) {
@@ -205,46 +250,49 @@ public class VentanaDibujo extends javax.swing.JFrame {
                 if (listaFormas.get(i).getClass().isAssignableFrom(Cuadrado.class)) {
                     Cuadrado aux = ((Cuadrado) listaFormas.get(i));
                     aux.color = colorCambiado;
-                    repaint();
+                    repaint(0,0,1,1);
 
-                } else {
-                    if (listaFormas.get(i).getClass().isAssignableFrom(Poligonos.class)) {
-                        Poligonos aux = ((Poligonos) listaFormas.get(i));
-                        aux.color = colorCambiado;
-                        repaint();
+                } else if (listaFormas.get(i).getClass().isAssignableFrom(Poligonos.class)) {
+                    Poligonos aux = ((Poligonos) listaFormas.get(i));
+                    aux.color = colorCambiado;
+                   repaint(0,0,1,1);
 
-                    } else {
-                        if (listaFormas.get(i).getClass().isAssignableFrom(Triangulo.class)) {
-                            Triangulo aux = ((Triangulo) listaFormas.get(i));
-                            aux.color = colorCambiado;
-                            repaint();
+                } else if (listaFormas.get(i).getClass().isAssignableFrom(Triangulo.class)) {
+                    Triangulo aux = ((Triangulo) listaFormas.get(i));
+                    aux.color = colorCambiado;
+                    repaint(0,0,1,1);
 
-                        } else {
-                            if (listaFormas.get(i).getClass().isAssignableFrom(Rombo.class)) {
-                                Rombo aux = ((Rombo) listaFormas.get(i));
-                                aux.color = colorCambiado;
-                                repaint();
+                } else if (listaFormas.get(i).getClass().isAssignableFrom(Rombo.class)) {
+                    Rombo aux = ((Rombo) listaFormas.get(i));
+                    aux.color = colorCambiado;
+                    repaint(0,0,1,1);
 
-                            } else {
-                                if (listaFormas.get(i).getClass().isAssignableFrom(Cruz.class)) {
-                                    Cruz aux = ((Cruz) listaFormas.get(i));
-                                    aux.color = colorCambiado;
-                                    repaint();
+                } else if (listaFormas.get(i).getClass().isAssignableFrom(Cruz.class)) {
+                    Cruz aux = ((Cruz) listaFormas.get(i));
+                    aux.color = colorCambiado;
+                    repaint(0,0,1,1);
+                } else if (listaFormas.get(i).getClass().isAssignableFrom(Circulo.class)) {
+                    Circulo aux = ((Circulo) listaFormas.get(i));
+                    aux.color = colorCambiado;
+                    repaint(0,0,1,1);
 
-                                }
-                            }
-                        }
-                    }
+                } else if (listaFormas.get(i).getClass().isAssignableFrom(CuadradoDiscontinuo.class)) {
+                    CuadradoDiscontinuo aux = ((CuadradoDiscontinuo) listaFormas.get(i));
+                    aux.color = colorCambiado;
+                    repaint(0,0,1,1);
+
                 }
 
-                contiene = true;
+              
 
             }
         }
-
-        return contiene;
     }
 
+       
+    
+    //Sobrescribo metodo paint y compruebo que tipo de figura es la que quiero pinta
+    //entonces llamo a su metodo pintaYColorea
     @Override
     public void paint(Graphics g) {
         super.paintComponents(g);
@@ -283,6 +331,12 @@ public class VentanaDibujo extends javax.swing.JFrame {
             if (listaFormas.get(i) instanceof Pincel) {
                 ((Pincel) listaFormas.get(i)).pintaYColorea(g2);
             }
+            if (listaFormas.get(i) instanceof CuadradoDiscontinuo) {
+                ((CuadradoDiscontinuo) listaFormas.get(i)).pintaYColorea(g2);
+            }
+            if (listaFormas.get(i) instanceof Poligonos) {
+                ((Poligonos) listaFormas.get(i)).pintaYColorea(g2);
+            }
 
             //Leo el color del circulo  
         }
@@ -319,6 +373,9 @@ public class VentanaDibujo extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         regular = new javax.swing.JRadioButton();
         irregular = new javax.swing.JRadioButton();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel46 = new javax.swing.JLabel();
+        jLabel47 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -365,6 +422,8 @@ public class VentanaDibujo extends javax.swing.JFrame {
         jLabel41 = new javax.swing.JLabel();
         jLabel42 = new javax.swing.JLabel();
         jLabel43 = new javax.swing.JLabel();
+        jLabel45 = new javax.swing.JLabel();
+        jLabel48 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
@@ -474,18 +533,14 @@ public class VentanaDibujo extends javax.swing.JFrame {
         getContentPane().add(jSlider1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, -1, -1));
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 10, 30, 20));
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/uno.png"))); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/undo.png"))); // NOI18N
+        jButton1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jButton1MousePressed(evt);
             }
         });
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 40, 40));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 330, 30, 30));
 
         regular.setSelected(true);
         regular.setText("regular");
@@ -494,10 +549,31 @@ public class VentanaDibujo extends javax.swing.JFrame {
                 regularActionPerformed(evt);
             }
         });
-        getContentPane().add(regular, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 0, -1, -1));
+        getContentPane().add(regular, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 3, -1, -1));
 
         irregular.setText("irregular");
-        getContentPane().add(irregular, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 20, -1, 20));
+        getContentPane().add(irregular, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 23, -1, 20));
+
+        jPanel5.setBackground(new java.awt.Color(233, 234, 234));
+        jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel46.setIcon(rect1DiscontinuoMarcado      );
+        jLabel46.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel46MousePressed(evt);
+            }
+        });
+        jPanel5.add(jLabel46, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, 22, 38, 16));
+
+        jLabel47.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenesPropiedades/rect2Discontinuo.png"))); // NOI18N
+        jLabel47.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel47MousePressed(evt);
+            }
+        });
+        jPanel5.add(jLabel47, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, 50, 38, 16));
+
+        getContentPane().add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 204, 40, 90));
 
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -920,7 +996,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
                 jLabel42MousePressed(evt);
             }
         });
-        getContentPane().add(jLabel42, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 79, 25, 25));
+        getContentPane().add(jLabel42, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 52, 25, 25));
 
         jLabel43.setBackground(new java.awt.Color(255, 255, 255));
         jLabel43.setIcon(rellenar);
@@ -937,6 +1013,38 @@ public class VentanaDibujo extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jLabel43, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 79, 25, 25));
+
+        jLabel45.setBackground(new java.awt.Color(255, 51, 153));
+        jLabel45.setIcon(cuadradoDiscontinuo      );
+        jLabel45.setOpaque(true);
+        jLabel45.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel45MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel45MouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel45MousePressed(evt);
+            }
+        });
+        getContentPane().add(jLabel45, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 52, 25, 25));
+
+        jLabel48.setBackground(new java.awt.Color(255, 51, 153));
+        jLabel48.setIcon(spray     );
+        jLabel48.setOpaque(true);
+        jLabel48.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel48MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel48MouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel48MousePressed(evt);
+            }
+        });
+        getContentPane().add(jLabel48, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 79, 25, 25));
 
         jMenu1.setText("Figuras Predeterminadas");
 
@@ -998,7 +1106,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
         jMenu2.add(jMenuItem2);
 
         jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem3.setText("jMenuItem3");
+        jMenuItem3.setText("Cargar una Imagen");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem3ActionPerformed(evt);
@@ -1014,12 +1122,15 @@ public class VentanaDibujo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jPanel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MousePressed
+       //Cuando seleccionar color este true queremos guardar el color que tiene el jLbael en ese momento para no perder ese color
+       //puesto que mientra que estemos copiando el color, el color copiado se va a estar poniendo en este jLabel y al terminar de copiar 
+       //y hacer release con el raton queremos que vuelva al color por defecto y para eso utilizaremos esta variable fondoOriginal
         if (seleccionaColor) {
             fondoOriginal = jLabel15.getBackground();
             copiaColor(evt);
 
         } else if (rellenarOn) {
-            chequeaPunto(evt);
+            cambiarColor(evt);
 
         } else if ((!rellenarOn) && (!seleccionaColor) && (!borrar)) {
 
@@ -1057,21 +1168,23 @@ public class VentanaDibujo extends javax.swing.JFrame {
                     listaFormas.add(new Pincel(evt.getX(), evt.getY(), 1, colorBotonIzquierdo, false, lineaGrosor));
 
                     break;
+                case 9:
+                    listaFormas.add(new CuadradoDiscontinuo(evt.getX(), evt.getY(), 1, colorBotonIzquierdo, colorBotonDerecho, relleno, bordeado, evt));
+                    break;
+                case 10:
+                    listaFormas.add(new Poligonos(evt.getX(), evt.getY(), 1, colorBotonIzquierdo, colorBotonDerecho, true, 360, false));
+                    break;
 
             }
-            //Para que no de problemas a la hora de rellenar una figura de un color, puesto que si la ultima figura que hemos pintado
-            //la hemos hecho con el click izquierdo los colores estarian al reves
+            
 
-            repaint();
+           repaint(0,0,1,1);
         }
 
 
     }//GEN-LAST:event_jPanel1MousePressed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
-
+    //eliminamos la ultima figura creada siempre y cuando almenos haya una y refrescamos la pantalla pra que se borre
     private void jButton1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MousePressed
         if (listaFormas.size() - 1 > -1) {
             listaFormas.remove(listaFormas.size() - 1);
@@ -1080,73 +1193,44 @@ public class VentanaDibujo extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton1MousePressed
 
+    //Al cambiar el valor del slider se actualiza el texto que indica su valor
     private void jSlider1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jSlider1MouseDragged
         // TODO add your handling code here:
         jLabel1.setText(String.valueOf(jSlider1.getValue()));
     }//GEN-LAST:event_jSlider1MouseDragged
 
+    //Boton que se encuentra dentro del jDiablog1 que correspone a la paleta de colores
+    //metodo para que guarde un color u otro en funcion de si lo clickeamos con click izquierdo o click derecho
     private void jButton7MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton7MousePressed
-         if (evt.getButton() == evt.BUTTON1) {
+        if (evt.getButton() == evt.BUTTON1) {
             colorBotonIzquierdo = jColorChooser1.getColor();
             jLabel25.setBackground(colorBotonIzquierdo);
-        jDialog1.setVisible(false);
+            jDialog1.setVisible(false);
         } else if (evt.getButton() == evt.BUTTON3) {
             colorBotonDerecho = jColorChooser1.getColor();
             jLabel20.setBackground(colorBotonDerecho);
-        jDialog1.setVisible(false);
-     
+            jDialog1.setVisible(false);
+
         }
-         //para que no se quden mal superpuestos los jLabel del color seleccionado
-         repaint();
+        //para que no se quden mal superpuestos los jLabel del color seleccionado
+       repaint(0,0,1,1);
     }//GEN-LAST:event_jButton7MousePressed
 
     private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
+       //Si esta activado el borrar donde seleccionemos si hay una figura la elimina
         if (borrar) {
             for (int i = 0; i < listaFormas.size(); i++) {
                 if (((Shape) listaFormas.get(i)).contains(evt.getX(), evt.getY())) {
-                    // Si en algun momento el contain devuelve true es porque el punto
-                    //que ha pasado esta en una forma de las que tengo guardadas en el arrayList
+                    listaFormas.remove(listaFormas.get(i) );
+                        repaint(0,0,1,1);
 
-                    if (listaFormas.get(i).getClass().isAssignableFrom(Cuadrado.class)) {
-                        Cuadrado aux = ((Cuadrado) listaFormas.get(i));
-                        aux.reset();
-                        repaint();
-
-                    } else {
-                        if (listaFormas.get(i).getClass().isAssignableFrom(Poligonos.class)) {
-                            Poligonos aux = ((Poligonos) listaFormas.get(i));
-
-                            repaint();
-
-                        } else {
-                            if (listaFormas.get(i).getClass().isAssignableFrom(Triangulo.class)) {
-                                Triangulo aux = ((Triangulo) listaFormas.get(i));
-
-                                repaint();
-
-                            } else {
-                                if (listaFormas.get(i).getClass().isAssignableFrom(Rombo.class)) {
-                                    Rombo aux = ((Rombo) listaFormas.get(i));
-
-                                    repaint();
-
-                                } else {
-                                    if (listaFormas.get(i).getClass().isAssignableFrom(Cruz.class)) {
-                                        Cruz aux = ((Cruz) listaFormas.get(i));
-
-                                        repaint();
-
-                                    }
-                                }
-                            }
-                        }
-                    }
                 }
             }
-        } else if (!rellenarOn && !borrar) {
+            //siempre y cuando no estene estas variables activas al hacer click nos creara unas figuras con un tamaño proporcional al valor del jSlider
+        } else if (!rellenarOn && !borrar && !seleccionaColor) {
             Graphics2D g2 = (Graphics2D) buffer.getGraphics();
             int distance = jSlider1.getValue();
-
+            
             switch (form) {
                 case 0:
                     listaFormas.add(new Circulo(evt.getX(), evt.getY(), distance, colorBotonIzquierdo, true));
@@ -1179,6 +1263,9 @@ public class VentanaDibujo extends javax.swing.JFrame {
                     chequeaColorUtilizado(evt);
                     listaFormas.add(new Pincel(evt.getX(), evt.getY(), distance, colorBotonIzquierdo, true, lineaGrosor));
                     break;
+                case 9:
+                    listaFormas.add(new CuadradoDiscontinuo(evt.getX(), evt.getY(), distance, colorBotonIzquierdo, colorBotonDerecho, relleno, bordeado, evt));
+                    break;
 
             }
             repaint(0, 0, 1, 1);
@@ -1189,6 +1276,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel1MouseClicked
 
     private void jPanel1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseDragged
+        //Al arrastrar con el seleccionar color nos ira cambiado un label que se encuentra en los menos al color sobre el que estemos con el raton
         if (seleccionaColor) {
             Color fondoOriginal = jLabel15.getBackground();
             copiaColor(evt);
@@ -1200,26 +1288,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
 
             switch (form) {
                 //Leo el ultimo elemento de la lista, sque que se añadio en el mousePresed
-                case 0:
-                    Circulo aux = (Circulo) listaFormas.get(listaFormas.size() - 1);
-
-                    if (evt.getX() >= posX) {
-
-                        int radio = (int) (evt.getX() - aux.x);
-                        aux.width = radio;
-                        aux.height = radio;
-                        System.out.println(aux.x);
-                        System.out.println(aux.y);
-                    } else {
-                        int radio = (int) (posX - aux.x);
-                        aux.x = evt.getX();
-                        aux.y = evt.getY();
-                        aux.width = Math.abs(radio);
-                        aux.height = Math.abs(radio);
-
-                    }
-                    break;
-
+               
                 case 1:
                     Triangulo aux1 = (Triangulo) listaFormas.get(listaFormas.size() - 1);
                     aux1.arrastraTriangulo(evt.getX(), evt.getY(), posX, posY, proporcionalidad);
@@ -1283,6 +1352,20 @@ public class VentanaDibujo extends javax.swing.JFrame {
                     inicioYY = evt.getY();
 
                     break;
+                case 9:
+                    CuadradoDiscontinuo aux9 = (CuadradoDiscontinuo) listaFormas.get(listaFormas.size() - 1);
+                    aux9.arrastraCuadrado(evt.getX(), evt.getY(), posX, posY, proporcionalidad);
+
+                    break;
+                case 10:
+                    Poligonos aux10 = (Poligonos) listaFormas.get(listaFormas.size() - 1);
+                    Random r = new Random();
+                    for (int i = 0; i < 20; i++) {
+
+                        listaFormas.add(new Poligonos(evt.getX() + r.nextInt(10) - 5, evt.getY() + r.nextInt(10) - 5, r.nextInt(3), copiaColor, copiaColor, true, 90, false));
+                    }
+                    break;
+
             }
 
             repaint(0, 0, 1, 1);
@@ -1290,7 +1373,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel1MouseDragged
 
     private void regularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regularActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_regularActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
@@ -1325,7 +1408,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
         repaint(0, 0, 1, 1);
     }//GEN-LAST:event_jMenuItem9ActionPerformed
 
-
+    //Codigo para guardar una imagen
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
 
         jFileChooser1.setFileFilter(new FileNameExtensionFilter("Archivos de imagen jpg", "jpg"));
@@ -1348,6 +1431,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
+    //Codigo para cargar una imagen
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         jFileChooser1.setFileFilter(new FileNameExtensionFilter("Archivos de imagen jpg", "jpg"));
         jFileChooser1.setFileFilter(new FileNameExtensionFilter("Archivos de imagen png", "png"));
@@ -1370,12 +1454,15 @@ public class VentanaDibujo extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
+    //"Hoja Nueva" Borra todo los elementos del array y carga la pantalla vacia
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         listaFormas.removeAll(listaFormas);
 
         repaint(0, 0, 1, 1);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
+    //los siguuientes metodos son todos lo mismo de los atajos de color para que se actualicen en los label correspondientes
+    //en funcion de si se ha realizado click izquierdo o click derecho 
     private void jLabel3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MousePressed
         JLabel miLabel = (JLabel) evt.getComponent();
         atajoColor(miLabel, evt);
@@ -1467,36 +1554,42 @@ public class VentanaDibujo extends javax.swing.JFrame {
         atajoColor(miLabel, evt);
     }//GEN-LAST:event_jLabel24MousePressed
 
+    //Linea Menu Propiedades
     private void jLabel29MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel29MousePressed
         reseteaImagesLinea();
         jLabel29.setIcon(linea1Marcada);
         lineaGrosor = 1;
     }//GEN-LAST:event_jLabel29MousePressed
-
+    
+    //Linea Menu Propiedades
     private void jLabel28MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel28MousePressed
         reseteaImagesLinea();
         jLabel28.setIcon(linea2Marcada);
         lineaGrosor = 2;
     }//GEN-LAST:event_jLabel28MousePressed
 
+    //Linea Menu Propiedades
     private void jLabel30MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel30MousePressed
         reseteaImagesLinea();
         jLabel30.setIcon(linea3Marcada);
         lineaGrosor = 4;
     }//GEN-LAST:event_jLabel30MousePressed
 
+    //Linea Menu Propiedades
     private void jLabel31MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel31MousePressed
         reseteaImagesLinea();
         jLabel31.setIcon(linea4Marcada);
         lineaGrosor = 6;
     }//GEN-LAST:event_jLabel31MousePressed
-
+    
+    //Linea Menu Propiedades
     private void jLabel32MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel32MousePressed
         reseteaImagesLinea();
         jLabel32.setIcon(linea5Marcada);
         lineaGrosor = 9;
     }//GEN-LAST:event_jLabel32MousePressed
 
+    //Rectangulo Menu propiedades
     private void jLabel33MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel33MousePressed
         reseteaImagesRectangulo();
         jLabel33.setIcon(rect1Marcado);
@@ -1504,6 +1597,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
         bordeado = false;
     }//GEN-LAST:event_jLabel33MousePressed
 
+    //Rectangulo Menu propiedades
     private void jLabel35MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel35MousePressed
         reseteaImagesRectangulo();
         jLabel35.setIcon(rect2Marcado);
@@ -1511,6 +1605,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
         bordeado = true;
     }//GEN-LAST:event_jLabel35MousePressed
 
+    //Rectangulo Menu propiedades
     private void jLabel37MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel37MousePressed
         reseteaImagesRectangulo();
         jLabel37.setIcon(rect3Marcado);
@@ -1518,6 +1613,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
         bordeado = false;
     }//GEN-LAST:event_jLabel37MousePressed
 
+    
     private void jLabel34MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel34MousePressed
         reseteaMenu();
         JLabel miLabel = (JLabel) evt.getComponent();
@@ -1664,7 +1760,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
             } else if (evt.getButton() == evt.BUTTON3) {
                 jLabel20.setBackground(copiaColor);
             }
-            repaint();
+            repaint(0,0,1,1);
         }
         colorBotonIzquierdo = jLabel25.getBackground();
         colorBotonDerecho = jLabel20.getBackground();
@@ -1709,22 +1805,22 @@ public class VentanaDibujo extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel43MousePressed
 
     private void jPanel1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseEntered
-           //Cambiamos los cursores en funcion de la forma que tengan o si se ha activado alguna variable de borrado por ejemplo
-           //para que cuando entre en panel se ponga con los cursores custom que hemos creado
-        if(form == 8 && !borrar){
-          Cursor  cursorPredeterminado =  toolKit.createCustomCursor(pencilImg, new Point(10,24),"Pencil Cursor");
+        //Cambiamos los cursores en funcion de la forma que tengan o si se ha activado alguna variable de borrado por ejemplo
+        //para que cuando entre en panel se ponga con los cursores custom que hemos creado
+        if (form == 8 && !borrar) {
+            Cursor cursorPredeterminado = toolKit.createCustomCursor(pencilImg, new Point(10, 24), "Pencil Cursor");
             setCursor(cursorPredeterminado);
         } else if (borrar) {
-            Cursor  cursorPredeterminado =  toolKit.createCustomCursor(eraserImg, new Point(10,24),"Pencil Cursor");
+            Cursor cursorPredeterminado = toolKit.createCustomCursor(eraserImg, new Point(10, 24), "Pencil Cursor");
             setCursor(cursorPredeterminado);
-        }
-             else {
-        setCursor(CROSSHAIR_CURSOR);
+        } else {
+            setCursor(CROSSHAIR_CURSOR);
         }
 
-//        
+      
     }//GEN-LAST:event_jPanel1MouseEntered
 
+    //cambiamos el cursor para que cuando se encuentre fuera del jPanel se utilice el de la manita
     private void jPanel1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseExited
         setCursor(HAND_CURSOR);
 
@@ -1738,12 +1834,64 @@ public class VentanaDibujo extends javax.swing.JFrame {
         jLabel44.setIcon(paletaColores);
     }//GEN-LAST:event_jLabel44MouseExited
 
+    //jLabel del Panel de colores que al pressionarse nos muestra el jDialog con el selecctor de colores 
     private void jLabel44MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel44MousePressed
         jDialog1.setVisible(true);
         jDialog1.setSize(800, 400);
         jDialog1.setLocation(200, 50);
     }//GEN-LAST:event_jLabel44MousePressed
 
+    private void jLabel45MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel45MouseEntered
+        chequeaMenuMarcado(cuadradoDiscontinuoMarcado, cuadradoDiscontinuoHighlight, evt);
+    }//GEN-LAST:event_jLabel45MouseEntered
+
+    private void jLabel45MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel45MouseExited
+        chequeaMenuMarcado(cuadradoDiscontinuoMarcado, cuadradoDiscontinuo, evt);
+    }//GEN-LAST:event_jLabel45MouseExited
+
+    private void jLabel45MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel45MousePressed
+        reseteaMenu();
+        reseteaPropiedadesMenu();
+        JLabel miLabel = (JLabel) evt.getComponent();
+        miLabel.setIcon(cuadradoDiscontinuoMarcado);
+        jPanel5.setVisible(true);
+        form = 9;
+        repaint(0, 0, 1, 1);
+    }//GEN-LAST:event_jLabel45MousePressed
+
+    private void jLabel46MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel46MousePressed
+        reseteaImagesRectanguloDiscontinuo();
+        jLabel46.setIcon(rect1DiscontinuoMarcado);
+        relleno = false;
+        bordeado = false;
+    }//GEN-LAST:event_jLabel46MousePressed
+
+    private void jLabel47MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel47MousePressed
+        reseteaImagesRectanguloDiscontinuo();
+        jLabel47.setIcon(rect2DiscontinuoMarcado);
+        relleno = true;
+        bordeado = true;
+    }//GEN-LAST:event_jLabel47MousePressed
+
+    private void jLabel48MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel48MouseEntered
+        chequeaMenuMarcado(sprayMarcado, sprayHighlight, evt);
+    }//GEN-LAST:event_jLabel48MouseEntered
+
+    private void jLabel48MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel48MouseExited
+        chequeaMenuMarcado(sprayMarcado, spray, evt);
+    }//GEN-LAST:event_jLabel48MouseExited
+
+    private void jLabel48MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel48MousePressed
+        reseteaMenu();
+        reseteaPropiedadesMenu();
+        JLabel miLabel = (JLabel) evt.getComponent();
+        miLabel.setIcon(sprayMarcado);
+        form = 10;
+        repaint(0, 0, 1, 1);
+    }//GEN-LAST:event_jLabel48MousePressed
+
+    //Metodo que se utiliza al seleccionar en cualquier de las items de menu para que reseteen cualquiera de las imagenes del menu a su imagen    
+    //por defecto en caso de estar seleccionada 
     private void reseteaMenu() {
         if (jLabel36.getIcon() == poligonoMarcado) {
             jLabel36.setIcon(poligono);
@@ -1761,16 +1909,28 @@ public class VentanaDibujo extends javax.swing.JFrame {
             jLabel43.setIcon(rellenar);
         } else if (jLabel42.getIcon() == gomaMarcado) {
             jLabel42.setIcon(goma);
+        } else if (jLabel45.getIcon() == cuadradoDiscontinuoMarcado) {
+            jLabel45.setIcon(cuadradoDiscontinuo);
+        } else if (jLabel48.getIcon() == sprayMarcado) {
+            jLabel48.setIcon(spray);
         }
     }
 
+    //Metodo que utilizamos en las menu items para que al cambiar a cualquiera de los otro menu item se resetee todo, las variables de todos
+    //los menu item se ponen en false y se ponen como no visible cualquier j.Dialog existente que este relacionado con estos
     private void reseteaPropiedadesMenu() {
         jPanel3.setVisible(false);
         jPanel4.setVisible(false);
+        jPanel5.setVisible(false);
         rellenarOn = false;
         borrar = false;
     }
 
+    //Metodo que utilizo a la hora de cambiar las imagenes cuando paso el raton por encima de ellas
+    //en los enter se le pasa como primer valor la imagenMarcada, y de segundo la highlight, de este modo si la imagen no esta marcada
+    //al pasarlo sobre esta se cambiara a la imagen que esta un poco iluminada
+    //Cuando lo utilizo en el exited como primer valor le pasaria tambie la imagen correspondiente marcada y como segundo la imagen predefinida
+    //de este modo al salir siese menu item no esta seleccionado y por lo tanto no tiene la imagen marcada, la image pasa a ser la por defecto
     private void chequeaMenuMarcado(ImageIcon i, ImageIcon marcado, MouseEvent evt) {
         JLabel miLabel = (JLabel) evt.getComponent();
         if (miLabel.getIcon() != i) {
@@ -1799,6 +1959,8 @@ public class VentanaDibujo extends javax.swing.JFrame {
         }
     }
 
+    //Reseteamos las imagenes de la
+    //las propiedades de la linea, se utiliza al cambiar de propiedad para que no se quede la imagen nueva seleccionada junto con la anterior 
     private void reseteaImagesLinea() {
         if (jLabel29.getIcon() == linea1Marcada) {
             jLabel29.setIcon(linea1);
@@ -1813,6 +1975,8 @@ public class VentanaDibujo extends javax.swing.JFrame {
         }
     }
 
+    //Reseteamos las imagenes de la
+    //las propiedades del rectangulo, se utiliza al cambiar de propiedad para que no se quede la imagen nueva seleccionada junto con la anterior 
     private void reseteaImagesRectangulo() {
         if (jLabel33.getIcon() == rect1Marcado) {
             jLabel33.setIcon(rect1);
@@ -1823,25 +1987,32 @@ public class VentanaDibujo extends javax.swing.JFrame {
         }
     }
 
+    //Reseteamos las imagenes de la
+    //las propiedades del rectangulo discontinuo, se utiliza al cambiar de propiedad para que no se quede la imagen nueva seleccionada junto con la anterior 
+    private void reseteaImagesRectanguloDiscontinuo() {
+        if (jLabel46.getIcon() == rect1DiscontinuoMarcado) {
+            jLabel46.setIcon(rect1Discontinuo);
+        } else if (jLabel47.getIcon() == rect2DiscontinuoMarcado) {
+            jLabel47.setIcon(rect2Discontinuo);
+        }
+
+    }
+
+    //metodo para hacer más comodo el mecansimo de seleccionar uno de los colores predefinidos en los respectivos jLabel 
+    //y que este se actualice en el jLabel correspondiente y ademas se gurade en la variable que le toca
     private void atajoColor(JLabel color, MouseEvent evt) {
 
         if (evt.getButton() == evt.BUTTON1) {
             colorBotonIzquierdo = color.getBackground();
-//            this.setBackground(colorElegido);
             jLabel25.setBackground(colorBotonIzquierdo);
         } else if (evt.getButton() == evt.BUTTON3) {
             colorBotonDerecho = color.getBackground();
             jLabel20.setBackground(colorBotonDerecho);
-//                colorBotonDerecho = color.getBackground();
 
         }
 
-        //Código para que no se superponga el jLbael inferior del color que tengo seleccionado al cambiar su color
-        //la clave esta en el this. aunque no se porque 
-//        Color colorRefresh = jLabel25.getBackground();
-//         this.setBackground(colorBotonIzquierdo);
         repaint(0, 0, 1, 1);
-//        jLabel25.setBackground(colorRefresh);
+
     }
 
     /**
@@ -1928,6 +2099,10 @@ public class VentanaDibujo extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel42;
     private javax.swing.JLabel jLabel43;
     private javax.swing.JLabel jLabel44;
+    private javax.swing.JLabel jLabel45;
+    private javax.swing.JLabel jLabel46;
+    private javax.swing.JLabel jLabel47;
+    private javax.swing.JLabel jLabel48;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -1947,6 +2122,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSlider jSlider1;
     private javax.swing.JTextArea jTextArea1;

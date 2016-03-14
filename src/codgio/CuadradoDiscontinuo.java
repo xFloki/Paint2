@@ -1,14 +1,19 @@
+package codgio;
+
 // Mi segunda clase suuuuuuuuuu
 
 // La clase triangulo permite almacenar un circulo
 //ademas de su posicion en la pantalla, si esta relleno o no
 //, su color, etc.
 
-package codgio;
 
+
+import codgio.*;
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
+import java.awt.Stroke;
 import java.awt.event.MouseEvent;
 
 
@@ -20,8 +25,7 @@ import java.awt.event.MouseEvent;
  */
 
 
-
-public class Cuadrado extends Polygon {
+public class CuadradoDiscontinuo extends Polygon {
     
         public Color color = null;
         public boolean relleno = true;
@@ -37,7 +41,7 @@ public class Cuadrado extends Polygon {
         
         
         
-        public Cuadrado(int _x, int _y, int _width, Color _color, Color _colorBorde, boolean _relleno, boolean _bordeado, MouseEvent _evt){
+        public CuadradoDiscontinuo(int _x, int _y, int _width, Color _color, Color _colorBorde, boolean _relleno, boolean _bordeado, MouseEvent _evt){
              addPoint(_x - _width/2, _y - _width/2 );
              addPoint(_x + _width/2 , _y - _width/2 );
              addPoint(_x + _width/2,  _y + _width/2 );
@@ -54,23 +58,28 @@ public class Cuadrado extends Polygon {
         
          public void pintaYColorea(Graphics2D g2) {
 ////             chequeaClick(evt);
-           
             g2.setColor(this.color);
+            Stroke deafultStroke = g2.getStroke();
              if (this.relleno) {
             g2.fill(this);           
             if(bordeado){
                 g2.setColor(colorBorde);
-            
+               
+            Stroke dashed = new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{9}, 0);
+            g2.setStroke(dashed); 
             g2.drawPolygon(this);
 
             }
         } else {
+                 Stroke dashed = new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{9}, 0);
+            g2.setStroke(dashed);
             g2.draw(this);
             
             
             
 
                  }
+             g2.setStroke(deafultStroke);
              }
          
          public void arrastraCuadrado(int _evtGetX, int _evtGetY, int _posX, int _posY, boolean _proporcionalidad ){
