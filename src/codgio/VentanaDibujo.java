@@ -1,4 +1,4 @@
- /*
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -10,6 +10,9 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Image;
+import java.awt.Point;
 import java.awt.Shape;
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
@@ -35,12 +38,12 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * @author Administrator
  */
 public class VentanaDibujo extends javax.swing.JFrame {
-   
+
 //    private static int DIMENSION_ARRAY = 8;
     // Imagen en la que pintare los circulos
     // es una variable parecida a un image pero acelerada
     BufferedImage buffer = null;
-   
+
     //Indica el numero de circulos que hay d
     int indice = 0;
 
@@ -60,88 +63,101 @@ public class VentanaDibujo extends javax.swing.JFrame {
     //Si vale 7 ==> dibuja un poligon de entra 5 y 100 lados.
     //si vale 8 ==> dibuja spray
     int form = 2;
- 
+
     int lineaGrosor;
     int numeroLados;
     //Variable apra almacenar el color elegido
-    Color colorElegido = Color.GREEN;
-    Color colorSecundario;
+    Color colorBotonIzquierdo = Color.GREEN;
+    Color colorBotonDerecho = Color.RED;
     Color copiaColor;
     Color fondoOriginal;
 
     // Variables para almacenar la posición en la que se empieza a dibujar la forma
     int posX = 0;
     int posY = 0;
-    
+    int inicioX;
+    int inicioY;
+    int inicioXX = 0;
+    int inicioYY = 0;
+
     boolean relleno;
     boolean bordeado;
     boolean seleccionaColor;
     boolean menuPresionado;
+    boolean rellenarOn;
+    boolean borrar;
     
+    //imagenes de los cursores customs
+   Toolkit toolKit = Toolkit.getDefaultToolkit();
+   Image pencilImg = toolKit.getImage(getClass().getResource("/imagenesCursor/pencil.gif"));
+     Image   eraserImg = toolKit.getImage(getClass().getResource("/imagenesCursor/eraserSmall.gif"));
+
     //Imagenes Menu de Propiedades de la Linea
-    ImageIcon linea1 = new ImageIcon(getClass().getResource("/imagenesPropiedades/linea1.png" ));
-    ImageIcon linea1Marcada = new ImageIcon(getClass().getResource("/imagenesPropiedades/linea1Marcada.png" ));
-    ImageIcon linea2 = new ImageIcon(getClass().getResource("/imagenesPropiedades/linea2.png" ));
-    ImageIcon linea2Marcada = new ImageIcon(getClass().getResource("/imagenesPropiedades/linea2Marcada.png" ));
-    ImageIcon linea3 = new ImageIcon(getClass().getResource("/imagenesPropiedades/linea3.png" ));
-    ImageIcon linea3Marcada = new ImageIcon(getClass().getResource("/imagenesPropiedades/linea3Marcada.png" ));
-    ImageIcon linea4 = new ImageIcon(getClass().getResource("/imagenesPropiedades/linea4.png" ));
-    ImageIcon linea4Marcada = new ImageIcon(getClass().getResource("/imagenesPropiedades/linea4Marcada.png" ));
-    ImageIcon linea5 = new ImageIcon(getClass().getResource("/imagenesPropiedades/linea5.png" ));
-    ImageIcon linea5Marcada = new ImageIcon(getClass().getResource("/imagenesPropiedades/linea5Marcada.png" ));
-    
+    ImageIcon linea1 = new ImageIcon(getClass().getResource("/imagenesPropiedades/linea1.png"));
+    ImageIcon linea1Marcada = new ImageIcon(getClass().getResource("/imagenesPropiedades/linea1Marcada.png"));
+    ImageIcon linea2 = new ImageIcon(getClass().getResource("/imagenesPropiedades/linea2.png"));
+    ImageIcon linea2Marcada = new ImageIcon(getClass().getResource("/imagenesPropiedades/linea2Marcada.png"));
+    ImageIcon linea3 = new ImageIcon(getClass().getResource("/imagenesPropiedades/linea3.png"));
+    ImageIcon linea3Marcada = new ImageIcon(getClass().getResource("/imagenesPropiedades/linea3Marcada.png"));
+    ImageIcon linea4 = new ImageIcon(getClass().getResource("/imagenesPropiedades/linea4.png"));
+    ImageIcon linea4Marcada = new ImageIcon(getClass().getResource("/imagenesPropiedades/linea4Marcada.png"));
+    ImageIcon linea5 = new ImageIcon(getClass().getResource("/imagenesPropiedades/linea5.png"));
+    ImageIcon linea5Marcada = new ImageIcon(getClass().getResource("/imagenesPropiedades/linea5Marcada.png"));
+
     //Imagenes Menu de Propiedades del Cuadrado
-    ImageIcon rect1 = new ImageIcon(getClass().getResource("/imagenesPropiedades/rect1.png" ));
-    ImageIcon rect1Marcado = new ImageIcon(getClass().getResource("/imagenesPropiedades/rect1Marcado.png" ));
-    ImageIcon rect2 = new ImageIcon(getClass().getResource("/imagenesPropiedades/rect2.png" ));
-    ImageIcon rect2Marcado = new ImageIcon(getClass().getResource("/imagenesPropiedades/rect2Marcado.png" ));
-    ImageIcon rect3 = new ImageIcon(getClass().getResource("/imagenesPropiedades/rect3.png" ));
-    ImageIcon rect3Marcado = new ImageIcon(getClass().getResource("/imagenesPropiedades/rect3Marcado.png" ));
-    
+    ImageIcon rect1 = new ImageIcon(getClass().getResource("/imagenesPropiedades/rect1.png"));
+    ImageIcon rect1Marcado = new ImageIcon(getClass().getResource("/imagenesPropiedades/rect1Marcado.png"));
+    ImageIcon rect2 = new ImageIcon(getClass().getResource("/imagenesPropiedades/rect2.png"));
+    ImageIcon rect2Marcado = new ImageIcon(getClass().getResource("/imagenesPropiedades/rect2Marcado.png"));
+    ImageIcon rect3 = new ImageIcon(getClass().getResource("/imagenesPropiedades/rect3.png"));
+    ImageIcon rect3Marcado = new ImageIcon(getClass().getResource("/imagenesPropiedades/rect3Marcado.png"));
+
     //Imagenes Menu de selecciones
-    ImageIcon cuadrado1 = new ImageIcon(getClass().getResource("/imagenesMenu/cuadrado1.png" ));
-    ImageIcon cuadradoMarcado = new ImageIcon(getClass().getResource("/imagenesMenu/cuadrado1Marcado.png" ));
-    ImageIcon cuadradoHighlight = new ImageIcon(getClass().getResource("/imagenesMenu/cuadradoSobre.png" ));
-    ImageIcon circulo = new ImageIcon(getClass().getResource("/imagenesMenu/circulo.png" ));
-    ImageIcon circuloMarcado = new ImageIcon(getClass().getResource("/imagenesMenu/circuloMarcado.png" ));
-    ImageIcon circuloHighlight = new ImageIcon(getClass().getResource("/imagenesMenu/circuloSobre.png" ));
-    ImageIcon linea = new ImageIcon(getClass().getResource("/imagenesMenu/linea.png" ));
-    ImageIcon lineaMarcado = new ImageIcon(getClass().getResource("/imagenesMenu/lineaMarcado.png" ));
-    ImageIcon lineaHighlight = new ImageIcon(getClass().getResource("/imagenesMenu/lineaSobre.png" ));
-    ImageIcon goteo = new ImageIcon(getClass().getResource("/imagenesMenu/goteo.png" ));
-    ImageIcon goteoMarcado = new ImageIcon(getClass().getResource("/imagenesMenu/goteroMarcado.png" ));
-    ImageIcon goteoHighlight = new ImageIcon(getClass().getResource("/imagenesMenu/goteroSobre.png" ));
-    ImageIcon lapiz = new ImageIcon(getClass().getResource("/imagenesMenu/lapiz.png" ));
-    ImageIcon lapizMarcado = new ImageIcon(getClass().getResource("/imagenesMenu/lapizMarcado.png" ));
-    ImageIcon lapizHighlight = new ImageIcon(getClass().getResource("/imagenesMenu/lapizSobre.png" ));
-    ImageIcon poligono = new ImageIcon(getClass().getResource("/imagenesMenu/poligono.png" ));
-    ImageIcon poligonoMarcado = new ImageIcon(getClass().getResource("/imagenesMenu/poligonoMarcado.png" ));
-    ImageIcon poligonoHighlight = new ImageIcon(getClass().getResource("/imagenesMenu/poligonoSobre.png" ));
-    ImageIcon rellenar = new ImageIcon(getClass().getResource("/imagenesMenu/rellenar.png" ));
-    ImageIcon rellenarMarcado = new ImageIcon(getClass().getResource("/imagenesMenu/rellenarMarcado.png" ));
-    ImageIcon rellenarHighlight = new ImageIcon(getClass().getResource("/imagenesMenu/rellenarSobre.png" ));
+    ImageIcon cuadrado1 = new ImageIcon(getClass().getResource("/imagenesMenu/cuadrado1.png"));
+    ImageIcon cuadradoMarcado = new ImageIcon(getClass().getResource("/imagenesMenu/cuadrado1Marcado.png"));
+    ImageIcon cuadradoHighlight = new ImageIcon(getClass().getResource("/imagenesMenu/cuadradoSobre.png"));
+    ImageIcon circulo = new ImageIcon(getClass().getResource("/imagenesMenu/circulo.png"));
+    ImageIcon circuloMarcado = new ImageIcon(getClass().getResource("/imagenesMenu/circuloMarcado.png"));
+    ImageIcon circuloHighlight = new ImageIcon(getClass().getResource("/imagenesMenu/circuloSobre.png"));
+    ImageIcon linea = new ImageIcon(getClass().getResource("/imagenesMenu/linea.png"));
+    ImageIcon lineaMarcado = new ImageIcon(getClass().getResource("/imagenesMenu/lineaMarcado.png"));
+    ImageIcon lineaHighlight = new ImageIcon(getClass().getResource("/imagenesMenu/lineaSobre.png"));
+    ImageIcon goteo = new ImageIcon(getClass().getResource("/imagenesMenu/goteo.png"));
+    ImageIcon goteoMarcado = new ImageIcon(getClass().getResource("/imagenesMenu/goteroMarcado.png"));
+    ImageIcon goteoHighlight = new ImageIcon(getClass().getResource("/imagenesMenu/goteroSobre.png"));
+    ImageIcon lapiz = new ImageIcon(getClass().getResource("/imagenesMenu/lapiz.png"));
+    ImageIcon lapizMarcado = new ImageIcon(getClass().getResource("/imagenesMenu/lapizMarcado.png"));
+    ImageIcon lapizHighlight = new ImageIcon(getClass().getResource("/imagenesMenu/lapizSobre.png"));
+    ImageIcon poligono = new ImageIcon(getClass().getResource("/imagenesMenu/poligono.png"));
+    ImageIcon poligonoMarcado = new ImageIcon(getClass().getResource("/imagenesMenu/poligonoMarcado.png"));
+    ImageIcon poligonoHighlight = new ImageIcon(getClass().getResource("/imagenesMenu/poligonoSobre.png"));
+    ImageIcon rellenar = new ImageIcon(getClass().getResource("/imagenesMenu/rellenar.png"));
+    ImageIcon rellenarMarcado = new ImageIcon(getClass().getResource("/imagenesMenu/rellenarMarcado.png"));
+    ImageIcon rellenarHighlight = new ImageIcon(getClass().getResource("/imagenesMenu/rellenarSobre.png"));
+    ImageIcon goma = new ImageIcon(getClass().getResource("/imagenesMenu/goma.png"));
+    ImageIcon gomaMarcado = new ImageIcon(getClass().getResource("/imagenesMenu/gomaMarcado.png"));
+    ImageIcon gomaHighlight = new ImageIcon(getClass().getResource("/imagenesMenu/gomaSobre.png"));
+    ImageIcon paletaColores = new ImageIcon(getClass().getResource("/imagenesMenu/paletaColores.png"));
+    ImageIcon paletaColoresHighlight = new ImageIcon(getClass().getResource("/imagenesMenu/paletaColoresSobre.png"));
 
-  
-
+    //Añadimos todos los cursores que vamos a utilizar
     /**
      * Creates new form VentanaDibujo
      */
     public VentanaDibujo() {
-        
+
 //           Image icon = Toolkit.getDefaultToolkit().getImage("/imagenes/circulo.png");
 //	this.setIconImage(icon);
-      
         initComponents();
         this.getContentPane().setBackground(jLabel15.getBackground());
         jPanel2.setBackground(jLabel15.getBackground());
-        setLocationRelativeTo(null);     
+        setLocationRelativeTo(null);
         jDialog3.setLocationRelativeTo(null);
         jLabel20.setBackground(Color.RED);
         this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/imagenes/logo.png")));
-         this.setTitle("Paint Deluxe");
-         this.setBackground(Color.getHSBColor(227, 228, 228));
-        
-       
+        this.setTitle("Paint Deluxe");
+        this.setBackground(Color.getHSBColor(227, 228, 228));
+
 //          this.setIconImage(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("/imagenes/triangulo.png")));
         jLabel1.setText(String.valueOf(jSlider1.getValue()));
         //creo un buffer deñ tamaño del jPanel1
@@ -149,9 +165,8 @@ public class VentanaDibujo extends javax.swing.JFrame {
         proporcionalidad.add(irregular);
         proporcionalidad.add(regular);
         jPanel3.setVisible(false);
-        colorSecundario = jLabel20.getBackground();
-        
-        
+        colorBotonDerecho = jLabel20.getBackground();
+
         //Creo la parte modificable de la imagen(Hacemos que se pueda pintar en ellla)
         buffer.createGraphics();
         Graphics2D g2 = (Graphics2D) buffer.getGraphics();
@@ -171,42 +186,59 @@ public class VentanaDibujo extends javax.swing.JFrame {
         }
     }
 
-    private boolean chequeaPunto(int x, int y) {
+    private boolean chequeaPunto(MouseEvent evt) {
         boolean contiene = false;
+        Color colorCambiado;
+        if (evt.getButton() == MouseEvent.BUTTON3) {
+            colorCambiado = colorBotonDerecho;
+            System.out.println(colorBotonDerecho);
+        } else {
+            colorCambiado = colorBotonIzquierdo;
+            System.out.println(colorBotonIzquierdo);
+        }
 
         for (int i = 0; i < listaFormas.size(); i++) {
-            if (((Shape) listaFormas.get(i)).contains(x, y)) {
+            if (((Shape) listaFormas.get(i)).contains(evt.getX(), evt.getY())) {
                 // Si en algun momento el contain devuelve true es porque el punto
                 //que ha pasado esta en una forma de las que tengo guardadas en el arrayList
-                
-                if(listaFormas.get(i).getClass().isAssignableFrom(Cuadrado.class)){
+
+                if (listaFormas.get(i).getClass().isAssignableFrom(Cuadrado.class)) {
                     Cuadrado aux = ((Cuadrado) listaFormas.get(i));
-                   aux.color  = colorElegido;
-                   repaint();
-                } else
-                    if(listaFormas.get(i).getClass().isAssignableFrom(Poligonos.class)){
-                    Poligonos aux = ((Poligonos) listaFormas.get(i));
-                   aux.color  = colorElegido;
-                   repaint();
-                } else
-                    if(listaFormas.get(i).getClass().isAssignableFrom(Triangulo.class)){
-                    Triangulo aux = ((Triangulo) listaFormas.get(i));
-                   aux.color  = colorElegido;
-                   repaint();
-                } else
-                    if(listaFormas.get(i).getClass().isAssignableFrom(Rombo.class)){
-                    Rombo aux = ((Rombo) listaFormas.get(i));
-                   aux.color  = colorElegido;
-                   repaint();
-                } else
-                    if(listaFormas.get(i).getClass().isAssignableFrom(Cruz.class)){
-                    Cruz aux = ((Cruz) listaFormas.get(i));
-                   aux.color  = colorElegido;
-                   repaint();
+                    aux.color = colorCambiado;
+                    repaint();
+
+                } else {
+                    if (listaFormas.get(i).getClass().isAssignableFrom(Poligonos.class)) {
+                        Poligonos aux = ((Poligonos) listaFormas.get(i));
+                        aux.color = colorCambiado;
+                        repaint();
+
+                    } else {
+                        if (listaFormas.get(i).getClass().isAssignableFrom(Triangulo.class)) {
+                            Triangulo aux = ((Triangulo) listaFormas.get(i));
+                            aux.color = colorCambiado;
+                            repaint();
+
+                        } else {
+                            if (listaFormas.get(i).getClass().isAssignableFrom(Rombo.class)) {
+                                Rombo aux = ((Rombo) listaFormas.get(i));
+                                aux.color = colorCambiado;
+                                repaint();
+
+                            } else {
+                                if (listaFormas.get(i).getClass().isAssignableFrom(Cruz.class)) {
+                                    Cruz aux = ((Cruz) listaFormas.get(i));
+                                    aux.color = colorCambiado;
+                                    repaint();
+
+                                }
+                            }
+                        }
+                    }
                 }
-                
+
                 contiene = true;
-                   
+
             }
         }
 
@@ -243,15 +275,14 @@ public class VentanaDibujo extends javax.swing.JFrame {
                 ((Estrella) listaFormas.get(i)).pintaYColorea(g2);
             }
             if (listaFormas.get(i) instanceof Linea) {
-                ((Linea) listaFormas.get(i)).pintaYColorea(g2);             
+                ((Linea) listaFormas.get(i)).pintaYColorea(g2);
             }
             if (listaFormas.get(i) instanceof Poligonos) {
-                ((Poligonos) listaFormas.get(i)).pintaYColorea(g2);             
+                ((Poligonos) listaFormas.get(i)).pintaYColorea(g2);
             }
-            if (listaFormas.get(i) instanceof Spray) {
-                ((Spray) listaFormas.get(i)).pintaYColorea(g2);             
+            if (listaFormas.get(i) instanceof Pincel) {
+                ((Pincel) listaFormas.get(i)).pintaYColorea(g2);
             }
-            
 
             //Leo el color del circulo  
         }
@@ -286,7 +317,6 @@ public class VentanaDibujo extends javax.swing.JFrame {
         jSlider1 = new javax.swing.JSlider();
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
         regular = new javax.swing.JRadioButton();
         irregular = new javax.swing.JRadioButton();
         jPanel2 = new javax.swing.JPanel();
@@ -315,6 +345,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
         jLabel24 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
         jLabel27 = new javax.swing.JLabel();
+        jLabel44 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel33 = new javax.swing.JLabel();
         jLabel35 = new javax.swing.JLabel();
@@ -332,7 +363,6 @@ public class VentanaDibujo extends javax.swing.JFrame {
         jLabel39 = new javax.swing.JLabel();
         jLabel40 = new javax.swing.JLabel();
         jLabel41 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
         jLabel42 = new javax.swing.JLabel();
         jLabel43 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -420,6 +450,12 @@ public class VentanaDibujo extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jPanel1MouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanel1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jPanel1MouseExited(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jPanel1MousePressed(evt);
             }
@@ -450,14 +486,6 @@ public class VentanaDibujo extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 40, 40));
-
-        jButton3.setText("COLOR");
-        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jButton3MousePressed(evt);
-            }
-        });
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 20, -1, -1));
 
         regular.setSelected(true);
         regular.setText("regular");
@@ -583,7 +611,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
         });
         jPanel2.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 30, 15, 15));
 
-        jLabel25.setBackground(colorElegido);
+        jLabel25.setBackground(colorBotonIzquierdo);
         jLabel25.setOpaque(true);
         jPanel2.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 34, 15, 15));
 
@@ -685,6 +713,20 @@ public class VentanaDibujo extends javax.swing.JFrame {
         jLabel27.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jLabel27.setOpaque(true);
         jPanel2.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(3, 24, 46, 46));
+
+        jLabel44.setIcon(paletaColores);
+        jLabel44.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel44MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel44MouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel44MousePressed(evt);
+            }
+        });
+        jPanel2.add(jLabel44, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 10, 42, 66));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 490, 900, 90));
 
@@ -813,7 +855,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
                 jLabel38MousePressed(evt);
             }
         });
-        getContentPane().add(jLabel38, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 105, 25, 25));
+        getContentPane().add(jLabel38, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 106, 25, 25));
 
         jLabel39.setBackground(new java.awt.Color(255, 255, 255));
         jLabel39.setIcon(goteo
@@ -830,7 +872,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
                 jLabel39MousePressed(evt);
             }
         });
-        getContentPane().add(jLabel39, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 105, 25, 25));
+        getContentPane().add(jLabel39, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 106, 25, 25));
 
         jLabel40.setBackground(new java.awt.Color(255, 255, 255));
         jLabel40.setIcon(linea
@@ -864,16 +906,8 @@ public class VentanaDibujo extends javax.swing.JFrame {
         });
         getContentPane().add(jLabel41, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 25, 25));
 
-        jButton2.setText("jButton2");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 360, 30, -1));
-
         jLabel42.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel42.setIcon(lapiz    );
+        jLabel42.setIcon(goma);
         jLabel42.setOpaque(true);
         jLabel42.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -886,7 +920,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
                 jLabel42MousePressed(evt);
             }
         });
-        getContentPane().add(jLabel42, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 74, 25, 25));
+        getContentPane().add(jLabel42, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 79, 25, 25));
 
         jLabel43.setBackground(new java.awt.Color(255, 255, 255));
         jLabel43.setIcon(rellenar);
@@ -902,9 +936,9 @@ public class VentanaDibujo extends javax.swing.JFrame {
                 jLabel43MousePressed(evt);
             }
         });
-        getContentPane().add(jLabel43, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 74, 25, 25));
+        getContentPane().add(jLabel43, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 79, 25, 25));
 
-        jMenu1.setText("Creación de Formas");
+        jMenu1.setText("Figuras Predeterminadas");
 
         jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/triangulo.png"))); // NOI18N
         jMenuItem5.setText("Triangulo");
@@ -980,52 +1014,56 @@ public class VentanaDibujo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jPanel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MousePressed
-       if(seleccionaColor){
-          fondoOriginal = jLabel15.getBackground();
-          copiaColor(evt);
-          jLabel15.setBackground(copiaColor);
-       } else {
-        
-        chequeaColorUtilizado(evt);
-        posX = evt.getX();
-        posY = evt.getY();
-        switch (form) {
-            case 0:
-                listaFormas.add(new Circulo(evt.getX(), evt.getY(), 1, colorElegido, true));
-                break;
-            case 1:
-                listaFormas.add(new Triangulo(evt.getX(), evt.getY(), 1, colorElegido, colorSecundario, relleno, bordeado));
-                break;
-            case 2:
-                listaFormas.add(new Cuadrado(evt.getX(), evt.getY(), 1, colorElegido, colorSecundario, relleno, bordeado,evt));
-                break;
-            case 3:
-                listaFormas.add(new Rombo(evt.getX(), evt.getY(), 1, colorElegido, colorSecundario, relleno, bordeado));
-                break;
-            case 4:
-                listaFormas.add(new Cruz(evt.getX(), evt.getY(), 1 / 2, colorElegido, colorSecundario, relleno, bordeado));
-                break;
-            case 5:
-                listaFormas.add(new Estrella(evt.getX(), evt.getY(), 1, colorElegido, colorSecundario, relleno, bordeado));
-                break;
-            case 6:
-                 listaFormas.add(new Linea(evt.getX(), evt.getX(), 1, colorElegido, false, lineaGrosor));
-                 
-                    break;
-            case 7:
-                 listaFormas.add(new Poligonos(evt.getX(), evt.getX(), 1, colorElegido, colorSecundario, relleno, numeroLados, bordeado));
-                 
-                    break;
-            case 8:
-                 listaFormas.add(new Spray(evt.getX(), evt.getX(), colorElegido));
-                 
-                    break;        
-                   
+        if (seleccionaColor) {
+            fondoOriginal = jLabel15.getBackground();
+            copiaColor(evt);
 
-                    
+        } else if (rellenarOn) {
+            chequeaPunto(evt);
+
+        } else if ((!rellenarOn) && (!seleccionaColor) && (!borrar)) {
+
+            chequeaColorUtilizado(evt);
+            posX = evt.getX();
+            posY = evt.getY();
+            switch (form) {
+                case 0:
+                    listaFormas.add(new Circulo(evt.getX(), evt.getY(), 1, colorBotonIzquierdo, true));
+                    break;
+                case 1:
+                    listaFormas.add(new Triangulo(evt.getX(), evt.getY(), 1, colorBotonIzquierdo, colorBotonDerecho, relleno, bordeado));
+                    break;
+                case 2:
+                    listaFormas.add(new Cuadrado(evt.getX(), evt.getY(), 1, colorBotonIzquierdo, colorBotonDerecho, relleno, bordeado, evt));
+                    break;
+                case 3:
+                    listaFormas.add(new Rombo(evt.getX(), evt.getY(), 1, colorBotonIzquierdo, colorBotonDerecho, relleno, bordeado));
+                    break;
+                case 4:
+                    listaFormas.add(new Cruz(evt.getX(), evt.getY(), 1 / 2, colorBotonIzquierdo, colorBotonDerecho, relleno, bordeado));
+                    break;
+                case 5:
+                    listaFormas.add(new Estrella(evt.getX(), evt.getY(), 1, colorBotonIzquierdo, colorBotonDerecho, relleno, bordeado));
+                    break;
+                case 6:
+                    listaFormas.add(new Linea(evt.getX(), evt.getY(), 1, colorBotonIzquierdo, false, lineaGrosor));
+
+                    break;
+                case 7:
+                    listaFormas.add(new Poligonos(evt.getX(), evt.getY(), 1, colorBotonIzquierdo, colorBotonDerecho, relleno, numeroLados, bordeado));
+
+                    break;
+                case 8:
+                    listaFormas.add(new Pincel(evt.getX(), evt.getY(), 1, colorBotonIzquierdo, false, lineaGrosor));
+
+                    break;
+
+            }
+            //Para que no de problemas a la hora de rellenar una figura de un color, puesto que si la ultima figura que hemos pintado
+            //la hemos hecho con el click izquierdo los colores estarian al reves
+
+            repaint();
         }
-        repaint(1);
-       }
 
 
     }//GEN-LAST:event_jPanel1MousePressed
@@ -1038,7 +1076,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
         if (listaFormas.size() - 1 > -1) {
             listaFormas.remove(listaFormas.size() - 1);
 
-            repaint(0,0,1,1);
+            repaint(0, 0, 1, 1);
         }
     }//GEN-LAST:event_jButton1MousePressed
 
@@ -1047,61 +1085,103 @@ public class VentanaDibujo extends javax.swing.JFrame {
         jLabel1.setText(String.valueOf(jSlider1.getValue()));
     }//GEN-LAST:event_jSlider1MouseDragged
 
-    private void jButton3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MousePressed
-        jDialog1.setVisible(true);
-        jDialog1.setSize(800, 400);
-        jDialog1.setLocation(200, 50);
-    }//GEN-LAST:event_jButton3MousePressed
-
     private void jButton7MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton7MousePressed
-        colorElegido = jColorChooser1.getColor();
-        jLabel25.setBackground(colorElegido);
+         if (evt.getButton() == evt.BUTTON1) {
+            colorBotonIzquierdo = jColorChooser1.getColor();
+            jLabel25.setBackground(colorBotonIzquierdo);
         jDialog1.setVisible(false);
+        } else if (evt.getButton() == evt.BUTTON3) {
+            colorBotonDerecho = jColorChooser1.getColor();
+            jLabel20.setBackground(colorBotonDerecho);
+        jDialog1.setVisible(false);
+     
+        }
+         //para que no se quden mal superpuestos los jLabel del color seleccionado
+         repaint();
     }//GEN-LAST:event_jButton7MousePressed
 
     private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
-        Graphics2D g2 = (Graphics2D) buffer.getGraphics();
-        int distance = jSlider1.getValue();
-        if (chequeaPunto(evt.getX(), evt.getY())) {
+        if (borrar) {
+            for (int i = 0; i < listaFormas.size(); i++) {
+                if (((Shape) listaFormas.get(i)).contains(evt.getX(), evt.getY())) {
+                    // Si en algun momento el contain devuelve true es porque el punto
+                    //que ha pasado esta en una forma de las que tengo guardadas en el arrayList
 
-            System.out.println("HAY UN OBJETO!");
+                    if (listaFormas.get(i).getClass().isAssignableFrom(Cuadrado.class)) {
+                        Cuadrado aux = ((Cuadrado) listaFormas.get(i));
+                        aux.reset();
+                        repaint();
 
-        } else {
+                    } else {
+                        if (listaFormas.get(i).getClass().isAssignableFrom(Poligonos.class)) {
+                            Poligonos aux = ((Poligonos) listaFormas.get(i));
+
+                            repaint();
+
+                        } else {
+                            if (listaFormas.get(i).getClass().isAssignableFrom(Triangulo.class)) {
+                                Triangulo aux = ((Triangulo) listaFormas.get(i));
+
+                                repaint();
+
+                            } else {
+                                if (listaFormas.get(i).getClass().isAssignableFrom(Rombo.class)) {
+                                    Rombo aux = ((Rombo) listaFormas.get(i));
+
+                                    repaint();
+
+                                } else {
+                                    if (listaFormas.get(i).getClass().isAssignableFrom(Cruz.class)) {
+                                        Cruz aux = ((Cruz) listaFormas.get(i));
+
+                                        repaint();
+
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        } else if (!rellenarOn && !borrar) {
+            Graphics2D g2 = (Graphics2D) buffer.getGraphics();
+            int distance = jSlider1.getValue();
+
             switch (form) {
                 case 0:
-                    listaFormas.add(new Circulo(evt.getX(), evt.getY(), distance, colorElegido, true));
+                    listaFormas.add(new Circulo(evt.getX(), evt.getY(), distance, colorBotonIzquierdo, true));
                     break;
                 case 1:
-                    listaFormas.add(new Triangulo(evt.getX(), evt.getY(), distance, colorElegido,colorSecundario,relleno,bordeado));
+                    listaFormas.add(new Triangulo(evt.getX(), evt.getY(), distance, colorBotonIzquierdo, colorBotonDerecho, relleno, bordeado));
                     break;
                 case 2:
-                    listaFormas.add(new Cuadrado(evt.getX(), evt.getY(), distance,colorElegido, colorSecundario, relleno,bordeado, evt));
+                    listaFormas.add(new Cuadrado(evt.getX(), evt.getY(), distance, colorBotonIzquierdo, colorBotonDerecho, relleno, bordeado, evt));
                     break;
                 case 3:
-                    listaFormas.add(new Rombo(evt.getX(), evt.getY(), distance, colorElegido,colorSecundario,relleno,bordeado));
+                    listaFormas.add(new Rombo(evt.getX(), evt.getY(), distance, colorBotonIzquierdo, colorBotonDerecho, relleno, bordeado));
                     break;
                 case 4:
-                    listaFormas.add(new Cruz(evt.getX(), evt.getY(), distance/2, colorElegido,colorSecundario,relleno,bordeado));
+                    listaFormas.add(new Cruz(evt.getX(), evt.getY(), distance / 2, colorBotonIzquierdo, colorBotonDerecho, relleno, bordeado));
                     break;
                 case 5:
 
-                    listaFormas.add(new Estrella(evt.getX(), evt.getY(),distance, colorElegido,colorSecundario,relleno,bordeado));
+                    listaFormas.add(new Estrella(evt.getX(), evt.getY(), distance, colorBotonIzquierdo, colorBotonDerecho, relleno, bordeado));
                     break;
                 case 6:
 
-                    listaFormas.add(new Linea(evt.getX(), evt.getY(), distance, colorElegido, true, lineaGrosor));
+                    listaFormas.add(new Linea(evt.getX(), evt.getY(), distance, colorBotonIzquierdo, true, lineaGrosor));
                     break;
                 case 7:
 
-                    listaFormas.add(new Poligonos(evt.getX(), evt.getY(), distance, colorElegido, colorSecundario, relleno, numeroLados, bordeado));
+                    listaFormas.add(new Poligonos(evt.getX(), evt.getY(), distance, colorBotonIzquierdo, colorBotonDerecho, relleno, numeroLados, bordeado));
                     break;
                 case 8:
+                    chequeaColorUtilizado(evt);
+                    listaFormas.add(new Pincel(evt.getX(), evt.getY(), distance, colorBotonIzquierdo, true, lineaGrosor));
+                    break;
 
-                    listaFormas.add(new Spray(evt.getX(), evt.getY(),colorElegido));
-                    break;    
-                
             }
-            repaint(0,0,1,1);
+            repaint(0, 0, 1, 1);
 
         }
 
@@ -1109,75 +1189,103 @@ public class VentanaDibujo extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel1MouseClicked
 
     private void jPanel1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseDragged
-        if(seleccionaColor){
-          Color fondoOriginal = jLabel15.getBackground();
-          copiaColor(evt);
-          jLabel15.setBackground(copiaColor);
-       } else {
-        boolean proporcionalidad = chequeaProporcionalidad();
-        switch (form) {
-            //Leo el ultimo elemento de la lista, sque que se añadio en el mousePresed
-            case 0:
-                Circulo aux = (Circulo) listaFormas.get(listaFormas.size() - 1);
+        if (seleccionaColor) {
+            Color fondoOriginal = jLabel15.getBackground();
+            copiaColor(evt);
+            jLabel15.setBackground(copiaColor);
+        } else if (!rellenarOn && (!borrar)) {
+            boolean proporcionalidad = chequeaProporcionalidad();
+            inicioX = evt.getX();
+            inicioY = evt.getY();
 
-                if (evt.getX() >= posX) {
+            switch (form) {
+                //Leo el ultimo elemento de la lista, sque que se añadio en el mousePresed
+                case 0:
+                    Circulo aux = (Circulo) listaFormas.get(listaFormas.size() - 1);
 
-                    int radio = (int) (evt.getX() - aux.x);
-                    aux.width = radio;
-                    aux.height = radio;
-                    System.out.println(aux.x);
-                    System.out.println(aux.y);
-                } else {
-                    int radio = (int) (posX - aux.x);
-                    aux.x = evt.getX();
-                    aux.y = evt.getY();
-                    aux.width = Math.abs(radio);
-                    aux.height = Math.abs(radio);
+                    if (evt.getX() >= posX) {
 
-                }
-                break;
+                        int radio = (int) (evt.getX() - aux.x);
+                        aux.width = radio;
+                        aux.height = radio;
+                        System.out.println(aux.x);
+                        System.out.println(aux.y);
+                    } else {
+                        int radio = (int) (posX - aux.x);
+                        aux.x = evt.getX();
+                        aux.y = evt.getY();
+                        aux.width = Math.abs(radio);
+                        aux.height = Math.abs(radio);
 
-            case 1:
-                Triangulo aux1 = (Triangulo) listaFormas.get(listaFormas.size() - 1);
-                aux1.arrastraTriangulo(evt.getX(), evt.getY(), posX, posY, proporcionalidad);
+                    }
+                    break;
 
-                break;
+                case 1:
+                    Triangulo aux1 = (Triangulo) listaFormas.get(listaFormas.size() - 1);
+                    aux1.arrastraTriangulo(evt.getX(), evt.getY(), posX, posY, proporcionalidad);
 
-            case 2:
-                Cuadrado aux2 = (Cuadrado) listaFormas.get(listaFormas.size() - 1);
-                aux2.arrastraCuadrado(evt.getX(), evt.getY(), posX, posY, proporcionalidad);
+                    break;
 
-                break;
+                case 2:
+                    Cuadrado aux2 = (Cuadrado) listaFormas.get(listaFormas.size() - 1);
+                    aux2.arrastraCuadrado(evt.getX(), evt.getY(), posX, posY, proporcionalidad);
 
-            case 3:
-                Rombo aux3 = (Rombo) listaFormas.get(listaFormas.size() - 1);
-                aux3.arrastraRombo(evt.getX(), evt.getY(), posX, posY);
+                    break;
 
-                break;
-            case 4:
-                Cruz aux4 = (Cruz) listaFormas.get(listaFormas.size() - 1);
-                aux4.arrastraCruz(evt.getX(), evt.getY(), posX, posY);
+                case 3:
+                    Rombo aux3 = (Rombo) listaFormas.get(listaFormas.size() - 1);
+                    aux3.arrastraRombo(evt.getX(), evt.getY(), posX, posY);
 
-                break;
-            case 5:
-                Estrella aux5 = (Estrella) listaFormas.get(listaFormas.size() - 1);
-                aux5.arrastraRombo(evt.getX(), evt.getY(), posX, posY);
+                    break;
+                case 4:
+                    Cruz aux4 = (Cruz) listaFormas.get(listaFormas.size() - 1);
+                    aux4.arrastraCruz(evt.getX(), evt.getY(), posX, posY);
 
-                break;
-                
-            case 6:
-                Linea aux6 = (Linea) listaFormas.get(listaFormas.size() - 1);
-                aux6.arrastraLinea(evt.getX(),evt.getY(), posX, posY);
-             
-                break;
-                
-            case 7:
-                Poligonos aux7 = (Poligonos) listaFormas.get(listaFormas.size() - 1);
-                aux7.arrastraPoligonos(evt.getX(), posX, posY, numeroLados);
-             
-                break;                   
-        }
-         repaint(0,0,1,1);
+                    break;
+                case 5:
+                    Estrella aux5 = (Estrella) listaFormas.get(listaFormas.size() - 1);
+                    aux5.arrastraRombo(evt.getX(), evt.getY(), posX, posY);
+
+                    break;
+
+                case 6:
+                    Linea aux6 = (Linea) listaFormas.get(listaFormas.size() - 1);
+                    aux6.arrastraLinea(evt.getX(), evt.getY(), posX, posY);
+
+                    break;
+
+                case 7:
+                    Poligonos aux7 = (Poligonos) listaFormas.get(listaFormas.size() - 1);
+                    aux7.arrastraPoligonos(evt.getX(), posX, posY, numeroLados);
+
+                    break;
+                case 8:
+
+                    //Varibale inicioXX inicioYY que creamos para poderle dar un valor diferente en el momento de creacion de la primera linea
+                    //de lo contrario nos dan uin bug en el cual la linea empieza en un lugar erroneo
+                    if (inicioXX != 0) {
+                        inicioX = inicioXX;
+                        inicioY = inicioYY;
+                    }
+                    if (evt.getX() == posX && evt.getY() == posY) {
+                        inicioX = evt.getX();
+                        inicioY = evt.getY();
+                    }
+                    Pincel aux8 = (Pincel) listaFormas.get(listaFormas.size() - 1);
+
+                    aux8.arrastraPincel(evt.getX(), evt.getY(), inicioX, inicioY);
+                    if (evt.getX() != posX && evt.getY() != posY) {
+
+                        listaFormas.add(new Pincel(inicioX, inicioY, 1, colorBotonIzquierdo, false, lineaGrosor));
+
+                    }
+                    inicioXX = evt.getX();
+                    inicioYY = evt.getY();
+
+                    break;
+            }
+
+            repaint(0, 0, 1, 1);
         }
     }//GEN-LAST:event_jPanel1MouseDragged
 
@@ -1190,7 +1298,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
         reseteaPropiedadesMenu();
         jPanel4.setVisible(true);
         form = 1;
-        repaint(0,0,1,1);
+        repaint(0, 0, 1, 1);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
@@ -1198,7 +1306,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
         reseteaPropiedadesMenu();
         jPanel4.setVisible(true);
         form = 3;
-        repaint(0,0,1,1);
+        repaint(0, 0, 1, 1);
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
@@ -1206,18 +1314,18 @@ public class VentanaDibujo extends javax.swing.JFrame {
         reseteaPropiedadesMenu();
         jPanel4.setVisible(true);
         form = 4;
-        repaint(0,0,1,1);
+        repaint(0, 0, 1, 1);
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
-       reseteaMenu();
+        reseteaMenu();
         reseteaPropiedadesMenu();
         jPanel4.setVisible(true);
         form = 5;
-        repaint(0,0,1,1);
+        repaint(0, 0, 1, 1);
     }//GEN-LAST:event_jMenuItem9ActionPerformed
 
-    
+
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
 
         jFileChooser1.setFileFilter(new FileNameExtensionFilter("Archivos de imagen jpg", "jpg"));
@@ -1227,7 +1335,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
             case JFileChooser.APPROVE_OPTION: {
                 File fichero = jFileChooser1.getSelectedFile();
                 String nombre = fichero.getName();
-                String extension = nombre.substring(nombre.lastIndexOf('.')+1, nombre.length());
+                String extension = nombre.substring(nombre.lastIndexOf('.') + 1, nombre.length());
                 if (extension.equalsIgnoreCase("jpg") || extension.equalsIgnoreCase("png")) {
                     try {
                         ImageIO.write(buffer, "jpg", fichero);
@@ -1241,18 +1349,18 @@ public class VentanaDibujo extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-         jFileChooser1.setFileFilter(new FileNameExtensionFilter("Archivos de imagen jpg", "jpg"));
+        jFileChooser1.setFileFilter(new FileNameExtensionFilter("Archivos de imagen jpg", "jpg"));
         jFileChooser1.setFileFilter(new FileNameExtensionFilter("Archivos de imagen png", "png"));
         int seleccion = jFileChooser1.showOpenDialog(this);
         switch (seleccion) {
             case JFileChooser.APPROVE_OPTION: {
                 File fichero = jFileChooser1.getSelectedFile();
                 String nombre = fichero.getName();
-                String extension = nombre.substring(nombre.lastIndexOf('.')+1, nombre.length());
+                String extension = nombre.substring(nombre.lastIndexOf('.') + 1, nombre.length());
                 if (extension.equalsIgnoreCase("jpg") || extension.equalsIgnoreCase("png")) {
                     try {
                         buffer = ImageIO.read(fichero);
-                        repaint(0,0,1,1);
+                        repaint(0, 0, 1, 1);
                     } catch (IOException ex) {
                         Logger.getLogger(VentanaDibujo.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -1265,11 +1373,11 @@ public class VentanaDibujo extends javax.swing.JFrame {
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         listaFormas.removeAll(listaFormas);
 
-        repaint(0,0,1,1);
+        repaint(0, 0, 1, 1);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jLabel3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MousePressed
-          JLabel miLabel = (JLabel) evt.getComponent();
+        JLabel miLabel = (JLabel) evt.getComponent();
         atajoColor(miLabel, evt);
     }//GEN-LAST:event_jLabel3MousePressed
 
@@ -1294,12 +1402,12 @@ public class VentanaDibujo extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel13MousePressed
 
     private void jLabel16MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel16MousePressed
-       JLabel miLabel = (JLabel) evt.getComponent();
+        JLabel miLabel = (JLabel) evt.getComponent();
         atajoColor(miLabel, evt);
     }//GEN-LAST:event_jLabel16MousePressed
 
     private void jLabel12MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MousePressed
-       JLabel miLabel = (JLabel) evt.getComponent();
+        JLabel miLabel = (JLabel) evt.getComponent();
         atajoColor(miLabel, evt);
     }//GEN-LAST:event_jLabel12MousePressed
 
@@ -1309,12 +1417,12 @@ public class VentanaDibujo extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel14MousePressed
 
     private void jLabel22MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel22MousePressed
-       JLabel miLabel = (JLabel) evt.getComponent();
+        JLabel miLabel = (JLabel) evt.getComponent();
         atajoColor(miLabel, evt);
     }//GEN-LAST:event_jLabel22MousePressed
 
     private void jLabel8MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MousePressed
-       JLabel miLabel = (JLabel) evt.getComponent();
+        JLabel miLabel = (JLabel) evt.getComponent();
         atajoColor(miLabel, evt);
     }//GEN-LAST:event_jLabel8MousePressed
 
@@ -1326,11 +1434,11 @@ public class VentanaDibujo extends javax.swing.JFrame {
     private void jLabel7MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MousePressed
         JLabel miLabel = (JLabel) evt.getComponent();
         atajoColor(miLabel, evt);
-        
+
     }//GEN-LAST:event_jLabel7MousePressed
 
     private void jLabel9MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MousePressed
-       JLabel miLabel = (JLabel) evt.getComponent();
+        JLabel miLabel = (JLabel) evt.getComponent();
         atajoColor(miLabel, evt);
     }//GEN-LAST:event_jLabel9MousePressed
 
@@ -1340,7 +1448,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel18MousePressed
 
     private void jLabel23MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel23MousePressed
-         JLabel miLabel = (JLabel) evt.getComponent();
+        JLabel miLabel = (JLabel) evt.getComponent();
         atajoColor(miLabel, evt);
     }//GEN-LAST:event_jLabel23MousePressed
 
@@ -1355,166 +1463,168 @@ public class VentanaDibujo extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel19MousePressed
 
     private void jLabel24MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel24MousePressed
-       JLabel miLabel = (JLabel) evt.getComponent();
+        JLabel miLabel = (JLabel) evt.getComponent();
         atajoColor(miLabel, evt);
     }//GEN-LAST:event_jLabel24MousePressed
 
     private void jLabel29MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel29MousePressed
         reseteaImagesLinea();
-        jLabel29.setIcon(linea1Marcada); 
+        jLabel29.setIcon(linea1Marcada);
         lineaGrosor = 1;
     }//GEN-LAST:event_jLabel29MousePressed
 
     private void jLabel28MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel28MousePressed
-         reseteaImagesLinea();
-        jLabel28.setIcon(linea2Marcada); 
+        reseteaImagesLinea();
+        jLabel28.setIcon(linea2Marcada);
         lineaGrosor = 2;
     }//GEN-LAST:event_jLabel28MousePressed
 
     private void jLabel30MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel30MousePressed
-         reseteaImagesLinea();
-        jLabel30.setIcon(linea3Marcada); 
+        reseteaImagesLinea();
+        jLabel30.setIcon(linea3Marcada);
         lineaGrosor = 4;
     }//GEN-LAST:event_jLabel30MousePressed
 
     private void jLabel31MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel31MousePressed
-        reseteaImagesLinea();       
-        jLabel31.setIcon(linea4Marcada); 
+        reseteaImagesLinea();
+        jLabel31.setIcon(linea4Marcada);
         lineaGrosor = 6;
     }//GEN-LAST:event_jLabel31MousePressed
 
     private void jLabel32MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel32MousePressed
-         reseteaImagesLinea();
-        jLabel32.setIcon(linea5Marcada); 
+        reseteaImagesLinea();
+        jLabel32.setIcon(linea5Marcada);
         lineaGrosor = 9;
     }//GEN-LAST:event_jLabel32MousePressed
 
     private void jLabel33MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel33MousePressed
         reseteaImagesRectangulo();
-        jLabel33.setIcon(rect1Marcado); 
+        jLabel33.setIcon(rect1Marcado);
         relleno = false;
         bordeado = false;
     }//GEN-LAST:event_jLabel33MousePressed
 
     private void jLabel35MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel35MousePressed
         reseteaImagesRectangulo();
-        jLabel35.setIcon(rect2Marcado); 
+        jLabel35.setIcon(rect2Marcado);
         relleno = true;
         bordeado = true;
     }//GEN-LAST:event_jLabel35MousePressed
 
     private void jLabel37MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel37MousePressed
         reseteaImagesRectangulo();
-        jLabel37.setIcon(rect3Marcado); 
+        jLabel37.setIcon(rect3Marcado);
         relleno = true;
         bordeado = false;
     }//GEN-LAST:event_jLabel37MousePressed
 
     private void jLabel34MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel34MousePressed
-        reseteaMenu();    
+        reseteaMenu();
         JLabel miLabel = (JLabel) evt.getComponent();
         miLabel.setIcon(cuadradoMarcado);
         form = 2;
         reseteaPropiedadesMenu();
-        jPanel4.setVisible(true); 
-        repaint(0,0,1,1);
+        jPanel4.setVisible(true);
+        repaint(0, 0, 1, 1);
     }//GEN-LAST:event_jLabel34MousePressed
 
     private void jLabel36MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel36MousePressed
-            reseteaMenu();
-             JLabel miLabel = (JLabel) evt.getComponent();
-          miLabel.setIcon(poligonoMarcado);
-          form = 7;  
-          reseteaPropiedadesMenu();
-          jPanel4.setVisible(true);
-          numeroLados = Integer.parseInt(JOptionPane.showInputDialog("Introduzca el número de lados del polígono"));
-          if(numeroLados<5){
-              numeroLados=5;
-          } else if(numeroLados>359){
-              numeroLados=359;
-          }
+        reseteaMenu();
+        JLabel miLabel = (JLabel) evt.getComponent();
+        miLabel.setIcon(poligonoMarcado);
+        form = 7;
+        reseteaPropiedadesMenu();
+        jPanel4.setVisible(true);
+        // Creamos una ventana emergente que nos pida el numerod e lados que queremos para el poligono
+        numeroLados = Integer.parseInt(JOptionPane.showInputDialog("Introduzca el número de lados del polígono"));
+        if (numeroLados < 5) {
+            numeroLados = 5;
+        } else if (numeroLados > 359) {
+            numeroLados = 359;
+        }
     }//GEN-LAST:event_jLabel36MousePressed
 
     private void jLabel38MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel38MousePressed
         reseteaMenu();
         JLabel miLabel = (JLabel) evt.getComponent();
-          miLabel.setIcon(lapizMarcado);
+        miLabel.setIcon(lapizMarcado);
+        form = 8;
     }//GEN-LAST:event_jLabel38MousePressed
 
     private void jLabel39MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel39MousePressed
         reseteaMenu();
         JLabel miLabel = (JLabel) evt.getComponent();
-          miLabel.setIcon(goteoMarcado);
-          seleccionaColor = true;
+        miLabel.setIcon(goteoMarcado);
+        seleccionaColor = true;
     }//GEN-LAST:event_jLabel39MousePressed
 
     private void jLabel40MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel40MousePressed
         reseteaMenu();
         JLabel miLabel = (JLabel) evt.getComponent();
-          miLabel.setIcon(lineaMarcado);
-           form = 6;
+        miLabel.setIcon(lineaMarcado);
+        form = 6;
         reseteaPropiedadesMenu();
         jPanel3.setVisible(true);
-        repaint(0,0,1,1);
+        repaint(0, 0, 1, 1);
     }//GEN-LAST:event_jLabel40MousePressed
 
     private void jLabel41MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel41MousePressed
-       reseteaMenu();
+        reseteaMenu();
         JLabel miLabel = (JLabel) evt.getComponent();
-          miLabel.setIcon(circuloMarcado);
+        miLabel.setIcon(circuloMarcado);
         form = 7;
         numeroLados = 360;
         reseteaPropiedadesMenu();
-        jPanel4.setVisible(true); 
-        repaint(0,0,1,1);
+        jPanel4.setVisible(true);
+        repaint(0, 0, 1, 1);
     }//GEN-LAST:event_jLabel41MousePressed
 
     private void jLabel34MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel34MouseEntered
-       chequeaMenuMarcado(cuadradoMarcado,cuadradoHighlight,evt);
+        chequeaMenuMarcado(cuadradoMarcado, cuadradoHighlight, evt);
     }//GEN-LAST:event_jLabel34MouseEntered
 
     private void jLabel34MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel34MouseExited
-        chequeaMenuMarcado(cuadradoMarcado,cuadrado1,evt);
+        chequeaMenuMarcado(cuadradoMarcado, cuadrado1, evt);
     }//GEN-LAST:event_jLabel34MouseExited
 
     private void jLabel41MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel41MouseEntered
-       chequeaMenuMarcado(circuloMarcado,circuloHighlight,evt);
+        chequeaMenuMarcado(circuloMarcado, circuloHighlight, evt);
     }//GEN-LAST:event_jLabel41MouseEntered
 
     private void jLabel41MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel41MouseExited
-      chequeaMenuMarcado(circuloMarcado,circulo,evt);
+        chequeaMenuMarcado(circuloMarcado, circulo, evt);
     }//GEN-LAST:event_jLabel41MouseExited
 
     private void jLabel40MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel40MouseEntered
-        chequeaMenuMarcado(lineaMarcado,lineaHighlight,evt);
+        chequeaMenuMarcado(lineaMarcado, lineaHighlight, evt);
     }//GEN-LAST:event_jLabel40MouseEntered
 
     private void jLabel40MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel40MouseExited
-        chequeaMenuMarcado(lineaMarcado,linea,evt);
+        chequeaMenuMarcado(lineaMarcado, linea, evt);
     }//GEN-LAST:event_jLabel40MouseExited
 
     private void jLabel39MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel39MouseEntered
-        chequeaMenuMarcado(goteoMarcado,goteoHighlight,evt);
+        chequeaMenuMarcado(goteoMarcado, goteoHighlight, evt);
     }//GEN-LAST:event_jLabel39MouseEntered
 
     private void jLabel39MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel39MouseExited
-        chequeaMenuMarcado(goteoMarcado,goteo,evt);
+        chequeaMenuMarcado(goteoMarcado, goteo, evt);
     }//GEN-LAST:event_jLabel39MouseExited
 
     private void jLabel38MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel38MouseEntered
-        chequeaMenuMarcado(lapizMarcado,lapizHighlight,evt);
+        chequeaMenuMarcado(lapizMarcado, lapizHighlight, evt);
     }//GEN-LAST:event_jLabel38MouseEntered
 
     private void jLabel38MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel38MouseExited
-        chequeaMenuMarcado(lapizMarcado,lapiz,evt);
+        chequeaMenuMarcado(lapizMarcado, lapiz, evt);
     }//GEN-LAST:event_jLabel38MouseExited
 
     private void jLabel36MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel36MouseEntered
-       chequeaMenuMarcado(poligonoMarcado,poligonoHighlight,evt);
+        chequeaMenuMarcado(poligonoMarcado, poligonoHighlight, evt);
     }//GEN-LAST:event_jLabel36MouseEntered
 
     private void jLabel36MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel36MouseExited
-       chequeaMenuMarcado(poligonoMarcado,poligono,evt);
+        chequeaMenuMarcado(poligonoMarcado, poligono, evt);
     }//GEN-LAST:event_jLabel36MouseExited
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
@@ -1522,148 +1632,218 @@ public class VentanaDibujo extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jPanel1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseReleased
-       if(seleccionaColor){
-           seleccionaColor = false;
-           jLabel39.setIcon(goteo);
-           jLabel15.setBackground(fondoOriginal);
-           
-           //cambiamos la imagen cuando se termine de usar el gotero para que quede marcada la que esta la forma
-           //problema aparece cuando es la forma 7 poligonop ya que nuestro circulo tambien es forma 7
-           //añadimos un if con los lados para parchear el problema
-           switch(form){
-               case 0: jLabel41.setIcon(circuloMarcado); break;
-               case 2: jLabel34.setIcon(cuadradoMarcado); break;
-               case 7: jLabel36.setIcon(poligonoMarcado); break;
-               case 6: jLabel40.setIcon(lineaMarcado); break;
-           }
-           if( (form == 7)  &&  (numeroLados == 360 )){
-               jLabel36.setIcon(poligono);
-               jLabel41.setIcon(circuloMarcado);
-               
-               
-           }
-           jLabel25.setBackground(copiaColor);
-       }
+        if (seleccionaColor) {
+            seleccionaColor = false;
+            jLabel39.setIcon(goteo);
+            jLabel15.setBackground(fondoOriginal);
+
+            //cambiamos la imagen cuando se termine de usar el gotero para que quede marcada la que esta la forma
+            //problema aparece cuando es la forma 7 poligonop ya que nuestro circulo tambien es forma 7
+            //añadimos un if con los lados para parchear el problema
+            switch (form) {
+                case 0:
+                    jLabel41.setIcon(circuloMarcado);
+                    break;
+                case 2:
+                    jLabel34.setIcon(cuadradoMarcado);
+                    break;
+                case 7:
+                    jLabel36.setIcon(poligonoMarcado);
+                    break;
+                case 6:
+                    jLabel40.setIcon(lineaMarcado);
+                    break;
+            }
+            if ((form == 7) && (numeroLados == 360)) {
+                jLabel36.setIcon(poligono);
+                jLabel41.setIcon(circuloMarcado);
+            }
+            //Chequeamos si hemos utilizado el goteo con el click derecho o izquierdo para asi cambiar el color adecuadamente al jLabel necesario
+            if (evt.getButton() == evt.BUTTON1) {
+                jLabel25.setBackground(copiaColor);
+            } else if (evt.getButton() == evt.BUTTON3) {
+                jLabel20.setBackground(copiaColor);
+            }
+            repaint();
+        }
+        colorBotonIzquierdo = jLabel25.getBackground();
+        colorBotonDerecho = jLabel20.getBackground();
+        //Declaramos las variables a 0 para que más tarde si vamos a pintar otra vez con el pincel cree unas nuevas lineas
+        //en vez de continuar con la que hay en la pantalla pintada
+        inicioXX = 0;
+        inicioYY = 0;
     }//GEN-LAST:event_jPanel1MouseReleased
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        form = 8;
-    }//GEN-LAST:event_jButton2ActionPerformed
-
     private void jLabel42MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel42MouseEntered
-         
+        chequeaMenuMarcado(gomaMarcado, gomaHighlight, evt);
     }//GEN-LAST:event_jLabel42MouseEntered
 
     private void jLabel42MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel42MouseExited
-       
+        chequeaMenuMarcado(gomaMarcado, goma, evt);
     }//GEN-LAST:event_jLabel42MouseExited
 
     private void jLabel42MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel42MousePressed
-        // TODO add your handling code here:
+        reseteaMenu();
+        reseteaPropiedadesMenu();
+        JLabel miLabel = (JLabel) evt.getComponent();
+        miLabel.setIcon(gomaMarcado);
+        borrar = true;
+        repaint(0, 0, 1, 1);
     }//GEN-LAST:event_jLabel42MousePressed
 
     private void jLabel43MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel43MouseEntered
-        chequeaMenuMarcado(rellenarMarcado,rellenarHighlight,evt);
+        chequeaMenuMarcado(rellenarMarcado, rellenarHighlight, evt);
     }//GEN-LAST:event_jLabel43MouseEntered
 
     private void jLabel43MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel43MouseExited
-         chequeaMenuMarcado(rellenarMarcado,rellenar,evt);
+        chequeaMenuMarcado(rellenarMarcado, rellenar, evt);
     }//GEN-LAST:event_jLabel43MouseExited
 
     private void jLabel43MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel43MousePressed
-        // TODO add your handling code here:
+        reseteaMenu();
+        reseteaPropiedadesMenu();
+        JLabel miLabel = (JLabel) evt.getComponent();
+        miLabel.setIcon(rellenarMarcado);
+        rellenarOn = true;
+        repaint(0, 0, 1, 1);
     }//GEN-LAST:event_jLabel43MousePressed
-    
-    private void reseteaMenu(){
-          if(jLabel36.getIcon() == poligonoMarcado){
-              jLabel36.setIcon(poligono);
-          } else if (jLabel38.getIcon() == lapizMarcado){
-              jLabel38.setIcon(lapiz);
-          } else if (jLabel39.getIcon() == goteoMarcado){
-              jLabel39.setIcon(goteo);
-          } else if (jLabel40.getIcon() == lineaMarcado){
-              jLabel40.setIcon(linea);
-          } else if (jLabel41.getIcon() == circuloMarcado){
-              jLabel41.setIcon(circulo);
-          } else if (jLabel34.getIcon() == cuadradoMarcado){
-              jLabel34.setIcon(cuadrado1);
-          }
+
+    private void jPanel1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseEntered
+           //Cambiamos los cursores en funcion de la forma que tengan o si se ha activado alguna variable de borrado por ejemplo
+           //para que cuando entre en panel se ponga con los cursores custom que hemos creado
+        if(form == 8 && !borrar){
+          Cursor  cursorPredeterminado =  toolKit.createCustomCursor(pencilImg, new Point(10,24),"Pencil Cursor");
+            setCursor(cursorPredeterminado);
+        } else if (borrar) {
+            Cursor  cursorPredeterminado =  toolKit.createCustomCursor(eraserImg, new Point(10,24),"Pencil Cursor");
+            setCursor(cursorPredeterminado);
+        }
+             else {
+        setCursor(CROSSHAIR_CURSOR);
+        }
+
+//        
+    }//GEN-LAST:event_jPanel1MouseEntered
+
+    private void jPanel1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseExited
+        setCursor(HAND_CURSOR);
+
+    }//GEN-LAST:event_jPanel1MouseExited
+
+    private void jLabel44MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel44MouseEntered
+        jLabel44.setIcon(paletaColoresHighlight);
+    }//GEN-LAST:event_jLabel44MouseEntered
+
+    private void jLabel44MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel44MouseExited
+        jLabel44.setIcon(paletaColores);
+    }//GEN-LAST:event_jLabel44MouseExited
+
+    private void jLabel44MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel44MousePressed
+        jDialog1.setVisible(true);
+        jDialog1.setSize(800, 400);
+        jDialog1.setLocation(200, 50);
+    }//GEN-LAST:event_jLabel44MousePressed
+
+    private void reseteaMenu() {
+        if (jLabel36.getIcon() == poligonoMarcado) {
+            jLabel36.setIcon(poligono);
+        } else if (jLabel38.getIcon() == lapizMarcado) {
+            jLabel38.setIcon(lapiz);
+        } else if (jLabel39.getIcon() == goteoMarcado) {
+            jLabel39.setIcon(goteo);
+        } else if (jLabel40.getIcon() == lineaMarcado) {
+            jLabel40.setIcon(linea);
+        } else if (jLabel41.getIcon() == circuloMarcado) {
+            jLabel41.setIcon(circulo);
+        } else if (jLabel34.getIcon() == cuadradoMarcado) {
+            jLabel34.setIcon(cuadrado1);
+        } else if (jLabel43.getIcon() == rellenarMarcado) {
+            jLabel43.setIcon(rellenar);
+        } else if (jLabel42.getIcon() == gomaMarcado) {
+            jLabel42.setIcon(goma);
+        }
     }
-    
-    private void reseteaPropiedadesMenu(){
+
+    private void reseteaPropiedadesMenu() {
         jPanel3.setVisible(false);
         jPanel4.setVisible(false);
+        rellenarOn = false;
+        borrar = false;
     }
-    
-    private void chequeaMenuMarcado(ImageIcon i, ImageIcon marcado, MouseEvent evt){
-       JLabel miLabel = (JLabel) evt.getComponent();
-        if(miLabel.getIcon() != i){
-        miLabel.setIcon(marcado);
+
+    private void chequeaMenuMarcado(ImageIcon i, ImageIcon marcado, MouseEvent evt) {
+        JLabel miLabel = (JLabel) evt.getComponent();
+        if (miLabel.getIcon() != i) {
+            miLabel.setIcon(marcado);
         }
     }
+
     //Pasado un evento del raton nos dice que color se encuentra en el pixel donde se está produciendo la acción con el ratón    
-    private void copiaColor(MouseEvent evt){
+    private void copiaColor(MouseEvent evt) {
         int srcPixel = buffer.getRGB(evt.getX(), evt.getY());
-           copiaColor = new Color(srcPixel);                
+        copiaColor = new Color(srcPixel);
+        jLabel15.setBackground(copiaColor);
+
     }
-    
+
     //Metodo para antes de pintar algo comprobar si se esta haciendo con click derecho o izquierdo 
     //y dependiendo de cual usar un color u otro
-    private void chequeaColorUtilizado(MouseEvent evt){
-        if(evt.getButton()==evt.BUTTON1){
-        colorElegido = jLabel25.getBackground();   
-        colorSecundario = jLabel20.getBackground();
-        } else if(evt.getButton()==evt.BUTTON3) {         
-        colorElegido = jLabel20.getBackground();
-        colorSecundario = jLabel25.getBackground();   
-                
-        
+    private void chequeaColorUtilizado(MouseEvent evt) {
+        if (evt.getButton() == evt.BUTTON1) {
+            colorBotonIzquierdo = jLabel25.getBackground();
+            colorBotonDerecho = jLabel20.getBackground();
+        } else if (evt.getButton() == evt.BUTTON3) {
+            colorBotonIzquierdo = jLabel20.getBackground();
+            colorBotonDerecho = jLabel25.getBackground();
+
         }
     }
-    private void reseteaImagesLinea(){
-        if(jLabel29.getIcon()== linea1Marcada){
+
+    private void reseteaImagesLinea() {
+        if (jLabel29.getIcon() == linea1Marcada) {
             jLabel29.setIcon(linea1);
-        } else if(jLabel28.getIcon()== linea2Marcada) {
+        } else if (jLabel28.getIcon() == linea2Marcada) {
             jLabel28.setIcon(linea2);
-        }else if(jLabel30.getIcon()== linea3Marcada) {
+        } else if (jLabel30.getIcon() == linea3Marcada) {
             jLabel30.setIcon(linea3);
-        }else if(jLabel31.getIcon()== linea4Marcada) {
+        } else if (jLabel31.getIcon() == linea4Marcada) {
             jLabel31.setIcon(linea4);
-        }else if(jLabel32.getIcon()== linea5Marcada) {
+        } else if (jLabel32.getIcon() == linea5Marcada) {
             jLabel32.setIcon(linea5);
         }
     }
-    
-    private void reseteaImagesRectangulo(){
-        if(jLabel33.getIcon()== rect1Marcado){
+
+    private void reseteaImagesRectangulo() {
+        if (jLabel33.getIcon() == rect1Marcado) {
             jLabel33.setIcon(rect1);
-        } else if(jLabel35.getIcon()== rect2Marcado) {
+        } else if (jLabel35.getIcon() == rect2Marcado) {
             jLabel35.setIcon(rect2);
-        }else if(jLabel37.getIcon()== rect3Marcado) {
+        } else if (jLabel37.getIcon() == rect3Marcado) {
             jLabel37.setIcon(rect3);
         }
     }
-    
-    private void atajoColor(JLabel color,MouseEvent evt){
-        
-        if(evt.getButton()==evt.BUTTON1){
-        colorElegido = color.getBackground();
-//            this.setBackground(colorElegido);
-             jLabel25.setBackground(colorElegido);
-        } else if(evt.getButton()==evt.BUTTON3) {         
-        colorElegido = color.getBackground();
-                jLabel20.setBackground(colorElegido);
-                colorSecundario = color.getBackground();
-        
-        }
-        
-       //Código para que no se superponga el jLbael inferior del color que tengo seleccionado al cambiar su color
-       //la clave esta en el this. aunque no se porque 
-        Color colorRefresh = jLabel25.getBackground();
 
-         this.setBackground(colorElegido);   
-        jLabel25.setBackground(colorRefresh);
+    private void atajoColor(JLabel color, MouseEvent evt) {
+
+        if (evt.getButton() == evt.BUTTON1) {
+            colorBotonIzquierdo = color.getBackground();
+//            this.setBackground(colorElegido);
+            jLabel25.setBackground(colorBotonIzquierdo);
+        } else if (evt.getButton() == evt.BUTTON3) {
+            colorBotonDerecho = color.getBackground();
+            jLabel20.setBackground(colorBotonDerecho);
+//                colorBotonDerecho = color.getBackground();
+
+        }
+
+        //Código para que no se superponga el jLbael inferior del color que tengo seleccionado al cambiar su color
+        //la clave esta en el this. aunque no se porque 
+//        Color colorRefresh = jLabel25.getBackground();
+//         this.setBackground(colorBotonIzquierdo);
+        repaint(0, 0, 1, 1);
+//        jLabel25.setBackground(colorRefresh);
     }
+
     /**
      * @param args the command line arguments
      */
@@ -1702,8 +1882,6 @@ public class VentanaDibujo extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JRadioButton irregular;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JColorChooser jColorChooser1;
@@ -1749,6 +1927,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel41;
     private javax.swing.JLabel jLabel42;
     private javax.swing.JLabel jLabel43;
+    private javax.swing.JLabel jLabel44;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
