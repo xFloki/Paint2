@@ -1,9 +1,9 @@
 package codgio;
 
-// Mi segunda clase suuuuuuuuuu
-// La clase triangulo permite almacenar un circulo
+
+// La clase Poligonos permite almacenar un circulo
 //ademas de su posicion en la pantalla, si esta relleno o no
-//, su color, etc.
+//, su color, color de borde, numero de lados...
 
 
 import codgio.*;
@@ -30,8 +30,8 @@ public class Poligonos extends Polygon {
     boolean bordeado;
     
     public Poligonos(int _x, int _y, int _width, Color _color, Color _colorBorde,  boolean _relleno, int _lados, boolean _bordeado) {
-//       PENTAGONO :  
-        
+
+        //Metodo que nos vale para crear cualquier tipo de poligono
         for (int i = 0; i < _lados; i++){             
       addPoint((int) (_x  + _width * Math.cos(i * 2 * Math.PI / _lados)),
           (int) (_y + _width * Math.sin(i * 2 * Math.PI / _lados)));

@@ -1,6 +1,5 @@
-// Mi segunda clase suuuuuuuuuu
 
-// La clase triangulo permite almacenar un circulo
+// La clase Rombo permite almacenar un circulo
 //ademas de su posicion en la pantalla, si esta relleno o no
 //, su color, etc.
 

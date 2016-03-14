@@ -1360,6 +1360,8 @@ public class VentanaDibujo extends javax.swing.JFrame {
                 case 10:
                     Poligonos aux10 = (Poligonos) listaFormas.get(listaFormas.size() - 1);
                     Random r = new Random();
+                    //Para pintar el spray nos añade 20 "circulos" que realmentre son poligonos de 90 lados que al ser tan pequeños parecen circulos
+                    //con una posicion y un tamaño random 
                     for (int i = 0; i < 20; i++) {
 
                         listaFormas.add(new Poligonos(evt.getX() + r.nextInt(10) - 5, evt.getY() + r.nextInt(10) - 5, r.nextInt(3), copiaColor, copiaColor, true, 90, false));
@@ -1632,7 +1634,10 @@ public class VentanaDibujo extends javax.swing.JFrame {
         reseteaPropiedadesMenu();
         jPanel4.setVisible(true);
         // Creamos una ventana emergente que nos pida el numerod e lados que queremos para el poligono
+        
         numeroLados = Integer.parseInt(JOptionPane.showInputDialog("Introduzca el número de lados del polígono"));
+        //si el numero que le pasamos es menor que 5 se pondra el valor 5 y si es mayor que 359 se pondra 359
+        //en caso de introducir una letra o nada y darle al enter nos dará un error
         if (numeroLados < 5) {
             numeroLados = 5;
         } else if (numeroLados > 359) {

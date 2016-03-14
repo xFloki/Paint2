@@ -1,8 +1,7 @@
-// Mi segunda clase suuuuuuuuuu
 
-// La clase triangulo permite almacenar un circulo
+// La clase Linea permite almacenar un circulo
 //ademas de su posicion en la pantalla, si esta relleno o no
-//, su color, etc.
+//, su color, su groso de linea...
 
 package codgio;
 
@@ -54,6 +53,7 @@ public class Linea extends Line2D.Double {
              if (this.relleno) {
             g2.fill(this);
         } else {
+            //Nos cambia el grosor de la linea 
             g2.setStroke((new BasicStroke(grosorLinea))); 
             g2.draw(this);
             

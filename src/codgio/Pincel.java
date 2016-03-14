@@ -1,8 +1,4 @@
-// Mi segunda clase suuuuuuuuuu
 
-// La clase triangulo permite almacenar un circulo
-//ademas de su posicion en la pantalla, si esta relleno o no
-//, su color, etc.
 
 package codgio;
 
@@ -54,6 +50,7 @@ public class Pincel extends Line2D.Double {
             g2.fill(this);
             
         } else {
+                 //utilizamos el mismo grosor que tiene la linea, si deseamos aumentar el grosor del pincel deberemos cambiar el de la linea antes
             g2.setStroke((new BasicStroke(grosorLinea))); 
             g2.draw(this);
             
